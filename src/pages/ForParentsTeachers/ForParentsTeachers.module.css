@@ -1,4 +1,102 @@
-/* ForParentsTeachers - uses tokens from src/index.css via CSS custom properties */
+.hero {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
 
-.forParentsTeachers {
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--fs-display-xl);
+  }
+}
+
+.heroSub {
+  color: var(--color-grey);
+  max-width: 36rem;
+  line-height: var(--lh-body);
+}
+
+.impact {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.impactGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .impactGrid {
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-huge);
+  }
+}
+
+.impactGrid h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+}
+
+.impactText {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  color: rgba(43, 43, 43, 0.8);
+  line-height: var(--lh-body);
+}
+
+@media (min-width: 640px) {
+  .impactText {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.forSchools {
+  background-color: var(--color-cream);
+  padding: var(--space-huge) 0;
+}
+
+.sectionHeading {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  color: var(--color-burnt-orange);
+  margin-bottom: var(--space-md);
+}
+
+.schoolsText {
+  max-width: 40rem;
+  line-height: var(--lh-body);
+  color: #333;
+}
+
+.closingCta {
+  background-color: var(--color-warm-white);
+  border-top: 1px solid rgba(43, 43, 43, 0.1);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.closingCta h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-md);
+}
+
+.link {
+  color: var(--color-charcoal);
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--color-ember);
 }

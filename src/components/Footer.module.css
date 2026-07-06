@@ -1,4 +1,59 @@
-/* Footer - uses tokens from src/index.css via CSS custom properties */
-
 .footer {
+  background-color: var(--color-charcoal);
+  border-top: 1px solid rgba(250, 247, 242, 0.1);
+  padding: var(--space-huge) 0 var(--space-xl);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .inner {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.brand {
+  max-width: 320px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  color: var(--color-warm-white);
+  margin-bottom: var(--space-sm);
+}
+
+.copy {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.col a {
+  color: var(--color-grey);
+  text-decoration: none;
+  font-size: var(--fs-body-md);
+}
+
+.col a:hover {
+  color: var(--color-warm-white);
+}
+
+.heading {
+  font-size: var(--fs-label-caps);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-xs);
 }

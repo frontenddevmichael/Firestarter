@@ -1,8 +1,5 @@
 /*
   Firestarter Young Poets Prize 2026 — Design Tokens
-  Source of truth for color, type, and spacing.
-  Fonts and type scale below are taken directly from the Stitch export
-  (EB Garamond + Work Sans, via Google Fonts) — no longer placeholders.
 */
 
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Work+Sans:wght@300;400;500;600;700&display=swap');
@@ -22,30 +19,49 @@
   --font-body: "Work Sans", "Inter", sans-serif;
 
   /* Type scale — matches the Stitch export's Tailwind config exactly */
-  --fs-display-xl: 4.5rem;        /* 72px, lh 64px, letter-spacing -0.04em, weight 600 — desktop hero */
-  --fs-display-xl-mobile: 3rem;   /* 48px, lh 44px, letter-spacing -0.03em, weight 600 — mobile hero */
-  --fs-headline-lg: 2.5rem;       /* 40px, lh 44px, letter-spacing -0.02em, weight 500 */
-  --fs-headline-lg-mobile: 2rem;  /* 32px, lh 36px, letter-spacing -0.01em, weight 500 */
-  --fs-headline-md: 1.75rem;      /* 28px, lh 32px, weight 500 */
-  --fs-body-lg: 1.125rem;         /* 18px, lh 28px, weight 400 */
-  --fs-body-md: 1rem;             /* 16px, lh 24px, weight 400 */
-  --fs-caption: 0.875rem;         /* 14px, lh 20px, weight 400 */
-  --fs-label-caps: 0.75rem;       /* 12px, lh 16px, letter-spacing 0.1em, weight 600 — always uppercase */
+  --fs-display-xl: 4.5rem;
+  /* 72px, lh 64px, letter-spacing -0.04em, weight 600 — desktop hero */
+  --fs-display-xl-mobile: 3rem;
+  /* 48px, lh 44px, letter-spacing -0.03em, weight 600 — mobile hero */
+  --fs-headline-lg: 2.5rem;
+  /* 40px, lh 44px, letter-spacing -0.02em, weight 500 */
+  --fs-headline-lg-mobile: 2rem;
+  /* 32px, lh 36px, letter-spacing -0.01em, weight 500 */
+  --fs-headline-md: 1.75rem;
+  /* 28px, lh 32px, weight 500 */
+  --fs-body-lg: 1.125rem;
+  /* 18px, lh 28px, weight 400 */
+  --fs-body-md: 1rem;
+  /* 16px, lh 24px, weight 400 */
+  --fs-caption: 0.875rem;
+  /* 14px, lh 20px, weight 400 */
+  --fs-label-caps: 0.75rem;
+  /* 12px, lh 16px, letter-spacing 0.1em, weight 600 — always uppercase */
 
   --lh-tight: 1.1;
   --lh-body: 1.6;
 
   /* ---- Spacing (8-point scale — matches Stitch export's named spacing) ---- */
-  --space-xs: 0.5rem;    /* 8px */
-  --space-gutter: 1rem;  /* 16px */
-  --space-sm: 1rem;      /* 16px */
-  --space-md: 1.5rem;    /* 24px */
-  --space-lg: 2rem;      /* 32px */
-  --space-xl: 3rem;      /* 48px */
-  --space-xxl: 4rem;     /* 64px */
-  --space-huge: 6rem;    /* 96px */
-  --space-margin-mobile: 1.25rem;  /* 20px — page edge margin, mobile */
-  --space-margin-desktop: 4rem;    /* 64px — page edge margin, desktop */
+  --space-xs: 0.5rem;
+  /* 8px */
+  --space-gutter: 1rem;
+  /* 16px */
+  --space-sm: 1rem;
+  /* 16px */
+  --space-md: 1.5rem;
+  /* 24px */
+  --space-lg: 2rem;
+  /* 32px */
+  --space-xl: 3rem;
+  /* 48px */
+  --space-xxl: 4rem;
+  /* 64px */
+  --space-huge: 6rem;
+  /* 96px */
+  --space-margin-mobile: 1.25rem;
+  /* 20px — page edge margin, mobile */
+  --space-margin-desktop: 4rem;
+  /* 64px — page edge margin, desktop */
 
   /* ---- Breakpoints (reference only — use in media queries directly) ---- */
   --bp-mobile: 390px;
@@ -58,4 +74,95 @@
 }
 
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: var(--font-body);
+  color: var(--color-charcoal);
+  background: var(--color-warm-white);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---- Shared layout utility ---- */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-margin-mobile);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-margin-desktop);
+  }
+}
+
+/* ---- Shared button utilities (reused across all six pages) ---- */
+.btnPrimary,
+.btnSecondary {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btnPrimary {
+  background-color: var(--color-ember);
+  color: var(--color-warm-white);
+}
+
+.btnPrimary:hover {
+  background-color: var(--color-burnt-orange);
+}
+
+.btnSecondary {
+  background-color: transparent;
+  border-color: var(--color-warm-white);
+  color: var(--color-warm-white);
+}
+
+.btnSecondary:hover {
+  background-color: var(--color-warm-white);
+  color: var(--color-charcoal);
+}
+
+/* eyebrow label used above headings site-wide */
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-sm);
+}
+
+/* placeholder photo block — swap for real photography; keeps layout honest
+   about where an image belongs without hotlinking a fake/temporary URL */
+.photoPlaceholder {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-charcoal) 0%, #1a1a1a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-grey);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  text-align: center;
+  padding: var(--space-md);
+}

@@ -1,4 +1,338 @@
-/* Home - uses tokens from src/index.css via CSS custom properties */
+/* ---- Hero ---- */
+.hero {
+  background-color: var(--color-charcoal);
+  padding: var(--space-huge) 0;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+}
 
-.home {
+.heroInner {
+  max-width: 720px;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  line-height: var(--lh-tight);
+  color: var(--color-warm-white);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--fs-display-xl);
+  }
+}
+
+.heroSub {
+  font-size: var(--fs-body-lg);
+  color: var(--color-grey);
+  max-width: 32rem;
+  margin-bottom: var(--space-xl);
+}
+
+.heroActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+@media (min-width: 480px) {
+  .heroActions {
+    flex-direction: row;
+  }
+}
+
+/* ---- Why It Matters ---- */
+.whyMatters {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.pullQuote {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+  line-height: var(--lh-tight);
+  font-style: italic;
+  color: var(--color-charcoal);
+  max-width: 44rem;
+  margin: var(--space-lg) 0 var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .pullQuote {
+    font-size: var(--fs-headline-lg);
+  }
+}
+
+.pullQuote em {
+  color: var(--color-burnt-orange);
+  font-style: normal;
+  border-bottom: 3px solid var(--color-ember);
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  color: rgba(43, 43, 43, 0.8);
+  line-height: var(--lh-body);
+}
+
+@media (min-width: 768px) {
+  .twoCol {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-huge);
+  }
+}
+
+/* ---- Who Can Enter ---- */
+.whoCanEnter {
+  background-color: var(--color-charcoal);
+  padding: var(--space-huge) 0;
+  color: var(--color-warm-white);
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .panels {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.panel {
+  border: 1px solid rgba(250, 247, 242, 0.15);
+}
+
+.panelImage {
+  aspect-ratio: 3 / 4;
+}
+
+.panelText {
+  padding: var(--space-md);
+}
+
+.panelText h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-xs);
+}
+
+.panelText p {
+  color: var(--color-grey);
+  font-size: var(--fs-body-md);
+}
+
+.eligibilityNote {
+  text-align: center;
+  font-size: var(--fs-label-caps);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  margin: var(--space-xl) 0;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  border-top: 1px solid rgba(250, 247, 242, 0.15);
+  padding-top: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.step {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.stepNumber {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg);
+  color: var(--color-gold);
+  line-height: 1;
+}
+
+.step h4 {
+  font-size: var(--fs-label-caps);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.step p {
+  color: var(--color-grey);
+  font-size: var(--fs-body-md);
+}
+
+/* ---- Theme Spotlight ---- */
+.theme {
+  background-color: #141313;
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.themeInner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .themeInner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.themeText h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .themeText h2 {
+    font-size: var(--fs-headline-lg);
+  }
+}
+
+.themeText p {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-lg);
+}
+
+.themeImage {
+  aspect-ratio: 1 / 1;
+}
+
+.themeLink {
+  color: var(--color-ember);
+  font-size: var(--fs-label-caps);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.themeLink:hover {
+  text-decoration: underline;
+}
+
+/* ---- Key Dates snapshot ---- */
+.datesSnapshot {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.sectionHeading {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg);
+  border-bottom: 1px solid rgba(43, 43, 43, 0.1);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+
+.datesRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .datesRow {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.dateItem p {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-top: var(--space-xs);
+}
+
+.dateDot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-grey);
+  margin-bottom: var(--space-sm);
+}
+
+.dateDotActive {
+  background-color: var(--color-ember);
+  width: 14px;
+  height: 14px;
+}
+
+/* ---- Parents teaser ---- */
+.parentsTeaser {
+  background-color: var(--color-cream);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.parentsTeaser p {
+  max-width: 40rem;
+  margin: var(--space-md) auto var(--space-md);
+  color: rgba(43, 43, 43, 0.75);
+  line-height: var(--lh-body);
+}
+
+/* ---- Final CTA ---- */
+.finalCta {
+  background: linear-gradient(135deg, var(--color-ember) 0%, var(--color-burnt-orange) 100%);
+  padding: var(--space-huge) 0;
+  text-align: center;
+  color: var(--color-warm-white);
+}
+
+.finalCtaSpark {
+  margin: 0 auto var(--space-md);
+}
+
+.finalCta h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .finalCta h2 {
+    font-size: var(--fs-headline-lg);
+  }
+}
+
+.finalCta p {
+  max-width: 32rem;
+  margin: 0 auto var(--space-xl);
+}
+
+.finalCtaBtn {
+  display: inline-block;
+  background-color: var(--color-warm-white);
+  color: var(--color-ember);
+  font-size: var(--fs-label-caps);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+}
+
+.finalCtaBtn:hover {
+  transform: scale(1.03);
 }

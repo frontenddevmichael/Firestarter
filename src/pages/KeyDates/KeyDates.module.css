@@ -1,4 +1,102 @@
-/* KeyDates - uses tokens from src/index.css via CSS custom properties */
+.hero {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
 
-.keyDates {
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--fs-display-xl);
+  }
+}
+
+.heroSub {
+  color: var(--color-grey);
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.timelineSection {
+  background-color: var(--color-warm-white);
+  padding: 0 0 var(--space-huge);
+}
+
+.timeline {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+  padding-left: var(--space-lg);
+}
+
+/* the real, literal connecting line — intentional, unlike Home/About's
+   short recurring SparkMark accent. See Firestarter_Content_Reconciliation.md */
+.timelineLine {
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--color-grey) 8%, var(--color-grey) 92%, transparent);
+}
+
+.milestone {
+  position: relative;
+  padding-bottom: var(--space-xl);
+}
+
+.milestone h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin: var(--space-xs) 0;
+}
+
+.milestone p {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+}
+
+.dot {
+  position: absolute;
+  left: calc(-1 * var(--space-lg) + 0px);
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--color-grey);
+  border: 3px solid var(--color-warm-white);
+  border-radius: 50%;
+}
+
+.milestoneHighlight .dot {
+  background-color: var(--color-ember);
+  width: 14px;
+  height: 14px;
+  left: calc(-1 * var(--space-lg) - 2px);
+}
+
+.milestoneHighlight {
+  background-color: rgba(214, 90, 31, 0.06);
+  border-left: 2px solid var(--color-ember);
+  padding: var(--space-md) var(--space-md) var(--space-xl) var(--space-md);
+  margin-left: calc(-1 * var(--space-md));
+}
+
+.closingCta {
+  background-color: var(--color-warm-white);
+  border-top: 1px solid rgba(43, 43, 43, 0.1);
+  padding: var(--space-xl) 0 var(--space-huge);
+  text-align: center;
+  color: var(--color-grey);
+}
+
+.link {
+  color: var(--color-charcoal);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-ember);
 }
