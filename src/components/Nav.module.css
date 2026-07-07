@@ -40,6 +40,19 @@
   width: 24px;
   height: 2px;
   background-color: var(--color-warm-white);
+  transform-origin: center;
+}
+
+/* Open state — bars animate into an X. Order matches the three <span>s
+   rendered in Nav.jsx (top, middle, bottom). */
+.barOpen1 {
+  transform: translateY(7px) rotate(45deg);
+}
+.barOpen2 {
+  opacity: 0;
+}
+.barOpen3 {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Nav links — hidden off-canvas on mobile until toggled open */
@@ -55,7 +68,7 @@
   flex-direction: column;
   gap: var(--space-md);
   padding: var(--space-huge) var(--space-lg);
-  transition: right 0.3s ease;
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navLinksOpen {
@@ -63,12 +76,34 @@
 }
 
 .link {
+  position: relative;
   text-decoration: none;
   color: var(--color-warm-white);
   font-family: var(--font-body);
   font-size: var(--fs-label-caps);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  padding-bottom: 4px;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-ember);
+  transition: width 0.25s ease;
+}
+
+.link:hover::after,
+.linkActive::after {
+  width: 100%;
+}
+
+.linkActive {
+  color: var(--color-ember);
 }
 
 .link:hover {
@@ -76,8 +111,15 @@
 }
 
 .enterBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
   margin-top: var(--space-md);
   text-align: center;
+}
+
+.hamburger span {
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 /* Desktop: links inline, hamburger hidden */

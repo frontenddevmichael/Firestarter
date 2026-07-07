@@ -103,6 +103,12 @@
   margin-bottom: var(--space-sm);
 }
 
+.stepIcon {
+  color: var(--color-gold);
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
 .step h4 {
   font-size: var(--fs-label-caps);
   text-transform: uppercase;

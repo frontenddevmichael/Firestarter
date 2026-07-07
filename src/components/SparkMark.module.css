@@ -1,4 +1,41 @@
-/* SparkMark - uses tokens from src/index.css via CSS custom properties */
-
 .sparkMark {
+  display: block;
+  color: var(--color-ember);
+  margin-bottom: var(--space-xs);
+  transition: transform 0.15s ease-out;
+}
+
+.default {
+  width: 72px;
+  height: 14px;
+}
+
+.large {
+  width: 108px;
+  height: 21px;
+}
+
+/* Ignition draw-in — path starts fully hidden behind its own dash gap,
+   then draws left-to-right like a struck match catching. --spark-length
+   is set from JS via getTotalLength() so this matches the real curve. */
+.drawPath {
+  stroke-dasharray: var(--spark-length, 110);
+  stroke-dashoffset: var(--spark-length, 110);
+}
+
+.drawPathLit {
+  animation: sparkDraw 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes sparkDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawPath {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
 }

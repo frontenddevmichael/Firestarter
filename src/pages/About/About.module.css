@@ -1,6 +1,21 @@
 .hero {
+  position: relative;
+  overflow: hidden;
   background-color: var(--color-cream);
   padding: var(--space-huge) 0;
+}
+
+.heroGhostWord {
+  position: absolute;
+  right: -1rem;
+  bottom: -3rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14rem;
+  line-height: 1;
+  color: rgba(43, 43, 43, 0.04);
+  pointer-events: none;
+  user-select: none;
 }
 
 .heroTitle {
@@ -34,12 +49,30 @@
   padding: var(--space-huge) 0;
 }
 
+.quoteWrap {
+  position: relative;
+  max-width: 44rem;
+  margin-bottom: var(--space-xl);
+  padding-left: var(--space-xl);
+}
+
+.quoteMark {
+  position: absolute;
+  top: -3.5rem;
+  left: -1rem;
+  font-family: var(--font-display);
+  font-size: 9rem;
+  line-height: 1;
+  color: rgba(214, 90, 31, 0.15);
+  pointer-events: none;
+}
+
 .pullQuote {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-display);
   font-size: var(--fs-display-xl-mobile);
   line-height: var(--lh-tight);
-  margin-bottom: var(--space-xl);
-  max-width: 44rem;
 }
 
 .twoCol {
@@ -137,4 +170,18 @@
 
 .ctaBtnDark:hover {
   background-color: transparent;
+}
+
+.btnIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.btnIcon svg {
+  transition: transform 0.2s ease;
+}
+
+.btnIcon:hover svg {
+  transform: translateX(4px);
 }

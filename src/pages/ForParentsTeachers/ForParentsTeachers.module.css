@@ -45,6 +45,11 @@
   font-size: var(--fs-headline-lg-mobile);
 }
 
+.impactIcon {
+  color: var(--color-ember);
+  margin-bottom: var(--space-sm);
+}
+
 .impactText {
   display: grid;
   grid-template-columns: 1fr;
@@ -71,6 +76,11 @@
   margin-bottom: var(--space-md);
 }
 
+.schoolsIcon {
+  color: var(--color-burnt-orange);
+  margin-bottom: var(--space-sm);
+}
+
 .schoolsText {
   max-width: 40rem;
   line-height: var(--lh-body);
@@ -91,10 +101,21 @@
 }
 
 .link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
   color: var(--color-charcoal);
   font-family: var(--font-display);
   font-size: var(--fs-headline-md);
   text-decoration: none;
+}
+
+.link svg {
+  transition: transform 0.2s ease;
+}
+
+.link:hover svg {
+  transform: translateX(4px);
 }
 
 .link:hover {

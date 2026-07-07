@@ -1,4 +1,6 @@
 import SparkMark from '../../components/SparkMark';
+import Reveal from '../../components/Reveal';
+import Icon from '../../components/Icon';
 import styles from './HowToEnter.module.css';
 
 const guidelines = [
@@ -8,17 +10,25 @@ const guidelines = [
   'Entrants must be secondary school students across Lagos State, Nigeria.',
 ];
 
+const steps = [
+  { icon: 'pen', title: 'The Written Poem', desc: 'One original poem exploring the 2026 theme, submitted as a PDF.' },
+  { icon: 'reflection', title: 'Voice Reflection', desc: 'A short written reflection on what your poem means to you and why you wrote it.' },
+  { icon: 'video', title: 'Performance Video', desc: 'A video of you performing the same poem — presence matters more than production value.' },
+];
+
 export default function HowToEnter() {
   return (
     <div>
       <section className={styles.hero}>
         <div className="container">
-          <SparkMark />
-          <span className="eyebrow">How to Enter</span>
-          <h1 className={styles.heroTitle}>Three Steps to the Stage.</h1>
-          <p className={styles.heroSub}>
-            Entries close <strong>30 September 2026, 11:59 PM (WAT)</strong>.
-          </p>
+          <Reveal variant="up-large">
+            <SparkMark />
+            <span className="eyebrow">How to Enter</span>
+            <h1 className={styles.heroTitle}>Three Steps to the Stage.</h1>
+            <p className={styles.heroSub}>
+              Entries close <strong>30 September 2026, 11:59 PM (WAT)</strong>.
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -55,21 +65,14 @@ export default function HowToEnter() {
         <div className="container">
           <h2 className={styles.sectionHeading}>Your Submission Package</h2>
           <div className={styles.stepsRow}>
-            <div className={styles.step}>
-              <span className={styles.stepNumber}>1</span>
-              <h4>The Written Poem</h4>
-              <p>One original poem exploring the 2026 theme, submitted as a PDF.</p>
-            </div>
-            <div className={styles.step}>
-              <span className={styles.stepNumber}>2</span>
-              <h4>Voice Reflection</h4>
-              <p>A short written reflection on what your poem means to you and why you wrote it.</p>
-            </div>
-            <div className={styles.step}>
-              <span className={styles.stepNumber}>3</span>
-              <h4>Performance Video</h4>
-              <p>A video of you performing the same poem — presence matters more than production value.</p>
-            </div>
+            {steps.map((s, i) => (
+              <Reveal key={s.title} delay={i * 100} className={styles.step}>
+                <span className={styles.stepNumber}>{i + 1}</span>
+                <Icon name={s.icon} size={24} className={styles.stepIcon} />
+                <h4>{s.title}</h4>
+                <p>{s.desc}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>

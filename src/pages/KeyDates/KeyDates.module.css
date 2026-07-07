@@ -45,6 +45,21 @@
   background: linear-gradient(to bottom, transparent, var(--color-grey) 8%, var(--color-grey) 92%, transparent);
 }
 
+/* The "fuse" — an ember-colored overlay on top of the base line, scaled
+   from 0→1 via scrollYProgress (see KeyDates.jsx). transform-origin: top
+   means it fills downward as the reader scrolls through the section,
+   like a lit fuse burning toward the Grand Final. */
+.timelineFuse {
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  transform-origin: top;
+  background: linear-gradient(to bottom, var(--color-gold), var(--color-ember) 60%, var(--color-burnt-orange));
+  box-shadow: 0 0 10px rgba(214, 90, 31, 0.5);
+}
+
 .milestone {
   position: relative;
   padding-bottom: var(--space-xl);
@@ -70,6 +85,28 @@
   background-color: var(--color-grey);
   border: 3px solid var(--color-warm-white);
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* Ember overlay — fades and scales in once the fuse's scroll progress
+   passes this dot's position (see MilestoneDot in KeyDates.jsx). */
+.dotGlow {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--color-ember) 0%, var(--color-gold) 100%);
+  box-shadow: 0 0 10px rgba(214, 90, 31, 0.7);
+}
+
+.starIcon {
+  position: absolute;
+  z-index: 1;
+  color: var(--color-gold);
+  top: -4px;
+  left: -4px;
 }
 
 .milestoneHighlight .dot {
@@ -95,8 +132,19 @@
 }
 
 .link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
   color: var(--color-charcoal);
   font-weight: 600;
   text-decoration: underline;
   text-decoration-color: var(--color-ember);
+}
+
+.link svg {
+  transition: transform 0.2s ease;
+}
+
+.link:hover svg {
+  transform: translateX(4px);
 }

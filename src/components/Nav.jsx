@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import Icon from './Icon';
 import styles from './Nav.module.css';
 
 const links = [
@@ -26,24 +27,29 @@ export default function Nav() {
         aria-expanded={open}
         onClick={() => setOpen(!open)}
       >
-        <span />
-        <span />
-        <span />
+        <span className={open ? styles.barOpen1 : ''} />
+        <span className={open ? styles.barOpen2 : ''} />
+        <span className={open ? styles.barOpen3 : ''} />
       </button>
 
       <div className={`${styles.navLinks} ${open ? styles.navLinksOpen : ''}`}>
         {links.map((link) => (
-          <Link
+          <NavLink
             key={link.href}
             to={link.href}
-            className={styles.link}
+            end={link.href === '/'}
+            className={({ isActive }) => `${styles.link} ${isActive ? styles.linkActive : ''}`}
             onClick={() => setOpen(false)}
           >
             {link.text}
-          </Link>
+          </NavLink>
         ))}
-        <Link to="/how-to-enter" className={`${styles.enterBtn} btnPrimary`} onClick={() => setOpen(false)}>
-          Enter Now
+        <Link
+          to="/how-to-enter"
+          className={`${styles.enterBtn} btnPrimary`}
+          onClick={() => setOpen(false)}
+        >
+          Enter Now <Icon name="arrowRight" size={14} />
         </Link>
       </div>
     </nav>

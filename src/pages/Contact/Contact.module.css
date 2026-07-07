@@ -72,8 +72,22 @@
 
 .chevron {
   color: var(--color-ember);
-  font-size: 1.5rem;
-  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+/* Grid-rows trick: animating 0fr → 1fr on the wrapper gives a genuine
+   height transition without needing to know the answer's rendered
+   height up front (no library required). */
+.faqAnswerWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faqAnswerWrap > .faqAnswer {
+  overflow: hidden;
+  min-height: 0;
 }
 
 .faqAnswer {
@@ -131,4 +145,26 @@
   gap: var(--space-xs);
   color: var(--color-grey);
   font-size: var(--fs-body-md);
+}
+
+.contactDetails p {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.submitBtn {
+  width: 100%;
+  text-align: center;
+}
+
+.submitSuccess {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.checkIcon {
+  flex-shrink: 0;
 }

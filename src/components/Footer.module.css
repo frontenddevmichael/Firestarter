@@ -46,6 +46,14 @@
   font-size: var(--fs-body-md);
 }
 
+.iconLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-grey);
+  font-size: var(--fs-body-md);
+}
+
 .col a:hover {
   color: var(--color-warm-white);
 }
