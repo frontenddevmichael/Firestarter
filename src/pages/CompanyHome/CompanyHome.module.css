@@ -1,0 +1,668 @@
+/* ── 1. Hero — decorative ghosts ── */
+.hero {
+  position: relative;
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.heroGhost {
+  position: absolute;
+  font-size: 4rem;
+  color: rgba(250, 247, 242, 0.04);
+  font-family: var(--font-display);
+  user-select: none;
+}
+
+.heroBig {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-headline-lg);
+  line-height: 1.2;
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .heroBig {
+    font-size: var(--fs-display-xl-mobile);
+  }
+}
+
+.heroSub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-headline-md);
+  color: var(--color-ember);
+  margin-bottom: var(--space-md);
+}
+
+.heroDesc {
+  color: rgba(250, 247, 242, 0.8);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-xl);
+  max-width: 36rem;
+}
+
+.heroFootnote {
+  margin-top: var(--space-sm);
+  font-size: var(--fs-caption);
+  color: rgba(250, 247, 242, 0.6);
+}
+
+.heroRead {
+  display: inline-block;
+  margin-top: var(--space-md);
+  color: rgba(250, 247, 242, 0.6);
+  font-size: var(--fs-caption);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.heroRead:hover {
+  color: var(--color-ember);
+}
+
+/* ── 2. What this is ── */
+.whatThis {
+  background-color: var(--color-cream);
+  padding: var(--space-huge) 0;
+}
+
+.whatThisGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .whatThisGrid {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}
+
+.whatThisText p {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-md);
+}
+
+.whatThisImageWrap {
+  aspect-ratio: 3 / 4;
+  max-width: 340px;
+  margin: 0 auto;
+  width: 100%;
+  overflow: hidden;
+}
+
+.whatThisImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── 3. The problem ── */
+.problem {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.problemInner {
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+.problemInner p {
+  color: var(--color-grey);
+  font-size: var(--fs-body-lg);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+/* ── Shared small heading ── */
+.smallHeading {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-ember);
+  margin-bottom: var(--space-lg);
+}
+
+/* ── 4. Who this is for ── */
+.whoFor {
+  background-color: var(--color-cream);
+  padding: var(--space-huge) 0;
+}
+
+.whoForInner {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.whoForGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .whoForGrid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.whoForCard h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-xs);
+}
+
+.whoForCard p {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+}
+
+.whoForFooter {
+  color: var(--color-grey);
+  font-style: italic;
+  text-align: center;
+}
+
+/* ── 5. The Method ── */
+.methodSection {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.methodIntro {
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto var(--space-xl);
+}
+
+.methodIntro p {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-md);
+}
+
+.methodLead {
+  font-size: var(--fs-body-lg);
+}
+
+.diagram {
+  margin: var(--space-lg) auto;
+  max-width: 36rem;
+}
+
+.diagramSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.diagramCaption {
+  text-align: center;
+  color: var(--color-grey);
+  font-size: var(--fs-caption);
+  margin-top: var(--space-md);
+}
+
+.forces {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  max-width: 48rem;
+  margin: 0 auto var(--space-xl);
+}
+
+.forceBlock {
+  border-top: 1px solid rgba(250, 247, 242, 0.1);
+  padding-top: var(--space-lg);
+}
+
+.forceNum {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--fs-label-caps);
+  color: var(--color-ember);
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-xs);
+}
+
+.forceName {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-xs);
+}
+
+.forceDesc {
+  color: var(--color-warm-white);
+  font-size: var(--fs-body-md);
+  margin-bottom: var(--space-sm);
+}
+
+.forceQuestion {
+  color: var(--color-grey);
+  font-size: var(--fs-caption);
+  margin-bottom: var(--space-xs);
+}
+
+.forceHolding {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-sm);
+}
+
+.methodOutro {
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.methodOutro p {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-md);
+}
+
+/* ── 6. Where this came from ── */
+.origin {
+  background-color: var(--color-cream);
+  padding: var(--space-huge) 0;
+}
+
+.originInner {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.originLead {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-md);
+}
+
+.originLayout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .originLayout {
+    grid-template-columns: 1fr 1.5fr;
+    align-items: center;
+  }
+}
+
+.originImageWrap {
+  aspect-ratio: 1;
+  max-width: 320px;
+  margin: 0 auto;
+  width: 100%;
+  overflow: hidden;
+}
+
+.originImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.originPoem {
+  background-color: var(--color-warm-white);
+  padding: var(--space-lg);
+  line-height: var(--lh-body);
+  color: var(--color-grey);
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-ember);
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.textLink:hover {
+  color: var(--color-burnt-orange);
+}
+
+/* ── 7. Why you can trust me ── */
+.trust {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.trustInner {
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+.trustLead {
+  font-size: var(--fs-body-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.trustForces {
+  display: grid;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.trustItem {
+  line-height: var(--lh-body);
+  color: var(--color-grey);
+}
+
+.trustItem strong {
+  color: var(--color-charcoal);
+}
+
+.trustClose {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-headline-md);
+  text-align: center;
+}
+
+.clientResults {
+  max-width: 44rem;
+  margin: var(--space-xl) auto 0;
+}
+
+.testimonials {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.testimonial {
+  border-left: 3px solid var(--color-ember);
+  padding-left: var(--space-md);
+}
+
+.testimonial p {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-xs);
+  font-style: italic;
+}
+
+.testimonialAttribution {
+  font-size: var(--fs-caption);
+  color: var(--color-ember);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pressLogos {
+  margin-top: var(--space-xl);
+  text-align: center;
+}
+
+.pressLabel {
+  font-size: var(--fs-label-caps);
+  color: var(--color-grey);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.pressRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: var(--space-md) 0;
+  border-top: 1px solid rgba(43, 43, 43, 0.1);
+}
+
+.pressLogo {
+  color: var(--color-grey);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* ── 8. Work with me ── */
+.work {
+  background-color: var(--color-cream);
+  padding: var(--space-huge) 0;
+}
+
+.workInner {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.workCards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .workCards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.workCard {
+  background-color: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  padding: var(--space-lg);
+}
+
+.workCard h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-sm);
+}
+
+.workCard p {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-sm);
+}
+
+.workPrice {
+  font-size: var(--fs-body-lg);
+  font-weight: 600;
+  color: var(--color-ember) !important;
+}
+
+.workCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-ember);
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.workCta:hover {
+  color: var(--color-burnt-orange);
+}
+
+.workNote {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  text-align: center;
+}
+
+/* ── 9. Also in this house ── */
+.house {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.houseInner {
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.houseLead {
+  font-size: var(--fs-body-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.houseLinks {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.houseLink {
+  display: block;
+  color: var(--color-grey);
+  text-decoration: none;
+  line-height: var(--lh-body);
+  padding: var(--space-md);
+  border: 1px solid rgba(250, 247, 242, 0.1);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.houseLink:hover {
+  border-color: var(--color-ember);
+  color: var(--color-warm-white);
+}
+
+.houseLink strong {
+  color: var(--color-warm-white);
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+/* ── 10. What to do next ── */
+.next {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.nextInner {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.nextSteps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .nextSteps {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.nextStep {
+  padding: var(--space-md) 0;
+  border-top: 1px solid rgba(43, 43, 43, 0.1);
+}
+
+.nextStep p {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-sm);
+}
+
+.nextNum {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-sm);
+}
+
+.nextNum mark {
+  background: none;
+  color: var(--color-ember);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ── 11. Questions ── */
+.faq {
+  background-color: var(--color-cream);
+  padding: var(--space-huge) 0;
+}
+
+.faqInner {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.faqList {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.faqItem {
+  border-bottom: 1px solid rgba(43, 43, 43, 0.1);
+  padding-bottom: var(--space-md);
+}
+
+.faqQ {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-xs);
+}
+
+.faqA {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+}
+
+/* ── 12. Closing ── */
+.closing {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  text-align: center;
+  padding: var(--space-huge) 0;
+}
+
+.closingInner {
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.closingLead {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-headline-lg);
+  margin-bottom: var(--space-xl);
+}

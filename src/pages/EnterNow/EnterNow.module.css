@@ -1,0 +1,94 @@
+.hero {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--fs-display-xl);
+  }
+}
+
+.heroSub {
+  color: var(--color-grey);
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.formSection {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.embedWrap {
+  max-width: 720px;
+  margin: 0 auto;
+  border: 1px solid rgba(43, 43, 43, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
+  background: #fff;
+}
+
+.formIframe {
+  width: 100%;
+  height: 1800px;
+  border: none;
+  display: block;
+}
+
+/* ── post-form CTA ── */
+
+.afterForm {
+  max-width: 520px;
+  margin: var(--space-huge) auto 0;
+  text-align: center;
+}
+
+.afterFormLine {
+  width: 48px;
+  height: 2px;
+  background: var(--color-gold);
+  margin: 0 auto var(--space-lg);
+}
+
+.afterFormTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-sm);
+}
+
+.afterFormSub {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  font-size: var(--fs-body-md);
+  margin-bottom: var(--space-lg);
+}
+
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--color-ember);
+  color: var(--color-warm-white);
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-size: var(--fs-label-caps);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.whatsappBtn:hover {
+  background: #c0361d;
+}

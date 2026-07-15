@@ -1,0 +1,131 @@
+.hero {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--fs-display-xl);
+  }
+}
+
+.heroSub {
+  color: var(--color-grey);
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.whatsInside {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.sectionHeading {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+  margin-bottom: var(--space-xl);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .sectionHeading {
+    font-size: var(--fs-headline-lg);
+  }
+}
+
+.list {
+  list-style: none;
+  max-width: 32rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body);
+  color: var(--color-charcoal);
+}
+
+.listIcon {
+  color: var(--color-ember);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.download {
+  background-color: var(--color-cream);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.downloadInner {
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.downloadTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+  margin-bottom: var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .downloadTitle {
+    font-size: var(--fs-headline-lg);
+  }
+}
+
+.downloadSub {
+  color: var(--color-grey);
+  margin-bottom: var(--space-xl);
+  line-height: var(--lh-body);
+}
+
+.downloadBtn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.downloadNote {
+  margin-top: var(--space-md);
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+}
+
+.cta {
+  background: linear-gradient(135deg, var(--color-ember) 0%, var(--color-burnt-orange) 100%);
+  padding: var(--space-huge) 0;
+  text-align: center;
+  color: var(--color-warm-white);
+}
+
+.cta h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+  margin-bottom: var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .cta h2 {
+    font-size: var(--fs-headline-lg);
+  }
+}
+
+.cta p {
+  opacity: 0.9;
+  margin-bottom: var(--space-xl);
+}

@@ -1,0 +1,122 @@
+.hero {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--fs-display-xl);
+  }
+}
+
+.heroSub {
+  color: var(--color-grey);
+  max-width: 32rem;
+  margin: 0 auto var(--space-lg);
+}
+
+.priceRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg);
+  color: var(--color-ember);
+}
+
+.priceNote {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.howSection {
+  background: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.sectionsList {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.sectionCard {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+}
+
+.sectionNum {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg);
+  color: var(--color-gold);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 48px;
+}
+
+.sectionCardTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-body-lg);
+  margin-bottom: var(--space-xs);
+}
+
+.sectionCardText {
+  font-size: var(--fs-body-md);
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+}
+
+.ctaSection {
+  background: var(--color-cream);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-sm);
+}
+
+.ctaText {
+  color: var(--color-grey);
+  margin-bottom: var(--space-lg);
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--color-ember);
+  color: var(--color-warm-white);
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-size: var(--fs-label-caps);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}

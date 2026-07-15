@@ -1,0 +1,82 @@
+.hero {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--fs-display-xl);
+  }
+}
+
+.heroSub {
+  color: var(--color-grey);
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.storySection,
+.creditSection {
+  background: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.creditSection {
+  background: var(--color-cream);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.storyText,
+.creditText {
+  max-width: 600px;
+  margin: 0 auto var(--space-md);
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  font-size: var(--fs-body-md);
+}
+
+.ctaSection {
+  background: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-sm);
+}
+
+.ctaText {
+  color: var(--color-grey);
+  margin-bottom: var(--space-lg);
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--color-ember);
+  color: var(--color-warm-white);
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-size: var(--fs-label-caps);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
