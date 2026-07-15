@@ -97,38 +97,10 @@
   white-space: nowrap;
 }
 
-.barChart {
+.chartWrap {
+  height: 160px;
   display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  height: 120px;
-  padding: 0 4px;
-}
-
-.barCol {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  height: 100%;
-  justify-content: flex-end;
-}
-
-.bar {
-  width: 100%;
-  max-width: 32px;
-  background: var(--color-charcoal);
-  min-height: 2px;
-  transition: height 0.3s;
-}
-
-.barLabel {
-  font-size: 9px;
-  font-weight: 600;
-  color: var(--color-grey);
-  text-align: center;
-  white-space: nowrap;
 }
 
 .timeline {

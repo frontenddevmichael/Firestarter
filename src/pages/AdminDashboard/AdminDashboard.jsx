@@ -2,12 +2,17 @@ import { useState, useEffect, useMemo } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
 import { useToast } from '../../lib/toast'
+import { Bar } from 'react-chartjs-2'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from 'chart.js'
 import Skeleton from '../../components/Skeleton'
 import CompetitionBanner from '../../components/CompetitionBanner'
 import ConfirmModal from '../../components/ConfirmModal'
 import PasswordInput from '../../components/PasswordInput'
+import Icon from '../../components/Icon'
 import SparkMark from '../../components/SparkMark'
 import styles from './AdminDashboard.module.css'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip)
 
 export default function AdminDashboard() {
   const { profile } = useAuth()
@@ -217,9 +222,6 @@ export default function AdminDashboard() {
   const judgedCount = entries.filter(e => e.scores?.length > 0).length
   const shortlistedCount = entries.filter(e => e.status === 'shortlisted').length
   const finalistCount = entries.filter(e => e.status === 'finalist').length
-  const maxTrend = Math.max(...trendData.map(d => d.count), 1)
-  const maxDist = Math.max(...Object.values(scoreDist), 1)
-
   const sortIcon = (key) => sortKey === key ? (sortDir === 'asc' ? ' ↑' : ' ↓') : ''
 
   if (loading) return <div className={styles.page}><Skeleton width="100%" height="60vh" /></div>
@@ -233,37 +235,34 @@ export default function AdminDashboard() {
         <p className={styles.email}>{profile?.email}</p>
 
         <div className={styles.statsGrid}>
-          <div className={styles.statCard}><span className={styles.statIcon}>📝</span><span className={styles.statValue}>{entries.length}</span><span className={styles.statLabel}>Entries</span></div>
-          <div className={styles.statCard}><span className={styles.statIcon}>⭐</span><span className={styles.statValue}>{judgedCount}</span><span className={styles.statLabel}>Judged</span></div>
-          <div className={styles.statCard}><span className={styles.statIcon}>🏅</span><span className={styles.statValue}>{shortlistedCount}</span><span className={styles.statLabel}>Shortlisted</span></div>
-          <div className={styles.statCard}><span className={styles.statIcon}>🏆</span><span className={styles.statValue}>{finalistCount}</span><span className={styles.statLabel}>Finalists</span></div>
-          <div className={styles.statCard}><span className={styles.statIcon}>👤</span><span className={styles.statValue}>{judges.length}</span><span className={styles.statLabel}>Judges</span></div>
-          <div className={styles.statCard}><span className={styles.statIcon}>🎯</span><span className={styles.statValue}>{allScores.length}</span><span className={styles.statLabel}>Scores Cast</span></div>
+          <div className={styles.statCard}><Icon name="fileText" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{entries.length}</span><span className={styles.statLabel}>Entries</span></div>
+          <div className={styles.statCard}><Icon name="checkCircle" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{judgedCount}</span><span className={styles.statLabel}>Judged</span></div>
+          <div className={styles.statCard}><Icon name="star" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{shortlistedCount}</span><span className={styles.statLabel}>Shortlisted</span></div>
+          <div className={styles.statCard}><Icon name="award" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{finalistCount}</span><span className={styles.statLabel}>Finalists</span></div>
+          <div className={styles.statCard}><Icon name="users" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{judges.length}</span><span className={styles.statLabel}>Judges</span></div>
+          <div className={styles.statCard}><Icon name="target" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{allScores.length}</span><span className={styles.statLabel}>Scores Cast</span></div>
         </div>
 
         <div className={styles.dualCol}>
           <div className={styles.section}>
             <h2>Entry Trend</h2>
-            <div className={styles.barChart}>
-              {trendData.map(d => (
-                <div key={d.day} className={styles.barCol}>
-                  <div className={styles.bar} style={{ height: `${(d.count / maxTrend) * 100}%` }} />
-                  <span className={styles.barLabel}>{d.day.substring(5)}</span>
-                </div>
-              ))}
-              {trendData.length === 0 && <p className={styles.empty}>No entries yet.</p>}
+            <div className={styles.chartWrap}>
+              {trendData.length > 0 ? (
+                <Bar data={{
+                  labels: trendData.map(d => d.day.substring(5)),
+                  datasets: [{ label: 'Submissions', data: trendData.map(d => d.count), backgroundColor: 'rgba(0,0,0,0.85)', borderRadius: 0 }],
+                }} options={{ responsive: true, plugins: { legend: { display: false }, tooltip: { enabled: true } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.06)' } } } }} />
+              ) : <p className={styles.empty}>No entries yet.</p>}
             </div>
           </div>
 
           <div className={styles.section}>
             <h2>Score Distribution</h2>
-            <div className={styles.barChart}>
-              {Object.entries(scoreDist).map(([range, count]) => (
-                <div key={range} className={styles.barCol}>
-                  <div className={styles.bar} style={{ height: `${(count / maxDist) * 100}%`, background: count > 0 ? 'var(--color-ember)' : 'var(--color-cream)' }} />
-                  <span className={styles.barLabel}>{range}</span>
-                </div>
-              ))}
+            <div className={styles.chartWrap}>
+              <Bar data={{
+                labels: Object.keys(scoreDist),
+                datasets: [{ label: 'Scores', data: Object.values(scoreDist), backgroundColor: Object.values(scoreDist).map(c => c > 0 ? '#d32f2f' : '#e0e0e0'), borderRadius: 0 }],
+              }} options={{ responsive: true, plugins: { legend: { display: false }, tooltip: { enabled: true } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.06)' } } } }} />
             </div>
           </div>
         </div>
@@ -400,7 +399,7 @@ export default function AdminDashboard() {
                           <option value="finalist">Finalist</option>
                           <option value="submitted">Reset to Submitted</option>
                         </select>
-                        <button className={styles.withdrawBtn} onClick={() => setShowWithdraw(e)} title="Withdraw entry">✕</button>
+                        <button className={styles.withdrawBtn} onClick={() => setShowWithdraw(e)} title="Withdraw entry"><Icon name="x" size={12} strokeWidth={2.5} /></button>
                       </div>
                     </td>
                   </tr>
@@ -456,7 +455,7 @@ export default function AdminDashboard() {
       {detailEntry && (
         <div className={styles.overlay} onClick={() => setDetailEntry(null)}>
           <div className={styles.detailPanel} onClick={e => e.stopPropagation()}>
-            <button className={styles.detailClose} onClick={() => setDetailEntry(null)}>✕</button>
+            <button className={styles.detailClose} onClick={() => setDetailEntry(null)}><Icon name="x" size={18} strokeWidth={2} /></button>
             <h2 className={styles.detailTitle}>Entry Detail</h2>
             <div className={styles.detailGrid}>
               <div className={styles.detailField}>

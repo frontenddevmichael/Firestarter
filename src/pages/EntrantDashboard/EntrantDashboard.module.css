@@ -111,9 +111,9 @@
   margin-bottom: var(--space-sm);
 }
 
-.welcomeEmoji {
-  font-size: 2rem;
+.welcomeIcon {
   flex-shrink: 0;
+  color: var(--color-ember);
 }
 
 .welcomeText {

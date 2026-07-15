@@ -6,6 +6,7 @@ import { useCompetition } from '../../hooks/useCompetition'
 import Skeleton from '../../components/Skeleton'
 import CompetitionBanner from '../../components/CompetitionBanner'
 import ConfirmModal from '../../components/ConfirmModal'
+import Icon from '../../components/Icon'
 import SparkMark from '../../components/SparkMark'
 import styles from './EntrantDashboard.module.css'
 
@@ -114,7 +115,7 @@ export default function EntrantDashboard() {
   const humanStatus = status === 'submitted' ? 'Submitted' : status.charAt(0).toUpperCase() + status.slice(1)
   const currentStep = entry ? (status === 'finalist' ? 4 : status === 'shortlisted' ? 3 : 2) : (guardian ? 1 : 0)
 
-  const statusEmoji = status === 'finalist' ? '🏆' : status === 'shortlisted' ? '⭐' : '📝'
+  const statusIcon = status === 'finalist' ? 'award' : status === 'shortlisted' ? 'star' : 'fileText'
 
   return (
     <div className={styles.page}>
@@ -141,7 +142,7 @@ export default function EntrantDashboard() {
 
         {entry && (
           <div className={styles.welcomeCard}>
-            <span className={styles.welcomeEmoji}>{statusEmoji}</span>
+            <Icon name={statusIcon} size={32} className={styles.welcomeIcon} strokeWidth={1.6} />
             <div>
               <p className={styles.welcomeText}>
                 {status === 'finalist' ? "You're a finalist!" : status === 'shortlisted' ? "You've been shortlisted!" : 'Entry submitted!'}
@@ -220,13 +221,13 @@ export default function EntrantDashboard() {
           <div className={styles.statusSection}>
             {status === 'shortlisted' && (
               <div className={styles.alert}>
-                <span className={styles.alertIcon}>⭐</span>
+                <Icon name="star" size={22} className={styles.alertIcon} strokeWidth={1.6} />
                 <div><strong>Congratulations!</strong> Your poem has been shortlisted. We'll be in touch with next steps.</div>
               </div>
             )}
             {status === 'finalist' && (
               <div className={styles.alert}>
-                <span className={styles.alertIcon}>🏆</span>
+                <Icon name="award" size={22} className={styles.alertIcon} strokeWidth={1.6} />
                 <div><strong>Amazing!</strong> You are a finalist! We'll contact you about the awards ceremony.</div>
               </div>
             )}

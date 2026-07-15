@@ -4,6 +4,7 @@ import { useAuth } from '../../lib/auth'
 import { useToast } from '../../lib/toast'
 import Skeleton from '../../components/Skeleton'
 import CompetitionBanner from '../../components/CompetitionBanner'
+import Icon from '../../components/Icon'
 import SparkMark from '../../components/SparkMark'
 import styles from './JudgeDashboard.module.css'
 
@@ -98,7 +99,7 @@ export default function JudgeDashboard() {
     return (
       <div className={styles.fullscreenOverlay} onClick={() => setFullscreen(false)}>
         <div className={styles.fullscreenContent} onClick={e => e.stopPropagation()}>
-          <button className={styles.fsClose} onClick={() => setFullscreen(false)}>✕</button>
+          <button className={styles.fsClose} onClick={() => setFullscreen(false)}><Icon name="x" size={18} strokeWidth={2} /></button>
           <span className={styles.fsCategory}>{entry.entries?.category}</span>
           <p className={styles.fsPoem}>{entry.entries?.poem_text}</p>
           {entry.entries?.voice_reflection && (
@@ -197,7 +198,7 @@ export default function JudgeDashboard() {
                   </span>
                 )}
                 {s ? <span className={styles.scoredBadge}>Scored: {s.score}/100</span> : <span className={styles.pendingBadge}>Pending</span>}
-                <button className={styles.fsBtn} onClick={() => setFullscreen(true)} title="Fullscreen reading mode">⛶</button>
+                <button className={styles.fsBtn} onClick={() => setFullscreen(true)} title="Fullscreen reading mode"><Icon name="maximize" size={16} strokeWidth={1.8} /></button>
               </div>
 
               <div className={styles.poemSection}>
