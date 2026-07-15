@@ -65,7 +65,7 @@ export default function PrizeAuth() {
               <div className="h-captcha" data-sitekey="22d4b56e-0c0e-4eaa-8cc4-2e1ca7e4d7bc" />
             </div>
           )}
-          {msg && <p className={msg.includes('error') || msg.includes('not') ? styles.error : styles.success}>{msg}</p>}
+          {msg && <p className={msg.includes('Check') || msg.includes('successfully') || msg.includes('updated') ? styles.success : styles.error}>{msg}</p>}
           <button type="submit" className="btnPrimary" disabled={loading} style={{ width: '100%' }}>
             {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : 'Create Account'}
           </button>
