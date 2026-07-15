@@ -1,9 +1,5 @@
--- Fix create_judge_user: add instance_id and raw_app_meta_data so GoTrue
--- recognizes email-password auth. Without these, signInWithPassword returns
--- "Invalid login credentials" even with the correct password.
---
--- instance_id must be 00000000-0000-0000-0000-000000000000 (not null)
--- raw_app_meta_data must be {"provider":"email","providers":["email"]}
+-- Fix create_judge_user: add duplicate email check and set instance_id/
+-- raw_app_meta_data so GoTrue recognizes email-password auth.
 
 CREATE OR REPLACE FUNCTION public.create_judge_user(judge_email text, judge_password text, judge_name text)
  RETURNS jsonb
@@ -12,7 +8,14 @@ CREATE OR REPLACE FUNCTION public.create_judge_user(judge_email text, judge_pass
 AS $function$
     declare
       new_id uuid;
+      existing_email text;
     begin
+      -- Check for existing email first
+      select email into existing_email from auth.users where email = judge_email;
+      if existing_email is not null then
+        return jsonb_build_object('error', 'A user with this email already exists');
+      end if;
+
       new_id := gen_random_uuid();
 
       insert into auth.users (
