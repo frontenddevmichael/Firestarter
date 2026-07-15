@@ -5,7 +5,7 @@
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1040px;
   margin: 0 auto;
 }
 
@@ -21,27 +21,117 @@
   margin-bottom: var(--space-lg);
 }
 
-.stats {
+.statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--space-sm);
   margin-bottom: var(--space-lg);
 }
 
-.stat {
+.statCard {
   background: white;
   border: 2px solid var(--color-charcoal);
   padding: var(--space-md);
-  text-align: center;
-  font-size: var(--fs-caption);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.statIcon {
+  font-size: 1.5rem;
+}
+
+.statValue {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
   color: var(--color-grey);
 }
 
-.stat strong {
-  display: block;
+.phaseSection {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.phaseHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.phaseHeader h2 {
+  font-family: var(--font-display);
   font-size: var(--fs-headline-md);
+  margin: 0;
+}
+
+.phaseBadge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border: 1px solid;
+}
+
+.phase_open { background: #e3f2fd; color: #1565c0; border-color: #1565c0; }
+.phase_judging { background: #fff3e0; color: #e65100; border-color: #e65100; }
+.phase_shortlisted { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
+.phase_finalists { background: #fce4ec; color: #c62828; border-color: #c62828; }
+.phase_closed { background: #f5f5f5; color: #616161; border-color: #616161; }
+
+.phaseHint {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+  margin: 0 0 var(--space-md);
+}
+
+.phaseBtns {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.phaseBtn, .phaseBtnActive {
+  font-size: var(--fs-caption);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid var(--color-charcoal);
+  transition: all 0.15s;
+}
+
+.phaseBtn {
+  background: white;
   color: var(--color-charcoal);
-  margin-bottom: 4px;
+}
+
+.phaseBtn:hover {
+  background: var(--color-charcoal);
+  color: white;
+}
+
+.phaseBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.phaseBtnActive {
+  background: var(--color-charcoal);
+  color: white;
+  cursor: default;
 }
 
 .section {
@@ -54,7 +144,7 @@
 .section h2 {
   font-family: var(--font-display);
   font-size: var(--fs-headline-md);
-  margin-bottom: var(--space-md);
+  margin: 0 0 var(--space-md);
 }
 
 .sectionHeader {
@@ -66,22 +156,6 @@
 
 .sectionHeader h2 {
   margin-bottom: 0;
-}
-
-.phaseBtns {
-  display: flex;
-  gap: var(--space-xs);
-  flex-wrap: wrap;
-}
-
-.phaseBtns button {
-  font-size: var(--fs-caption);
-  padding: 0.5rem 1rem;
-}
-
-.activePhase {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .judgeForm {
@@ -110,6 +184,10 @@
   cursor: pointer;
 }
 
+.tableWrap {
+  overflow-x: auto;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -118,17 +196,22 @@
 
 .table th, .table td {
   text-align: left;
-  padding: 0.5rem;
+  padding: 0.6rem 0.5rem;
   border-bottom: 1px solid var(--color-cream);
   vertical-align: top;
+}
+
+.table tbody tr:hover {
+  background: var(--color-warm-white);
 }
 
 .table th {
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--color-grey);
+  white-space: nowrap;
 }
 
 .entrantInfo {
@@ -141,14 +224,68 @@
 }
 
 .entrantEmail {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--color-grey);
 }
 
+.poemPreview {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.catBadge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  background: var(--color-cream);
+}
+
+.scoreCell {
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: var(--fs-body-md);
+}
+
+.statusBadge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+}
+
+.s_submitted { background: var(--color-cream); }
+.s_shortlisted { background: #e8f5e9; color: #2e7d32; }
+.s_finalist { background: #fff3e0; color: #e65100; }
+
 .assignedJudge {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--color-ember);
   margin-top: 2px;
+  font-weight: 600;
+}
+
+.judgeName {
+  font-weight: 600;
+}
+
+.emailType {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  background: var(--color-cream);
+}
+
+.dateCell {
+  white-space: nowrap;
+  font-size: 0.7rem;
+  color: var(--color-grey);
 }
 
 .empty {

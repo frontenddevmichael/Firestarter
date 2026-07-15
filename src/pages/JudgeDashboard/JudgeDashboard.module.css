@@ -21,10 +21,63 @@
   margin-bottom: var(--space-lg);
 }
 
-.msg {
+.errorMsg {
+  font-size: var(--fs-caption);
+  color: #d32f2f;
+  margin-bottom: var(--space-md);
+}
+
+.successMsg {
   font-size: var(--fs-caption);
   color: #2e7d32;
   margin-bottom: var(--space-md);
+}
+
+.summaryBar {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.summaryValue {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  line-height: 1.2;
+}
+
+.summaryLabel {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-grey);
+}
+
+.progressTrack {
+  flex: 1;
+  min-width: 100px;
+  height: 6px;
+  background: var(--color-cream);
+  border: 1px solid var(--color-grey);
+  min-width: 80px;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-charcoal);
+  transition: width 0.4s;
 }
 
 .empty {
@@ -33,94 +86,174 @@
   padding: var(--space-xl);
 }
 
+.emptyHint {
+  font-size: var(--fs-caption);
+  margin-top: var(--space-xs);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin: 0 0 var(--space-md);
+}
+
 .card {
   background: white;
   border: 2px solid var(--color-charcoal);
-  padding: var(--space-lg);
   margin-bottom: var(--space-md);
+}
+
+.cardScored {
+  opacity: 0.85;
 }
 
 .cardHeader {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  margin-bottom: var(--space-md);
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-cream);
   flex-wrap: wrap;
+  background: var(--color-warm-white);
 }
 
 .cardHeader h2 {
   font-family: var(--font-display);
   font-size: var(--fs-headline-md);
   flex: 1;
+  margin: 0;
 }
 
-.badge {
-  font-size: var(--fs-label-caps);
-  font-weight: 600;
-  letter-spacing: 0.1em;
+.categoryBadge {
+  font-size: 9px;
+  font-weight: 700;
   text-transform: uppercase;
-  padding: 4px 10px;
-  background: var(--color-cream);
-  border: 1px solid var(--color-grey);
-}
-
-.category {
-  font-size: var(--fs-label-caps);
-  font-weight: 600;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 10px;
+  padding: 3px 8px;
   background: var(--color-charcoal);
   color: white;
 }
 
-.pending {
-  border-color: var(--color-gold);
-  color: var(--color-gold);
+.statusBadge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  background: var(--color-cream);
+  border: 1px solid var(--color-grey);
 }
 
 .shortlisted {
-  border-color: #2e7d32;
+  background: #e8f5e9;
   color: #2e7d32;
+  border-color: #2e7d32;
 }
 
 .finalist {
-  border-color: var(--color-ember);
-  color: var(--color-ember);
+  background: #fff3e0;
+  color: #e65100;
+  border-color: #e65100;
+}
+
+.scoredBadge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  background: var(--color-charcoal);
+  color: white;
+}
+
+.pendingBadge {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  background: #fff8e1;
+  color: #f57f17;
+  border: 1px solid #f57f17;
+}
+
+.poemSection {
+  padding: var(--space-md);
 }
 
 .poemText {
   white-space: pre-wrap;
-  margin-bottom: var(--space-md);
   font-size: var(--fs-body-md);
   line-height: var(--lh-body);
+  margin: 0;
+}
+
+.voiceSection {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-cream);
+}
+
+.voiceSection h4 {
+  font-family: var(--font-display);
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-grey);
+  margin: 0 0 var(--space-xs);
+}
+
+.voiceText {
+  font-style: italic;
+  color: var(--color-grey);
+  margin: 0;
+  font-size: var(--fs-body-md);
+}
+
+.videoLink {
+  margin: var(--space-md) 0 0;
+}
+
+.videoLink a {
+  color: var(--color-ember);
+  font-weight: 600;
+  text-decoration: underline;
+  font-size: var(--fs-body-md);
 }
 
 .scoreSection {
+  padding: var(--space-md);
+  border-top: 1px solid var(--color-cream);
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  border-top: 1px solid var(--color-cream);
-  padding-top: var(--space-md);
+}
+
+.scoreRow {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
 }
 
 .field {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  flex: 1;
+  min-width: 120px;
 }
 
 .field label {
-  font-size: var(--fs-label-caps);
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-grey);
 }
 
-.input, .textarea {
+.scoreInput, .noteInput {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.6rem 0.75rem;
   font-family: var(--font-body);
   font-size: var(--fs-body-md);
   color: var(--color-charcoal);
@@ -130,16 +263,17 @@
   transition: border-color 0.2s;
 }
 
-.input:focus, .textarea:focus {
+.scoreInput:focus, .noteInput:focus {
   border-color: var(--color-ember);
 }
 
-.input {
-  max-width: 120px;
+.scoreInput {
+  max-width: 100px;
 }
 
-.textarea {
+.noteInput {
   resize: vertical;
+  min-height: 50px;
 }
 
 @media (min-width: 768px) {
