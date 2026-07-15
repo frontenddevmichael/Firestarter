@@ -17,7 +17,7 @@ const prizeLinks = [
   { text: 'About & Theme', href: '/prize/about' },
   { text: 'How to Enter', href: '/prize/how-to-enter' },
   { text: 'Key Dates', href: '/prize/key-dates' },
-  { text: 'For Parents & Teachers', href: '/prize/parents-and-teachers' },
+  { text: 'Parents & Teachers', href: '/prize/parents-and-teachers' },
   { text: 'Spark Pack', href: '/prize/spark-pack' },
   { text: 'Contact', href: '/prize/contact' },
 ];
@@ -49,6 +49,10 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   const getDashboardLink = () => {
     if (!profile) return null;
     if (profile.role === 'admin') return '/prize/admin';
@@ -58,13 +62,13 @@ export default function Nav() {
 
   return (
     <nav className={`${styles.nav} ${hidden ? styles.navHidden : ''}`}>
-      <Link to="/" className={styles.logo} aria-label="Home" onClick={() => setOpen(false)}>
+      <Link to="/" className={styles.logo} aria-label="Home">
         <img src="/FireStarter%20collective%20logo%201.png" alt="Firestarter" className={styles.logoImg} width="240" height="32" decoding="async" />
       </Link>
 
       <button
         className={styles.hamburger}
-        aria-label="Toggle menu"
+        aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
         onClick={() => setOpen(!open)}
       >
@@ -76,6 +80,8 @@ export default function Nav() {
       {open && <div className={styles.overlay} onClick={() => setOpen(false)} />}
 
       <div className={`${styles.navLinks} ${open ? styles.navLinksOpen : ''}`}>
+        <span className={styles.sectionLabel}>{isPrize ? 'Prize' : 'Firestarter'}</span>
+
         {links.map((link, i) => (
           <NavLink
             key={link.href}
@@ -83,7 +89,6 @@ export default function Nav() {
             end={link.end}
             style={{ '--i': i }}
             className={({ isActive }) => `${styles.link} ${isActive ? styles.linkActive : ''}`}
-            onClick={() => setOpen(false)}
           >
             {link.text}
             <svg className={styles.sparkHover} viewBox="0 0 72 14" fill="none" aria-hidden="true">
@@ -93,20 +98,13 @@ export default function Nav() {
         ))}
 
         {isPrize && user && getDashboardLink() && (
-          <Link
-            to={getDashboardLink()}
-            className={`${styles.link} ${styles.dashLink}`}
-            onClick={() => setOpen(false)}
-          >
+          <Link to={getDashboardLink()} className={`${styles.link} ${styles.dashLink}`}>
             Dashboard
           </Link>
         )}
 
         {isPrize && user && (
-          <button
-            className={styles.signOutBtn}
-            onClick={() => { signOut(); setOpen(false); }}
-          >
+          <button className={styles.signOutBtn} onClick={() => { signOut(); setOpen(false); }}>
             Sign Out
           </button>
         )}
@@ -118,9 +116,8 @@ export default function Nav() {
               : '/training'
           }
           className={`${styles.enterBtn} btnPrimary`}
-          onClick={() => setOpen(false)}
         >
-          {isPrize ? (user ? 'Dashboard' : 'Sign In') : 'Watch the free training'} <Icon name="arrowRight" size={14} />
+          {isPrize ? (user ? 'Dashboard' : 'Sign In') : 'Watch Free Training'} <Icon name="arrowRight" size={14} />
         </Link>
       </div>
     </nav>
