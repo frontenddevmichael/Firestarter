@@ -33,9 +33,12 @@ export default function PrizeAuth() {
       if (!name.trim()) { setMsg('Please enter your full name'); setLoading(false); return }
       const captchaToken = window.hcaptcha?.getResponse()
       if (!captchaToken) { setMsg('Please complete the security check'); setLoading(false); return }
-      const { error } = await signUp(email, password, name.trim(), captchaToken)
+      const { error, profile } = await signUp(email, password, name.trim(), captchaToken)
       if (error) { setMsg(error.message); setLoading(false); return }
-      setMsg('Check your email for a confirmation link.')
+      if (profile?.role === 'admin') navigate('/prize/admin', { replace: true })
+      else if (profile?.role === 'judge') navigate('/prize/judge', { replace: true })
+      else if (profile) navigate('/prize/dashboard', { replace: true })
+      else setMsg('Check your email for a confirmation link.')
       setLoading(false)
     }
   }
