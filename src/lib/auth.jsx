@@ -9,13 +9,15 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   const fetchProfile = useCallback(async (userId) => {
-    const { data } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
-    if (data) setProfile(data)
-    return data
+    try {
+      const { data } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single()
+      if (data) setProfile(data)
+      return data
+    } catch { return null }
   }, [])
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export function AuthProvider({ children }) {
         fetchProfile(session.user.id)
       }
       setLoading(false)
-    })
+    }).catch(() => setLoading(false))
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
@@ -41,55 +43,77 @@ export function AuthProvider({ children }) {
   }, [fetchProfile])
 
   const signIn = async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) return { error }
-    setUser(data.user)
-    const prof = await fetchProfile(data.user.id)
-    return { data, profile: prof }
-  }
-
-  const signUp = async (email, password, fullName, captchaToken) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: fullName },
-        captchaToken,
-      },
-    })
-    if (error) return { error }
-
-    if (data?.user) {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+      if (error) return { error }
       setUser(data.user)
       const prof = await fetchProfile(data.user.id)
       return { data, profile: prof }
+    } catch (e) {
+      return { error: { message: 'Network error — check your connection and try again.' } }
     }
-    return { data }
+  }
+
+  const signUp = async (email, password, fullName, captchaToken) => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: fullName },
+          captchaToken,
+        },
+      })
+      if (error) return { error }
+
+      if (data?.user) {
+        setUser(data.user)
+        const prof = await fetchProfile(data.user.id)
+        return { data, profile: prof }
+      }
+      return { data }
+    } catch (e) {
+      return { error: { message: 'Network error — check your connection and try again.' } }
+    }
   }
 
   const signOut = async () => {
-    await supabase.auth.signOut()
+    try {
+      await supabase.auth.signOut()
+    } catch {}
     setUser(null)
     setProfile(null)
   }
 
   const resetPassword = async (email) => {
-    return supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/prize/reset-password`,
-    })
+    try {
+      return await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/prize/reset-password`,
+      })
+    } catch (e) {
+      return { error: { message: 'Network error — check your connection and try again.' } }
+    }
   }
 
   const updatePassword = async (password) => {
-    return supabase.auth.updateUser({ password })
+    try {
+      return await supabase.auth.updateUser({ password })
+    } catch (e) {
+      return { error: { message: 'Network error — check your connection and try again.' } }
+    }
   }
 
   const deleteAccount = async () => {
-    const { error } = await supabase.rpc('delete_user')
-    if (!error) {
-      setUser(null)
-      setProfile(null)
+    try {
+      const { error } = await supabase.rpc('delete_user')
+      if (!error) {
+        setUser(null)
+        setProfile(null)
+      }
+      return { error }
+    } catch (e) {
+      return { error: { message: 'Network error — check your connection and try again.' } }
     }
-    return { error }
   }
 
   const value = {

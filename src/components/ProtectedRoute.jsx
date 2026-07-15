@@ -8,7 +8,7 @@ export default function ProtectedRoute({ children, requiredRole }) {
 
   if (loading) return <Skeleton />
 
-  if (!user) return <Navigate to="/prize/enter" state={{ from: location }} replace />
+  if (!user) return <Navigate to="/prize/auth" state={{ from: location }} replace />
 
   if (requiredRole && profile?.role !== requiredRole && profile?.role !== 'admin') {
     if (profile?.role === 'admin') return <Navigate to="/prize/admin" replace />
