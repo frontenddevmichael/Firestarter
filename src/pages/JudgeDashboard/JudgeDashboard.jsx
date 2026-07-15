@@ -22,9 +22,21 @@ export default function JudgeDashboard() {
     setLoading(true)
     const { data } = await supabase
       .from('judge_assignments')
-      .select('*, entries(*), scores(*)')
+      .select('*, entries(*)')
       .eq('judge_id', user.id)
-    if (data) setAssignments(data)
+    if (data) {
+      // Fetch scores separately (no FK relationship for direct join)
+      const assignmentIds = data.map(a => a.id)
+      const { data: scoreData } = await supabase
+        .from('scores')
+        .select('*')
+        .in('judge_assignment_id', assignmentIds)
+      const scoreMap = {}
+      if (scoreData) {
+        scoreData.forEach(s => { scoreMap[s.judge_assignment_id] = s })
+      }
+      setAssignments(data.map(a => ({ ...a, scores: scoreMap[a.id] ? [scoreMap[a.id]] : [] })))
+    }
     setLoading(false)
   }
 
