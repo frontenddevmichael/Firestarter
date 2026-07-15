@@ -18,7 +18,7 @@ export default function JudgeDashboard() {
     loadAssignments()
   }, [user])
 
-  const loadAssignments = async () => {
+  async function loadAssignments() {
     setLoading(true)
     const { data } = await supabase
       .from('judge_assignments')
