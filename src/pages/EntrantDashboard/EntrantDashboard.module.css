@@ -446,8 +446,12 @@
 
 .resourcesGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-sm);
+}
+
+@media (min-width: 480px) {
+  .resourcesGrid { grid-template-columns: 1fr 1fr; }
 }
 
 .resourceCard {
@@ -492,6 +496,38 @@
 
 .deleteBtn:hover {
   background: #fff5f5;
+}
+
+@media (max-width: 480px) {
+  .stepLabel {
+    font-size: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .stepDot {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+
+  .progressBar::before {
+    top: 11px;
+    left: 14px;
+    right: 14px;
+  }
+
+  .countdownRow {
+    justify-content: center;
+  }
+
+  .countdownCard {
+    min-width: 44px;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .cdValue {
+    font-size: calc(var(--fs-headline-md) * 0.8);
+  }
 }
 
 @media (min-width: 768px) {

@@ -294,6 +294,35 @@ a {
   }
 }
 
+/* ---- Responsive utilities ---- */
+
+@media (max-width: 480px) {
+  .hide-mobile { display: none !important; }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .hide-tablet { display: none !important; }
+}
+
+@media (min-width: 768px) {
+  .hide-desktop { display: none !important; }
+  .show-mobile-only { display: none !important; }
+}
+
+/* dashboard sections get consistent card treatment */
+.dashboardSection {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+@media (max-width: 480px) {
+  .dashboardSection {
+    padding: var(--space-md);
+  }
+}
+
 .toast-container {
   position: fixed;
   top: 1rem;

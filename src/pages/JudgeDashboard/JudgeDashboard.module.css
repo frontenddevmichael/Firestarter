@@ -486,6 +486,53 @@
   margin: 0;
 }
 
+@media (max-width: 480px) {
+  .progressCard {
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .navBar {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    justify-content: center;
+  }
+
+  .navBtn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .filterBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filterGroup {
+    align-self: flex-start;
+  }
+
+  .filterSelect {
+    width: 100%;
+  }
+
+  .scoreRow {
+    flex-direction: column;
+  }
+
+  .scoreInput {
+    max-width: 100%;
+  }
+
+  .fullscreenOverlay {
+    padding: 1rem;
+  }
+
+  .fsClose {
+    top: -0.5rem;
+  }
+}
+
 @media (min-width: 768px) {
   .page {
     padding: var(--space-xl) var(--space-margin-desktop);
