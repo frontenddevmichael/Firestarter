@@ -8,6 +8,11 @@
   background-color: var(--color-charcoal);
   padding: var(--space-sm) var(--space-margin-mobile);
   border-bottom: 1px solid rgba(250, 247, 242, 0.1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navHidden {
+  transform: translateY(-100%);
 }
 
 @media (min-width: 768px) {
@@ -17,11 +22,15 @@
 }
 
 .logo {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-warm-white);
   text-decoration: none;
+  line-height: 0;
+  z-index: 52;
+}
+
+.logoImg {
+  display: block;
+  height: 32px;
+  width: auto;
 }
 
 /* Hamburger — visible on mobile only */
@@ -33,6 +42,7 @@
   border: none;
   cursor: pointer;
   padding: var(--space-xs);
+  z-index: 52;
 }
 
 .hamburger span {
@@ -43,8 +53,7 @@
   transform-origin: center;
 }
 
-/* Open state — bars animate into an X. Order matches the three <span>s
-   rendered in Nav.jsx (top, middle, bottom). */
+/* Open state — bars animate into an X */
 .barOpen1 {
   transform: translateY(7px) rotate(45deg);
 }
@@ -53,6 +62,22 @@
 }
 .barOpen3 {
   transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Backdrop overlay — darkens & blurs content behind mobile menu */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: overlayIn 0.25s ease forwards;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Nav links — hidden off-canvas on mobile until toggled open */
@@ -69,53 +94,137 @@
   gap: var(--space-md);
   padding: var(--space-huge) var(--space-lg);
   transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 51;
 }
 
 .navLinksOpen {
   right: 0;
 }
 
+/* Link — inline-flex to stack text + spark vertically */
 .link {
   position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
   text-decoration: none;
   color: var(--color-warm-white);
   font-family: var(--font-body);
   font-size: var(--fs-label-caps);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
+  transition: color 0.25s ease, opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0s, calc(var(--i, 0) * 0.04s), calc(var(--i, 0) * 0.04s);
+  opacity: 0;
+  transform: translateX(-16px);
 }
 
-.link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-ember);
-  transition: width 0.25s ease;
+.navLinksOpen .link {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.link:hover::after,
-.linkActive::after {
-  width: 100%;
-}
-
+.link:hover,
 .linkActive {
   color: var(--color-ember);
 }
 
-.link:hover {
+/* Active link — subtle glow dot */
+.linkActive::before {
+  content: '';
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-ember);
+  box-shadow: 0 0 6px var(--color-ember), 0 0 12px var(--color-ember);
+}
+
+/* Spark underline — curved ember line that draws in on hover */
+.sparkHover {
+  width: 64px;
+  height: 10px;
   color: var(--color-ember);
+  margin-top: 3px;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  transition: stroke-dashoffset 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.link:hover .sparkHover,
+.linkActive .sparkHover {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sparkHover {
+    stroke-dashoffset: 0;
+  }
+}
+
+.dashLink {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  color: var(--color-ember);
+  text-decoration: none;
+  padding: var(--space-xs) 0;
+}
+
+.signOutBtn {
+  background: none;
+  border: 1px solid var(--color-grey);
+  color: var(--color-grey);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.signOutBtn:hover {
+  color: var(--color-ember);
+  border-color: var(--color-ember);
 }
 
 .enterBtn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
   margin-top: var(--space-md);
   text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.enterBtn:active {
+  transform: scale(0.97);
+}
+
+/* Subtle pulse ring on Enter Now */
+.enterBtn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  animation: btnPulse 3s ease-in-out infinite;
+  animation-delay: 1.5s;
+  pointer-events: none;
+}
+
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(235, 87, 40, 0); }
+  50% { box-shadow: 0 0 0 8px rgba(235, 87, 40, 0.15); }
+}
+
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(235, 87, 40, 0); }
+  50% { box-shadow: 0 0 0 8px rgba(235, 87, 40, 0.15); }
 }
 
 .hamburger span {
@@ -128,6 +237,10 @@
     display: none;
   }
 
+  .overlay {
+    display: none;
+  }
+
   .navLinks {
     position: static;
     height: auto;
@@ -137,10 +250,35 @@
     align-items: center;
     padding: 0;
     background: none;
+    gap: var(--space-lg);
+  }
+
+  .link {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .linkActive::before {
+    left: auto;
+    right: -2px;
+    top: -4px;
+    width: 6px;
+    height: 6px;
+  }
+
+  .sparkHover {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 6px;
   }
 
   .enterBtn {
     margin-top: 0;
     padding: 0.75rem 1.5rem;
+    animation: btnPulse 3s ease-in-out infinite;
+    animation-delay: 1.5s;
   }
 }

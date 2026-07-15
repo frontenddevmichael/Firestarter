@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
@@ -57,9 +58,9 @@ export default function ForParentsTeachers() {
       <section className={styles.closingCta}>
         <Reveal className="container">
           <h2>The world is waiting for what they have to say.</h2>
-          <a href="/how-to-enter" className={styles.link}>
+          <Link to="/prize/how-to-enter" className={styles.link}>
             Encourage a student to enter <Icon name="arrowRight" size={18} />
-          </a>
+          </Link>
         </Reveal>
       </section>
     </div>

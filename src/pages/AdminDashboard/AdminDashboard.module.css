@@ -1,0 +1,180 @@
+.page {
+  min-height: 100vh;
+  padding: var(--space-xl) var(--space-margin-mobile);
+  background: var(--color-warm-white);
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+  margin: var(--space-md) 0 var(--space-xs);
+}
+
+.email {
+  color: var(--color-grey);
+  font-size: var(--fs-caption);
+  margin-bottom: var(--space-lg);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.stat {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: var(--space-md);
+  text-align: center;
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+}
+
+.stat strong {
+  display: block;
+  font-size: var(--fs-headline-md);
+  color: var(--color-charcoal);
+  margin-bottom: 4px;
+}
+
+.section {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.section h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-md);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.sectionHeader h2 {
+  margin-bottom: 0;
+}
+
+.phaseBtns {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.phaseBtns button {
+  font-size: var(--fs-caption);
+  padding: 0.5rem 1rem;
+}
+
+.activePhase {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.judgeForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.input, .select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  color: var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 2px solid var(--color-charcoal);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus, .select:focus {
+  border-color: var(--color-ember);
+}
+
+.select {
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-caption);
+}
+
+.table th, .table td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--color-cream);
+  vertical-align: top;
+}
+
+.table th {
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--color-grey);
+}
+
+.entrantInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.entrantName {
+  font-weight: 600;
+}
+
+.entrantEmail {
+  font-size: 0.75rem;
+  color: var(--color-grey);
+}
+
+.assignedJudge {
+  font-size: 0.7rem;
+  color: var(--color-ember);
+  margin-top: 2px;
+}
+
+.empty {
+  color: var(--color-grey);
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.error {
+  color: #d32f2f;
+  font-size: var(--fs-caption);
+  margin-top: var(--space-sm);
+}
+
+.success {
+  color: #2e7d32;
+  font-size: var(--fs-caption);
+  margin-top: var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: var(--space-xl) var(--space-margin-desktop);
+  }
+
+  .title {
+    font-size: var(--fs-headline-lg);
+  }
+}

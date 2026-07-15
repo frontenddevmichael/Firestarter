@@ -1,0 +1,143 @@
+.page {
+  min-height: 100vh;
+  padding: var(--space-xl) var(--space-margin-mobile);
+  background: var(--color-warm-white);
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+  margin: var(--space-md) 0 var(--space-xs);
+}
+
+.email {
+  color: var(--color-grey);
+  font-size: var(--fs-caption);
+  margin-bottom: var(--space-lg);
+}
+
+.msg {
+  font-size: var(--fs-caption);
+  color: #2e7d32;
+  margin-bottom: var(--space-md);
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-grey);
+  padding: var(--space-xl);
+}
+
+.card {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.cardHeader h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  flex: 1;
+}
+
+.badge {
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: var(--color-cream);
+  border: 1px solid var(--color-grey);
+}
+
+.pending {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.shortlisted {
+  border-color: #2e7d32;
+  color: #2e7d32;
+}
+
+.finalist {
+  border-color: var(--color-ember);
+  color: var(--color-ember);
+}
+
+.poemText {
+  white-space: pre-wrap;
+  margin-bottom: var(--space-md);
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body);
+}
+
+.scoreSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  border-top: 1px solid var(--color-cream);
+  padding-top: var(--space-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.field label {
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  color: var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 2px solid var(--color-charcoal);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus, .textarea:focus {
+  border-color: var(--color-ember);
+}
+
+.input {
+  max-width: 120px;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: var(--space-xl) var(--space-margin-desktop);
+  }
+
+  .title {
+    font-size: var(--fs-headline-lg);
+  }
+}

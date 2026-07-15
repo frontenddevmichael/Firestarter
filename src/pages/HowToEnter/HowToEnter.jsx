@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import SparkMark from '../../components/SparkMark';
 import Reveal from '../../components/Reveal';
+import RevealImage from '../../components/RevealImage';
 import Icon from '../../components/Icon';
 import styles from './HowToEnter.module.css';
 
@@ -35,23 +37,27 @@ export default function HowToEnter() {
       <section className={styles.whoCanEnter}>
         <div className="container">
           <h2 className={styles.sectionHeading}>Who Can Enter</h2>
-          <div className={styles.panels}>
+            <div className={styles.panels}>
             <div className={styles.panel}>
-              <div className={`photoPlaceholder ${styles.panelImage}`}>
-                Photo: Junior Poet, ages 10–13
-              </div>
+              <span className={styles.panelBadge}>Category A</span>
+              <RevealImage className={styles.panelImage}>
+                <img src="/WEBSITEIMAGE.jpeg" alt="Junior Poet" className={styles.panelPhoto} loading="lazy" decoding="async" />
+              </RevealImage>
               <div className={styles.panelText}>
                 <h3>Junior Poets</h3>
                 <span className="eyebrow">Ages 10–13</span>
+                <p>The early sparks — for students just discovering the power of observation.</p>
               </div>
             </div>
             <div className={styles.panel}>
-              <div className={`photoPlaceholder ${styles.panelImage}`}>
-                Photo: Senior Poet, ages 14–17
-              </div>
+              <span className={styles.panelBadge}>Category B</span>
+              <RevealImage className={styles.panelImage}>
+                <img src="/WEBSITEIMAGE.jpeg" alt="Senior Poet" className={styles.panelPhoto} loading="lazy" decoding="async" />
+              </RevealImage>
               <div className={styles.panelText}>
                 <h3>Senior Poets</h3>
                 <span className="eyebrow">Ages 14–17</span>
+                <p>The roaring flame — for voices ready to challenge and redefine the narrative.</p>
               </div>
             </div>
           </div>
@@ -66,7 +72,7 @@ export default function HowToEnter() {
           <h2 className={styles.sectionHeading}>Your Submission Package</h2>
           <div className={styles.stepsRow}>
             {steps.map((s, i) => (
-              <Reveal key={s.title} delay={i * 100} className={styles.step}>
+              <Reveal key={s.title} delay={[0, 130, 280][i]} className={styles.step}>
                 <span className={styles.stepNumber}>{i + 1}</span>
                 <Icon name={s.icon} size={24} className={styles.stepIcon} />
                 <h4>{s.title}</h4>
@@ -92,7 +98,7 @@ export default function HowToEnter() {
         <div className="container">
           <h2>Ready to Ignite?</h2>
           <p>Entries close 30 September 2026, 11:59 PM (WAT).</p>
-          <a href="#entry-form" className="btnPrimary">Enter Now</a>
+          <Link to="/prize/enter" className="btnPrimary">Enter Now</Link>
         </div>
       </section>
     </div>

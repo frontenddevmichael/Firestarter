@@ -1,6 +1,5 @@
 .hero {
   position: relative;
-  overflow: hidden;
   background-color: var(--color-cream);
   padding: var(--space-huge) 0;
 }
@@ -58,12 +57,12 @@
 
 .quoteMark {
   position: absolute;
-  top: -3.5rem;
+  top: -3rem;
   left: -1rem;
   font-family: var(--font-display);
   font-size: 9rem;
   line-height: 1;
-  color: rgba(214, 90, 31, 0.15);
+  color: rgba(184, 74, 21, 0.18);
   pointer-events: none;
 }
 
@@ -131,6 +130,13 @@
   aspect-ratio: 4 / 5;
 }
 
+.panelPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .cta {
   background: linear-gradient(135deg, var(--color-ember) 0%, var(--color-burnt-orange) 100%);
   padding: var(--space-huge) 0;
@@ -166,10 +172,15 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border: 1px solid var(--color-charcoal);
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .ctaBtnDark:hover {
   background-color: transparent;
+}
+
+.ctaBtnDark:active {
+  transform: scale(0.97);
 }
 
 .btnIcon {

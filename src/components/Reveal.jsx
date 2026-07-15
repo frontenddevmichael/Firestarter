@@ -41,7 +41,21 @@ export default function Reveal({
       { threshold: 0.15 }
     );
     observer.observe(node);
-    return () => observer.disconnect();
+
+    const fallback = setTimeout(() => {
+      if (!visible) {
+        const rect = node.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 200) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      }
+    }, 4000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallback);
+    };
   }, []);
 
   const variantClass = {

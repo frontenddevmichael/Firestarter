@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
@@ -62,7 +63,7 @@ export default function KeyDates() {
             {milestones.map((m, i) => (
               <Reveal
                 key={m.label}
-                delay={i * 100}
+                delay={[0, 120, 260, 420, 500][i]}
                 className={`${styles.milestone} ${m.highlight ? styles.milestoneHighlight : ''}`}
               >
                 <MilestoneDot
@@ -84,9 +85,9 @@ export default function KeyDates() {
         <div className="container">
           <p>
             Haven't entered yet?{' '}
-            <a href="/how-to-enter" className={styles.link}>
+            <Link to="/prize/how-to-enter" className={styles.link}>
               See How to Enter <Icon name="arrowRight" size={14} />
-            </a>
+            </Link>
           </p>
         </div>
       </section>

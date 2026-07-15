@@ -137,6 +137,24 @@
   border-bottom-color: var(--color-ember);
 }
 
+.inputError {
+  border-bottom-color: #c0392b !important;
+}
+
+.inputValid {
+  border-bottom-color: var(--color-ember) !important;
+  border-bottom-width: 2px;
+}
+
+.fieldError {
+  display: block;
+  font-size: var(--fs-caption);
+  color: #c0392b;
+  font-style: italic;
+  margin-top: var(--space-xs);
+  line-height: var(--lh-body);
+}
+
 .contactDetails {
   border-top: 1px solid rgba(43, 43, 43, 0.1);
   padding-top: var(--space-md);

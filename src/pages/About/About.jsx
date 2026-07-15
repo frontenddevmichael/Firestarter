@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
+import RevealImage from '../../components/RevealImage';
 import styles from './About.module.css';
 
 export default function About() {
@@ -38,6 +39,7 @@ export default function About() {
       <section className={styles.caseSection}>
         <div className="container">
           <Reveal variant="clip" className={styles.quoteWrap}>
+            {/* Ghost quote mark — static: parallax is reserved for hero-level ghosts only (heroGhostWord above), content-section quotes stay fixed for legibility */}
             <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
             <blockquote className={styles.pullQuote}>
               Poetry is the spark that turns silence into truth.
@@ -74,9 +76,9 @@ export default function About() {
               world.
             </p>
           </Reveal>
-          <Reveal delay={150} className={`photoPlaceholder ${styles.themeImage}`}>
-            Photo: open notebook with handwritten poetry, close detail
-          </Reveal>
+          <RevealImage className={styles.themeImage}>
+            <img src="/WEBSITEIMAGE.jpeg" alt="Theme visual" className={styles.panelPhoto} loading="lazy" decoding="async" />
+          </RevealImage>
         </div>
       </section>
 
@@ -85,7 +87,7 @@ export default function About() {
           <h2>Ready to enter?</h2>
           <p>Read the full submission guidelines and prepare your poem.</p>
           <div className={styles.ctaActions}>
-            <Link to="/how-to-enter" className={`${styles.ctaBtnDark} ${styles.btnIcon}`}>
+            <Link to="/prize/how-to-enter" className={`${styles.ctaBtnDark} ${styles.btnIcon}`}>
               How to Enter <Icon name="arrowRight" size={16} />
             </Link>
           </div>

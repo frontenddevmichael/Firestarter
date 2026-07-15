@@ -1,10 +1,13 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import DriftSpark from '../../components/DriftSpark';
+import PassingSpark from '../../components/PassingSpark';
 import SparkMark from '../../components/SparkMark';
 import EmberField from '../../components/EmberField';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
+import RevealImage from '../../components/RevealImage';
 import styles from './Home.module.css';
 
 export default function Home() {
@@ -22,6 +25,7 @@ export default function Home() {
       {/* Hero */}
       <section ref={heroRef} className={`${styles.hero} grain`}>
         <EmberField />
+        <DriftSpark density="low" />
         <div className={`${styles.heroInner} container`}>
           <SparkMark interactive drawIn />
           <span className="eyebrow">The Firestarter Young Poets Prize 2026</span>
@@ -33,16 +37,18 @@ export default function Home() {
             A national stage for the poems Nigerian students haven't been asked to write yet.
           </p>
           <div className={styles.heroActions}>
-            <Link to="/how-to-enter" className={`btnPrimary ${styles.btnIcon}`}>
+            <Link to="/prize/enter" className={`btnPrimary ${styles.btnIcon}`}>
               Enter Now <Icon name="arrowRight" size={16} />
             </Link>
-            <a href="#spark-pack" className="btnSecondary">Download the Spark Pack</a>
+            <Link to="/prize/spark-pack" className="btnSecondary">Download the Spark Pack</Link>
           </div>
         </div>
         <motion.span className={styles.heroGhostNumber} style={{ y: ghostY }}>
           01
         </motion.span>
       </section>
+
+      <PassingSpark />
 
       {/* Why It Matters */}
       <section className={styles.whyMatters}>
@@ -52,6 +58,7 @@ export default function Home() {
             <span className="eyebrow">Why It Matters</span>
           </Reveal>
           <Reveal delay={100} variant="clip" className={styles.quoteWrap}>
+            {/* Ghost quote mark — static on purpose: parallax is reserved for hero-level ghosts (see heroGhostNumber above) to avoid fighting readability in content sections */}
             <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
             <blockquote className={styles.pullQuote}>
               Your voice is not a whisper to be kept in classrooms. It is a spark that can
@@ -78,12 +85,17 @@ export default function Home() {
       {/* Who Can Enter / What You Submit */}
       <section className={`${styles.whoCanEnter} grain`}>
         <div className="container">
+          <Reveal className={styles.sectionHeading}>
+            <SparkMark />
+            <span className="eyebrow">Who Can Enter</span>
+            <h2>Your Stage Awaits.</h2>
+          </Reveal>
           <div className={styles.panels}>
             <Reveal className={styles.panel}>
               <span className={styles.panelBadge}>Category A</span>
-              <div className={`photoPlaceholder ${styles.panelImage}`}>
-                Photo: Junior Poet, ages 10–13, mid-performance
-              </div>
+              <RevealImage className={styles.panelImage}>
+                <img src="/WEBSITEIMAGE.jpeg" alt="Junior Poet ages 10–13" className={styles.panelPhoto} loading="lazy" decoding="async" />
+              </RevealImage>
               <div className={styles.panelText}>
                 <h3>Junior Poets</h3>
                 <span className="eyebrow">Ages 10–13</span>
@@ -92,9 +104,9 @@ export default function Home() {
             </Reveal>
             <Reveal delay={120} className={styles.panel}>
               <span className={styles.panelBadge}>Category B</span>
-              <div className={`photoPlaceholder ${styles.panelImage}`}>
-                Photo: Senior Poet, ages 14–17, mid-performance
-              </div>
+              <RevealImage className={styles.panelImage}>
+                <img src="/WEBSITEIMAGE.jpeg" alt="Senior Poet ages 14–17" className={styles.panelPhoto} loading="lazy" decoding="async" />
+              </RevealImage>
               <div className={styles.panelText}>
                 <h3>Senior Poets</h3>
                 <span className="eyebrow">Ages 14–17</span>
@@ -113,7 +125,8 @@ export default function Home() {
               { icon: 'reflection', title: 'Voice Reflection', desc: 'A short written reflection on what your poem means to you.' },
               { icon: 'video', title: 'Performance Video', desc: 'A video of you performing the same poem aloud.' },
             ].map((s, i) => (
-              <Reveal key={s.title} delay={i * 100} className={styles.step}>
+              <Reveal key={s.title} delay={[0, 150, 250][i]} className={styles.step}>
+                {/* Ghost step numeral — static: parallax reserved for hero-level ghosts only (heroGhostNumber), inline numerals would drift awkwardly inside a grid */}
                 <span className={styles.stepNumber}>0{i + 1}</span>
                 <Icon name={s.icon} size={26} className={styles.stepIcon} />
                 <h4>{s.title}</h4>
@@ -124,8 +137,11 @@ export default function Home() {
         </div>
       </section>
 
+      <PassingSpark />
+
       {/* Theme Spotlight */}
-      <section className={styles.theme}>
+      <section className={`${styles.theme}`}>
+        <DriftSpark density="low" />
         <div className={`container ${styles.themeInner}`}>
           <Reveal className={styles.themeText}>
             <SparkMark />
@@ -136,17 +152,21 @@ export default function Home() {
               imagine the world of tomorrow? Who are you in that world? Use your pen to build
               the bridge between who you are now and who the future needs you to be.
             </p>
-            <Link to="/about" className={styles.themeLink}>
+            <Link to="/prize/about" className={styles.themeLink}>
               Read the full theme <Icon name="arrowRight" size={14} />
             </Link>
           </Reveal>
-          <Reveal delay={150} className={`photoPlaceholder ${styles.themeImage}`}>
-            Photo: hand writing in a notebook, close-up detail shot
-          </Reveal>
+          <RevealImage className={styles.themeImage}>
+            <img src="/WEBSITEIMAGE.jpeg" alt="Theme visual" className={styles.panelPhoto} loading="lazy" decoding="async" />
+          </RevealImage>
         </div>
       </section>
 
-      {/* Key Dates snapshot */}
+      <PassingSpark />
+
+      {/* Key Dates snapshot — deliberately lighter than the Key Dates page.
+          This is a static preview (simple grid, hardcoded active dot for Deadline).
+          The full scroll-ignited timeline with fuse line lives on /key-dates. */}
       <section className={styles.datesSnapshot}>
         <div className="container">
           <h3 className={styles.sectionHeading}>Competition Timeline</h3>
@@ -158,14 +178,14 @@ export default function Home() {
               { label: 'Finalists & Creative Lab', date: 'November' },
               { label: 'Grand Final', date: 'December' },
             ].map((d, i) => (
-              <Reveal key={d.label} delay={i * 80} className={styles.dateItem}>
+              <Reveal key={d.label} delay={[0, 60, 140, 220, 280][i]} className={styles.dateItem}>
                 <span className={`${styles.dateDot} ${d.active ? styles.dateDotActive : ''}`} />
                 <span className="eyebrow">{d.date}</span>
                 <p>{d.label}</p>
               </Reveal>
             ))}
           </div>
-          <Link to="/key-dates" className={styles.themeLink}>
+          <Link to="/prize/key-dates" className={styles.themeLink}>
             See full timeline <Icon name="arrowRight" size={14} />
           </Link>
         </div>
@@ -179,7 +199,7 @@ export default function Home() {
             Nurturing the next generation of Nigerian literature takes a village. See how you
             can support a young poet through the submission process.
           </p>
-          <Link to="/parents-and-teachers" className={styles.themeLink}>
+          <Link to="/prize/parents-and-teachers" className={styles.themeLink}>
             Learn more <Icon name="arrowRight" size={14} />
           </Link>
         </Reveal>
@@ -192,7 +212,7 @@ export default function Home() {
           <SparkMark size="large" className={styles.finalCtaSpark} drawIn />
           <h2>Ready to raise your voice?</h2>
           <p>Your journey from a blank page to a national stage starts here.</p>
-          <Link to="/how-to-enter" className={styles.finalCtaBtn}>
+          <Link to="/prize/enter" className={styles.finalCtaBtn}>
             Enter Now <Icon name="arrowRight" size={16} />
           </Link>
         </div>

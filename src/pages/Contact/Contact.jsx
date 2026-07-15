@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
+import PrizeBanner from '../../components/PrizeBanner';
 import styles from './Contact.module.css';
 
 /**
@@ -66,11 +67,62 @@ const faqs = [
 export default function Contact() {
   const [openIndex, setOpenIndex] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [fields, setFields] = useState({
+    name: { value: '', touched: false },
+    email: { value: '', touched: false },
+    inquiry: { value: '', touched: false },
+  });
+
+  const setField = (name, key, val) => {
+    setFields(prev => ({ ...prev, [name]: { ...prev[name], [key]: val } }));
+  };
+
+  const validators = {
+    name: (v) => v.trim().length > 0,
+    email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+    inquiry: (v) => v.trim().length > 0,
+  };
+
+  const fieldErrors = {
+    name: "Every poem needs an author. What's your name?",
+    email: "We'll need a way to write back. A valid email address, please.",
+    inquiry: "You've got something to say — don't leave the page blank.",
+  };
+
+  const getError = (name) => {
+    const f = fields[name];
+    if (!f.touched) return '';
+    if (validators[name](f.value)) return '';
+    return fieldErrors[name];
+  };
+
+  const getInputClass = (name) => {
+    const f = fields[name];
+    const err = getError(name);
+    if (err) return styles.inputError;
+    if (f.touched && f.value) return styles.inputValid;
+    return '';
+  };
+
+  const isValid = () =>
+    validators.name(fields.name.value) &&
+    validators.email(fields.email.value) &&
+    validators.inquiry(fields.inquiry.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setFields(prev => ({
+      name: { ...prev.name, touched: true },
+      email: { ...prev.email, touched: true },
+      inquiry: { ...prev.inquiry, touched: true },
+    }));
+    if (!isValid()) return;
+    const body = encodeURIComponent(
+      `Name: ${fields.name.value}\nEmail: ${fields.email.value}\n\n${fields.inquiry.value}`
+    );
+    window.location.href = `mailto:contactfirestartermethod@gmail.com?subject=Firestarter%20Enquiry&body=${body}`;
     setSubmitted(true);
-    e.target.reset();
+    setFields({ name: { value: '', touched: false }, email: { value: '', touched: false }, inquiry: { value: '', touched: false } });
     setTimeout(() => setSubmitted(false), 3000);
   };
 
@@ -123,18 +175,42 @@ export default function Contact() {
           <Reveal delay={120} className={styles.contactCol}>
             <h2>Ignite a Conversation</h2>
             <p className={styles.contactSub}>We usually respond within 48 business hours.</p>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={handleSubmit} noValidate>
               <label>
                 Your Name
-                <input type="text" required />
+                <input
+                  type="text"
+                  required
+                  value={fields.name.value}
+                  onChange={(e) => setField('name', 'value', e.target.value)}
+                  onBlur={() => setField('name', 'touched', true)}
+                  className={getInputClass('name')}
+                />
+                {getError('name') && <span className={styles.fieldError}>{getError('name')}</span>}
               </label>
               <label>
                 Email Address
-                <input type="email" required />
+                <input
+                  type="email"
+                  required
+                  value={fields.email.value}
+                  onChange={(e) => setField('email', 'value', e.target.value)}
+                  onBlur={() => setField('email', 'touched', true)}
+                  className={getInputClass('email')}
+                />
+                {getError('email') && <span className={styles.fieldError}>{getError('email')}</span>}
               </label>
               <label>
                 Your Inquiry
-                <textarea rows="4" required />
+                <textarea
+                  rows="4"
+                  required
+                  value={fields.inquiry.value}
+                  onChange={(e) => setField('inquiry', 'value', e.target.value)}
+                  onBlur={() => setField('inquiry', 'touched', true)}
+                  className={getInputClass('inquiry')}
+                />
+                {getError('inquiry') && <span className={styles.fieldError}>{getError('inquiry')}</span>}
               </label>
               <button type="submit" className={`btnPrimary ${styles.submitBtn}`}>
                 {submitted ? (
@@ -148,7 +224,7 @@ export default function Contact() {
             </form>
 
             <div className={styles.contactDetails}>
-              <p><Icon name="mail" size={16} /> contact@firestartermethod.com</p>
+              <p><Icon name="mail" size={16} /> contactfirestartermethod@gmail.com</p>
               <p>firestartermethod.com</p>
               <p><Icon name="instagram" size={16} /> @firestartercollectiveafrica</p>
               <p><Icon name="pin" size={16} /> Lagos, Nigeria</p>
@@ -156,6 +232,7 @@ export default function Contact() {
           </Reveal>
         </div>
       </section>
+      <PrizeBanner />
     </div>
   );
 }

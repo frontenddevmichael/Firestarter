@@ -2,8 +2,6 @@
   Firestarter Young Poets Prize 2026 — Design Tokens
 */
 
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Work+Sans:wght@300;400;500;600;700&display=swap');
-
 :root {
   /* ---- Color ---- */
   --color-charcoal: #2B2B2B;
@@ -11,7 +9,7 @@
   --color-ember: #D65A1F;
   --color-burnt-orange: #B84A15;
   --color-gold: #C9A227;
-  --color-grey: #6E6E6E;
+  --color-grey: #555555;
   --color-cream: #F7F3EE;
 
   /* ---- Typography ---- */
@@ -117,7 +115,7 @@ a {
   padding: 1rem 2.5rem;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 .btnPrimary {
@@ -129,6 +127,10 @@ a {
   background-color: var(--color-burnt-orange);
 }
 
+.btnPrimary:active {
+  transform: scale(0.97);
+}
+
 .btnSecondary {
   background-color: transparent;
   border-color: var(--color-warm-white);
@@ -138,6 +140,10 @@ a {
 .btnSecondary:hover {
   background-color: var(--color-warm-white);
   color: var(--color-charcoal);
+}
+
+.btnSecondary:active {
+  transform: scale(0.97);
 }
 
 /* eyebrow label used above headings site-wide */
@@ -248,4 +254,42 @@ a {
 }
 .revealSoft.revealVisible {
   animation: fadeSoft 0.9s ease-out forwards;
+}
+
+/* used by RevealImage component — clip-path rises from bottom, inner
+   content subtly scales down for a parallax-within-the-reveal effect */
+.revealImgWrap {
+  overflow: hidden;
+  position: relative;
+  clip-path: inset(0 0 100% 0);
+}
+
+.revealImgVisible {
+  animation: imgReveal 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.revealImgInner {
+  height: 100%;
+  transform: scale(1.06);
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.revealImgVisible .revealImgInner {
+  transform: scale(1);
+}
+
+@keyframes imgReveal {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealImgWrap {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .revealImgInner {
+    transform: none;
+  }
 }

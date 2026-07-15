@@ -139,6 +139,7 @@
   font-weight: 600;
   text-decoration: underline;
   text-decoration-color: var(--color-ember);
+  transition: transform 0.2s ease;
 }
 
 .link svg {
@@ -147,4 +148,8 @@
 
 .link:hover svg {
   transform: translateX(4px);
+}
+
+.link:active {
+  transform: scale(0.97);
 }
