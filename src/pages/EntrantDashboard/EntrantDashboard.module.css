@@ -21,13 +21,6 @@
   margin-bottom: var(--space-lg);
 }
 
-.msg {
-  font-size: var(--fs-caption);
-  margin-bottom: var(--space-md);
-}
-
-.msg:empty { display: none; }
-
 .progressBar {
   display: flex;
   align-items: flex-start;
@@ -96,6 +89,81 @@
 
 .activeStep .stepLabel {
   color: var(--color-charcoal);
+}
+
+.entryFlash {
+  animation: flashGlow 2s ease-out;
+}
+
+@keyframes flashGlow {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+.welcomeCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.welcomeEmoji {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.welcomeText {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin: 0;
+}
+
+.welcomeSub {
+  margin: var(--space-xs) 0 0;
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+}
+
+.countdownRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.countdownCard {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 52px;
+}
+
+.cdValue {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  line-height: 1.1;
+}
+
+.cdLabel {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-grey);
+}
+
+.countdownDesc {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+  font-weight: 600;
 }
 
 .form {
@@ -170,11 +238,6 @@
   min-height: 120px;
 }
 
-.error {
-  color: #d32f2f;
-  font-size: var(--fs-caption);
-}
-
 .statusSection {
   display: flex;
   flex-direction: column;
@@ -207,6 +270,8 @@
   padding: var(--space-md);
   border-bottom: 1px solid var(--color-cream);
   background: var(--color-warm-white);
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .categoryBadge {
@@ -230,6 +295,14 @@
 
 .shortlisted { background: #e8f5e9; color: #2e7d32; }
 .finalist { background: #fff3e0; color: #e65100; }
+
+.refNumber {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-grey);
+  letter-spacing: 0.05em;
+}
 
 .entryBody {
   padding: var(--space-lg);
@@ -277,6 +350,80 @@
   color: var(--color-grey);
 }
 
+.stagesCard {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: var(--space-lg);
+}
+
+.stagesCard h4 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin: 0 0 var(--space-md);
+}
+
+.stagesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.stageItem {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+.stageDot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  margin-top: 2px;
+  background: var(--color-cream);
+  color: var(--color-grey);
+  border: 1px solid var(--color-grey);
+}
+
+.stageDone .stageDot {
+  background: var(--color-charcoal);
+  color: white;
+  border-color: var(--color-charcoal);
+}
+
+.stageCurrent .stageDot {
+  background: var(--color-ember);
+  color: white;
+  border-color: var(--color-ember);
+}
+
+.stageContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stageLabel {
+  font-weight: 600;
+  font-size: var(--fs-body-md);
+}
+
+.stageDesc {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+}
+
+.stageDate {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-ember);
+}
+
 .guardianCard {
   background: white;
   border: 2px solid var(--color-charcoal);
@@ -295,6 +442,39 @@
 .guardianCard p {
   margin: 0;
   font-size: var(--fs-body-md);
+}
+
+.resourcesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.resourceCard {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  padding: var(--space-md);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: background 0.15s;
+}
+
+.resourceCard:hover {
+  background: var(--color-warm-white);
+}
+
+.resourceCard strong {
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.resourceCard span {
+  font-size: 11px;
+  color: var(--color-grey);
 }
 
 .deleteBtn {

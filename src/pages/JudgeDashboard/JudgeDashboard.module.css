@@ -9,6 +9,13 @@
   margin: 0 auto;
 }
 
+.headerRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
 .title {
   font-family: var(--font-display);
   font-size: var(--fs-headline-lg-mobile);
@@ -18,46 +25,33 @@
 .email {
   color: var(--color-grey);
   font-size: var(--fs-caption);
-  margin-bottom: var(--space-lg);
-}
-
-.errorMsg {
-  font-size: var(--fs-caption);
-  color: #d32f2f;
   margin-bottom: var(--space-md);
 }
 
-.successMsg {
-  font-size: var(--fs-caption);
-  color: #2e7d32;
-  margin-bottom: var(--space-md);
-}
-
-.summaryBar {
+.progressCard {
   background: white;
   border: 2px solid var(--color-charcoal);
   padding: var(--space-md) var(--space-lg);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
   display: flex;
   align-items: center;
   gap: var(--space-lg);
   flex-wrap: wrap;
 }
 
-.summaryItem {
+.progressStat {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
 }
 
-.summaryValue {
+.progressValue {
   font-family: var(--font-display);
   font-size: var(--fs-headline-md);
   line-height: 1.2;
 }
 
-.summaryLabel {
+.progressLabel {
   font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
@@ -67,17 +61,119 @@
 
 .progressTrack {
   flex: 1;
-  min-width: 100px;
+  min-width: 80px;
   height: 6px;
   background: var(--color-cream);
   border: 1px solid var(--color-grey);
-  min-width: 80px;
 }
 
 .progressFill {
   height: 100%;
   background: var(--color-charcoal);
   transition: width 0.4s;
+}
+
+.progressPct {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-grey);
+  letter-spacing: 0.05em;
+}
+
+.rubricBox {
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.rubricSummary {
+  padding: var(--space-sm) var(--space-md);
+  font-weight: 700;
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.rubricBody {
+  padding: 0 var(--space-md) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.rubricItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.rubricItem strong {
+  font-size: var(--fs-caption);
+}
+
+.rubricItem span {
+  font-size: 11px;
+  color: var(--color-grey);
+}
+
+.rubricNote {
+  font-size: 11px;
+  color: var(--color-grey);
+  font-style: italic;
+  margin: var(--space-xs) 0 0;
+}
+
+.filterBar {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filterGroup {
+  display: flex;
+  gap: 2px;
+  border: 2px solid var(--color-charcoal);
+}
+
+.filterBtn, .filterActive {
+  padding: 0.35rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+}
+
+.filterBtn {
+  background: white;
+  color: var(--color-grey);
+}
+
+.filterBtn:hover {
+  background: var(--color-cream);
+}
+
+.filterActive {
+  background: var(--color-charcoal);
+  color: white;
+}
+
+.filterSelect {
+  padding: 0.35rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  border: 2px solid var(--color-charcoal);
+  background: white;
+  outline: none;
+  cursor: pointer;
 }
 
 .empty {
@@ -91,20 +187,44 @@
   margin-top: var(--space-xs);
 }
 
-.sectionTitle {
-  font-family: var(--font-display);
-  font-size: var(--fs-headline-md);
-  margin: 0 0 var(--space-md);
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.navBtn {
+  padding: 0.4rem 1rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  background: white;
+  border: 2px solid var(--color-charcoal);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.navBtn:hover:not(:disabled) {
+  background: var(--color-charcoal);
+  color: white;
+}
+
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.navPos {
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--color-grey);
 }
 
 .card {
   background: white;
   border: 2px solid var(--color-charcoal);
-  margin-bottom: var(--space-md);
-}
-
-.cardScored {
-  opacity: 0.85;
+  margin-bottom: var(--space-lg);
 }
 
 .cardHeader {
@@ -120,8 +240,8 @@
 .cardHeader h2 {
   font-family: var(--font-display);
   font-size: var(--fs-headline-md);
-  flex: 1;
   margin: 0;
+  flex: 1;
 }
 
 .categoryBadge {
@@ -140,21 +260,11 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 3px 8px;
-  background: var(--color-cream);
   border: 1px solid var(--color-grey);
 }
 
-.shortlisted {
-  background: #e8f5e9;
-  color: #2e7d32;
-  border-color: #2e7d32;
-}
-
-.finalist {
-  background: #fff3e0;
-  color: #e65100;
-  border-color: #e65100;
-}
+.shortlisted { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
+.finalist { background: #fff3e0; color: #e65100; border-color: #e65100; }
 
 .scoredBadge {
   font-size: 9px;
@@ -175,6 +285,21 @@
   background: #fff8e1;
   color: #f57f17;
   border: 1px solid #f57f17;
+}
+
+.fsBtn {
+  background: none;
+  border: 1px solid var(--color-grey);
+  padding: 2px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-grey);
+  line-height: 1;
+}
+
+.fsBtn:hover {
+  color: var(--color-charcoal);
+  border-color: var(--color-charcoal);
 }
 
 .poemSection {
@@ -274,6 +399,91 @@
 .noteInput {
   resize: vertical;
   min-height: 50px;
+}
+
+.scoreActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.savedAt {
+  font-size: 10px;
+  font-weight: 600;
+  color: #2e7d32;
+  letter-spacing: 0.05em;
+}
+
+.fullscreenOverlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-warm-white);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.fullscreenContent {
+  max-width: 640px;
+  width: 100%;
+  position: relative;
+}
+
+.fsClose {
+  position: absolute;
+  top: -1.5rem;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-grey);
+}
+
+.fsClose:hover {
+  color: var(--color-charcoal);
+}
+
+.fsCategory {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  background: var(--color-charcoal);
+  color: white;
+  display: inline-block;
+  margin-bottom: var(--space-md);
+}
+
+.fsPoem {
+  white-space: pre-wrap;
+  font-size: var(--fs-body-lg, 1.15rem);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.fsVoice {
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-cream);
+}
+
+.fsVoice h4 {
+  font-family: var(--font-display);
+  font-size: var(--fs-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-grey);
+  margin: 0 0 var(--space-xs);
+}
+
+.fsVoice p {
+  font-style: italic;
+  color: var(--color-grey);
+  margin: 0;
 }
 
 @media (min-width: 768px) {

@@ -1,0 +1,72 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-md);
+}
+
+.modal {
+  background: white;
+  border: 3px solid var(--color-charcoal);
+  max-width: 420px;
+  width: 100%;
+  padding: var(--space-lg);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin: 0 0 var(--space-sm);
+}
+
+.body {
+  font-size: var(--fs-body-md);
+  color: var(--color-grey);
+  margin: 0 0 var(--space-lg);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: flex-end;
+}
+
+.cancelBtn, .confirmBtn {
+  padding: 0.6rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid var(--color-charcoal);
+  transition: all 0.15s;
+}
+
+.cancelBtn {
+  background: white;
+  color: var(--color-charcoal);
+}
+
+.confirmBtn {
+  background: var(--color-charcoal);
+  color: white;
+}
+
+.confirmBtn:hover {
+  background: var(--color-ember);
+  border-color: var(--color-ember);
+}
+
+.dangerBtn {
+  background: #d32f2f;
+  border-color: #d32f2f;
+  color: white;
+}
+
+.dangerBtn:hover {
+  background: #b71c1c;
+  border-color: #b71c1c;
+}

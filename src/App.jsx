@@ -23,6 +23,7 @@ import Assessment from './pages/Assessment/Assessment';
 import Musical from './pages/Musical/Musical';
 import ProtectedRoute from './components/ProtectedRoute';
 import Skeleton from './components/Skeleton';
+import { ToastProvider } from './lib/toast';
 
 const PrizeAuth = lazy(() => import('./pages/PrizeAuth/PrizeAuth'));
 const EntrantDashboard = lazy(() => import('./pages/EntrantDashboard/EntrantDashboard'));
@@ -126,6 +127,7 @@ export default function App() {
 
   return (
     <AuthProvider>
+      <ToastProvider>
       <ScrollToTop />
       <PageMeta />
       <SchemaMarkup />
@@ -165,6 +167,7 @@ export default function App() {
       </AnimatePresence>
       </main>
       <Footer />
+      </ToastProvider>
     </AuthProvider>
   );
 }
