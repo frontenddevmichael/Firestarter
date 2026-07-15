@@ -1,3 +1,4 @@
+/* @react-refresh-ignore */
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { supabase } from './supabase'
 
@@ -17,7 +18,7 @@ export function AuthProvider({ children }) {
         .single()
       if (data) setProfile(data)
       return data
-    } catch { return null }
+    } catch (_) { return null }
   }, [])
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export function AuthProvider({ children }) {
       setUser(data.user)
       const prof = await fetchProfile(data.user.id)
       return { data, profile: prof }
-    } catch (e) {
+    } catch {
       return { error: { message: 'Network error — check your connection and try again.' } }
     }
   }
@@ -72,7 +73,7 @@ export function AuthProvider({ children }) {
         return { data, profile: prof }
       }
       return { data }
-    } catch (e) {
+    } catch {
       return { error: { message: 'Network error — check your connection and try again.' } }
     }
   }
@@ -80,7 +81,7 @@ export function AuthProvider({ children }) {
   const signOut = async () => {
     try {
       await supabase.auth.signOut()
-    } catch {}
+    } catch (_) {}
     setUser(null)
     setProfile(null)
   }
@@ -98,7 +99,7 @@ export function AuthProvider({ children }) {
   const updatePassword = async (password) => {
     try {
       return await supabase.auth.updateUser({ password })
-    } catch (e) {
+    } catch {
       return { error: { message: 'Network error — check your connection and try again.' } }
     }
   }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
 import Skeleton from '../../components/Skeleton'
@@ -17,7 +17,7 @@ export default function AdminDashboard() {
   const [judgeForm, setJudgeForm] = useState({ name: '', email: '', password: '' })
   const [judgeFormMsg, setJudgeFormMsg] = useState('')
 
-  const fetchData = useCallback(async () => {
+  async function fetchData() {
     const [entriesRes, judgesRes, statsRes, logsRes] = await Promise.all([
       supabase.from('entries').select('*, profiles!entries_entrant_id_fkey(email, full_name), scores(score), judge_assignments(judge_id, profiles!judge_assignments_judge_id_fkey(email, full_name))'),
       supabase.from('profiles').select('id, email, full_name, role').eq('role', 'judge'),
@@ -34,9 +34,9 @@ export default function AdminDashboard() {
     }
     if (logsRes.data) setEmailLogs(logsRes.data)
     setLoading(false)
-  }, [])
+  }
 
-  useEffect(() => { fetchData() }, [fetchData])
+  useEffect(() => { fetchData() }, [])
 
   const createJudge = async (e) => {
     e.preventDefault()

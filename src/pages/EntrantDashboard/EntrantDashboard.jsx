@@ -7,7 +7,7 @@ import SparkMark from '../../components/SparkMark'
 import styles from './EntrantDashboard.module.css'
 
 export default function EntrantDashboard() {
-  const { user, profile, signOut, deleteAccount } = useAuth()
+  const { user, profile, deleteAccount } = useAuth()
   const navigate = useNavigate()
   const [entry, setEntry] = useState(null)
   const [loading, setLoading] = useState(true)
