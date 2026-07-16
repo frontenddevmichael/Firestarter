@@ -14,8 +14,7 @@ export default function SparkPack() {
             <span className="eyebrow">Free Resource</span>
             <h1 className={styles.heroTitle}>The Spark Pack.</h1>
             <p className={styles.heroSub}>
-              A free toolkit for teachers, parents, and young poets — packed with writing
-              prompts, tips, and everything you need to craft a winning entry.
+              A free pack for young poets, parents, and teachers. It explains the theme, what judges look for, and everything you need to enter the Firestarter Young Poets Prize 2026.
             </p>
           </Reveal>
         </div>
@@ -26,10 +25,10 @@ export default function SparkPack() {
           <Reveal>
             <h2 className={styles.sectionHeading}>What's Inside</h2>
             <ul className={styles.list}>
-              <li><Icon name="pen" size={18} className={styles.listIcon} /> Writing prompts to spark your first draft</li>
-              <li><Icon name="star" size={18} className={styles.listIcon} /> Tips from past finalists and judges</li>
-              <li><Icon name="heart" size={18} className={styles.listIcon} /> A guide for parents and teachers supporting young poets</li>
-              <li><Icon name="check" size={18} className={styles.listIcon} /> Submission checklist so you don't miss a thing</li>
+              <li><Icon name="pen" size={18} className={styles.listIcon} /> Writing prompts and plain advice on writing in your own voice</li>
+              <li><Icon name="star" size={18} className={styles.listIcon} /> The five things every poem is judged on, explained simply</li>
+              <li><Icon name="heart" size={18} className={styles.listIcon} /> A note for parents and guardians on consent, safety, and how to help</li>
+              <li><Icon name="check" size={18} className={styles.listIcon} /> Exactly what to submit, how to submit it, and the deadline</li>
             </ul>
           </Reveal>
         </div>
@@ -38,16 +37,16 @@ export default function SparkPack() {
       <section className={styles.download}>
         <div className="container">
           <Reveal className={styles.downloadInner}>
-            <h2 className={styles.downloadTitle}>Ready to get started?</h2>
+            <h2 className={styles.downloadTitle}>Ready to get started</h2>
             <p className={styles.downloadSub}>
-              Download the Spark Pack and take the first step toward the national stage.
+              Download the Spark Pack
             </p>
             <a
               href="/spark-pack.pdf"
               download
               className={`btnPrimary ${styles.downloadBtn}`}
             >
-              <Icon name="arrowRight" size={16} /> Download Spark Pack (PDF)
+              <Icon name="arrowRight" size={16} /> Download the Spark Pack
             </a>
             <p className={styles.downloadNote}>
               You'll need a PDF reader to open the file. The pack is free — share it with
