@@ -139,7 +139,7 @@ export default function App() {
       <SchemaMarkup />
       {!isDashboard && <Nav />}
       <main id="main-content">
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="sync" initial={false}>
         <Routes location={location} key={location.pathname}>
           {/* Company pages */}
           <Route path="/" element={<PageWrapper><CompanyHome /></PageWrapper>} />
@@ -172,7 +172,7 @@ export default function App() {
         </Routes>
       </AnimatePresence>
       </main>
-      <Footer />
+      {!isDashboard && <Footer />}
       </ToastProvider>
     </AuthProvider>
   );

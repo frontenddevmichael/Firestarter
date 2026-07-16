@@ -28,24 +28,33 @@
   padding: var(--space-huge) 0;
 }
 
-.embedWrap {
-  max-width: 720px;
+.submitCard {
+  max-width: 520px;
   margin: 0 auto;
-  border: 1px solid rgba(43, 43, 43, 0.08);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
-  background: #fff;
+  text-align: center;
+  padding: var(--space-xl);
+  border: 2px solid var(--color-charcoal);
+  background: white;
 }
 
-.formIframe {
-  width: 100%;
-  height: 1800px;
-  border: none;
-  display: block;
+.submitIcon {
+  color: var(--color-ember);
+  margin-bottom: var(--space-md);
 }
 
-/* ── post-form CTA ── */
+.submitTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  color: var(--color-charcoal);
+  margin-bottom: var(--space-sm);
+}
+
+.submitDesc {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  font-size: var(--fs-body-md);
+  margin-bottom: var(--space-lg);
+}
 
 .afterForm {
   max-width: 520px;

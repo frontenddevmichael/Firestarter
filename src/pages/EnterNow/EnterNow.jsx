@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
@@ -6,29 +6,7 @@ import styles from './EnterNow.module.css';
 
 const WHATSAPP_LINK = 'https://chat.whatsapp.com/EDm92HpP6k26FCbvWq5V7P';
 
-const FORM_EMBED_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSfkva7q_WdzZEdqqDzzr05CHbuMWHnIZAl_Q1VmRsXTj6H1-A/viewform?embedded=true';
-
 export default function EnterNow() {
-  const iframeRef = useRef(null);
-
-  useEffect(() => {
-    const handler = (e) => {
-      if (
-        e.origin !== 'https://docs.google.com' ||
-        !iframeRef.current ||
-        !Array.isArray(e.data)
-      )
-        return;
-      const maybeHeight = Number(e.data[0]);
-      if (maybeHeight > 100 && maybeHeight < 5000) {
-        iframeRef.current.style.height = maybeHeight + 'px';
-      }
-    };
-    window.addEventListener('message', handler);
-    return () => window.removeEventListener('message', handler);
-  }, []);
-
   return (
     <div>
       <section className={styles.hero}>
@@ -47,15 +25,15 @@ export default function EnterNow() {
       <section className={styles.formSection}>
         <div className="container">
           <Reveal>
-            <div className={styles.embedWrap}>
-              <iframe
-                ref={iframeRef}
-                src={FORM_EMBED_URL}
-                className={styles.formIframe}
-                title="Firestarter Competition Form"
-              >
-                Loading…
-              </iframe>
+            <div className={styles.submitCard}>
+              <Icon name="fileText" size={32} className={styles.submitIcon} />
+              <h2 className={styles.submitTitle}>Submit through the Prize Platform</h2>
+              <p className={styles.submitDesc}>
+                All entries are now submitted through the Firestarter judging platform. Sign in or create an account to write, submit, and track your poem.
+              </p>
+              <Link to="/prize/auth" className="btnPrimary">
+                Sign In to Submit <Icon name="arrowRight" size={16} />
+              </Link>
             </div>
           </Reveal>
 

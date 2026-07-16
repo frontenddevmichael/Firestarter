@@ -48,7 +48,7 @@
 
 .statIcon { font-size: 1.3rem; }
 .statValue { font-family: var(--font-display); font-size: var(--fs-headline-md); line-height: 1; }
-.statLabel { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-grey); }
+.statLabel { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-grey); }
 
 .dualCol {
   display: grid;
@@ -140,7 +140,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   background: var(--color-cream);
   color: var(--color-grey);
@@ -275,7 +275,7 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: var(--color-grey);
   white-space: nowrap;
 }
@@ -303,7 +303,7 @@
 }
 
 .catBadge {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -314,7 +314,7 @@
 .scoreCell { font-weight: 700; font-family: var(--font-display); font-size: var(--fs-body-md); }
 
 .statusBadge {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -359,7 +359,7 @@
 }
 
 .emailType {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -428,7 +428,7 @@
 }
 
 .detailField label {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
