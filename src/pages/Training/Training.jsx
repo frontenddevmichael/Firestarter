@@ -47,11 +47,11 @@ export default function Training() {
       <section className={styles.stepsSection}>
         <div className="container">
           <Reveal>
-            <h2 className={styles.sectionTitle}>What you will get</h2>
+            <h2 className={styles.sectionTitle}>Three moves in fifteen minutes</h2>
           </Reveal>
           <div className={styles.stepsGrid}>
             {steps.map((s, i) => (
-              <Reveal key={s.title} delay={i * 100}>
+              <Reveal key={s.title} variant={i === 1 ? 'clip' : 'up'} delay={i * 60}>
                 <div className={styles.stepCard}>
                   <Icon name={s.icon} size={24} className={styles.stepIcon} />
                   <h3 className={styles.stepTitle}>{s.title}</h3>
@@ -63,10 +63,10 @@ export default function Training() {
         </div>
       </section>
 
-      <section className={styles.ctaSection}>
+        <section className={styles.ctaSection}>
         <div className="container">
-          <Reveal>
-            <h2 className={styles.ctaTitle}>Ready to go deeper?</h2>
+          <Reveal variant="up-large" delay={120}>
+            <h2 className={styles.ctaTitle}>The map and the tools</h2>
             <p className={styles.ctaText}>
               The free training shows you the map. The Deluxe hands you the tools.
             </p>

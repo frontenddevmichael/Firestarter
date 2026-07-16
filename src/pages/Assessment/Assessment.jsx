@@ -32,11 +32,11 @@ export default function Assessment() {
       <section className={styles.diagSection}>
         <div className="container">
           <Reveal>
-            <h2 className={styles.sectionTitle}>The five forces</h2>
+            <h2 className={styles.sectionTitle}>Whichever force is next</h2>
           </Reveal>
           <div className={styles.forcesList}>
             {forces.map((f, i) => (
-              <Reveal key={f.name} delay={i * 80}>
+              <Reveal key={f.name} variant={i === 4 ? 'clip' : 'up'} delay={i * 60}>
                 <div className={styles.forceCard}>
                   <div className={styles.forceHeader}>
                     <span className={styles.forceNum}>Force {i + 1}</span>
@@ -50,9 +50,9 @@ export default function Assessment() {
         </div>
       </section>
 
-      <section className={styles.ctaSection}>
+        <section className={styles.ctaSection}>
         <div className="container">
-          <Reveal>
+          <Reveal variant="up-large" delay={100}>
             <h2 className={styles.ctaTitle}>The assessment is coming</h2>
             <p className={styles.ctaText}>
               The full diagnostic tool is being built. In the meantime, take the free training.

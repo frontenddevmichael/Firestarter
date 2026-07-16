@@ -35,11 +35,11 @@ export default function Deluxe() {
       <section className={styles.includesSection}>
         <div className="container">
           <Reveal>
-            <h2 className={styles.sectionTitle}>What is inside</h2>
+            <h2 className={styles.sectionTitle}>The full kit</h2>
           </Reveal>
           <div className={styles.includesGrid}>
             {includes.map((item, i) => (
-              <Reveal key={item.title} delay={i * 100}>
+              <Reveal key={item.title} variant={i % 2 === 0 ? 'up' : 'soft'} delay={i * 70}>
                 <div className={styles.includeCard}>
                   <Icon name={item.icon} size={24} className={styles.includeIcon} />
                   <h3 className={styles.includeTitle}>{item.title}</h3>
@@ -51,10 +51,10 @@ export default function Deluxe() {
         </div>
       </section>
 
-      <section className={styles.ctaSection}>
+        <section className={styles.ctaSection}>
         <div className="container">
-          <Reveal>
-            <h2 className={styles.ctaTitle}>Ready to start?</h2>
+          <Reveal variant="up-large" delay={160}>
+            <h2 className={styles.ctaTitle}>Coming</h2>
             <p className={styles.ctaSub}>
               The Firestarter Deluxe is being prepared for launch. Leave your email to be notified.
             </p>

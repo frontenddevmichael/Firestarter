@@ -34,11 +34,11 @@ export default function Forge() {
       <section className={styles.howSection}>
         <div className="container">
           <Reveal>
-            <h2 className={styles.sectionTitle}>How it works</h2>
+            <h2 className={styles.sectionTitle}>The session</h2>
           </Reveal>
           <div className={styles.sectionsList}>
             {sections.map((s, i) => (
-              <Reveal key={s.title} delay={i * 100}>
+              <Reveal key={s.title} variant={i === 2 ? 'soft' : 'up'} delay={i * 90}>
                 <div className={styles.sectionCard}>
                   <span className={styles.sectionNum}>0{i + 1}</span>
                   <div>
@@ -52,9 +52,9 @@ export default function Forge() {
         </div>
       </section>
 
-      <section className={styles.ctaSection}>
+        <section className={styles.ctaSection}>
         <div className="container">
-          <Reveal>
+          <Reveal variant="up-large" delay={140}>
             <h2 className={styles.ctaTitle}>Bookings opening soon</h2>
             <p className={styles.ctaText}>
               The Forge Intensive is currently being scheduled. Join the waitlist to be notified.
