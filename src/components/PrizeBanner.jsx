@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Reveal from './Reveal';
 import styles from './PrizeBanner.module.css';
 
@@ -16,14 +17,9 @@ export default function PrizeBanner() {
             Junior Poets (ages 10–13) and Senior Poets (ages 14–17). Enter original
             poems, win prizes, get published.
           </p>
-          <a
-            href="/prize"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btnPrimary"
-          >
+          <Link to="/prize" className="btnPrimary">
             Enter the Prize
-          </a>
+          </Link>
         </Reveal>
       </div>
     </section>

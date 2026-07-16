@@ -84,7 +84,7 @@ export default function About() {
 
       <section className={styles.cta}>
         <Reveal className="container">
-          <h2>Ready to enter?</h2>
+          <h2>Find your starting line.</h2>
           <p>Read the full submission guidelines and prepare your poem.</p>
           <div className={styles.ctaActions}>
             <Link to="/prize/how-to-enter" className={`${styles.ctaBtnDark} ${styles.btnIcon}`}>

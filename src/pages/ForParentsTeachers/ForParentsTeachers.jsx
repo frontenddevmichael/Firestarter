@@ -22,11 +22,11 @@ export default function ForParentsTeachers() {
       <section className={styles.impact}>
         <div className="container">
           <div className={styles.impactGrid}>
-            <Reveal>
+            <Reveal variant="soft">
               <Icon name="heart" size={28} className={styles.impactIcon} />
               <h2>The Impact of Entering</h2>
             </Reveal>
-            <Reveal delay={120} className={styles.impactText}>
+            <Reveal variant="up" delay={120} className={styles.impactText}>
               <p>
                 For guardians, the Firestarter Prize is a validation of the quiet hours a
                 young person spends with their own thoughts. Encouraging a student to enter
@@ -44,7 +44,7 @@ export default function ForParentsTeachers() {
       </section>
 
       <section className={styles.forSchools}>
-        <Reveal className="container">
+        <Reveal variant="clip" className="container">
           <Icon name="reflection" size={26} className={styles.schoolsIcon} />
           <h2 className={styles.sectionHeading}>For Schools</h2>
           <p className={styles.schoolsText}>
@@ -56,8 +56,8 @@ export default function ForParentsTeachers() {
       </section>
 
       <section className={styles.closingCta}>
-        <Reveal className="container">
-          <h2>The world is waiting for what they have to say.</h2>
+        <Reveal variant="soft" className="container">
+          <h2>Your student's words won't wait.</h2>
           <Link to="/prize/how-to-enter" className={styles.link}>
             Encourage a student to enter <Icon name="arrowRight" size={18} />
           </Link>

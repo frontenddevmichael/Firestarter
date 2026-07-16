@@ -462,6 +462,74 @@
   color: var(--color-grey);
 }
 
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.titleRow .title { margin-bottom: 0; }
+
+.tabNav {
+  display: flex;
+  gap: 2px;
+  margin-bottom: var(--space-lg);
+  border-bottom: 2px solid var(--color-charcoal);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.6rem 1.2rem;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  color: var(--color-grey);
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+  min-height: 44px;
+}
+
+.tabBtn:hover { color: var(--color-charcoal); }
+
+.tabActive {
+  color: var(--color-charcoal);
+  border-bottom-color: var(--color-ember);
+}
+
+.tabIcon { flex-shrink: 0; }
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.sectionDesc {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+  margin: -0.5rem 0 var(--space-md);
+}
+
+.phaseDesc {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+  margin: -0.5rem 0 var(--space-md);
+}
+
 @media (max-width: 767px) {
   .detailPanel { width: 100vw; }
+  .tabBtn { padding: 0.5rem 0.8rem; font-size: 10px; }
 }

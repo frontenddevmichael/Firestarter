@@ -36,7 +36,7 @@ export default function HowToEnter() {
 
       <section className={styles.whoCanEnter}>
         <div className="container">
-          <h2 className={styles.sectionHeading}>Who Can Enter</h2>
+          <h2 className={styles.sectionHeading}>Two Categories, One Stage</h2>
             <div className={styles.panels}>
             <div className={styles.panel}>
               <span className={styles.panelBadge}>Category A</span>
@@ -69,10 +69,10 @@ export default function HowToEnter() {
 
       <section className={styles.submission}>
         <div className="container">
-          <h2 className={styles.sectionHeading}>Your Submission Package</h2>
+          <h2 className={styles.sectionHeading}>The Three Parts</h2>
           <div className={styles.stepsRow}>
             {steps.map((s, i) => (
-              <Reveal key={s.title} delay={[0, 130, 280][i]} className={styles.step}>
+              <Reveal key={s.title} variant={['up', 'soft', 'clip'][i]} delay={[0, 130, 280][i]} className={styles.step}>
                 <span className={styles.stepNumber}>{i + 1}</span>
                 <Icon name={s.icon} size={24} className={styles.stepIcon} />
                 <h4>{s.title}</h4>
@@ -96,7 +96,7 @@ export default function HowToEnter() {
 
       <section className={styles.entryCta}>
         <div className="container">
-          <h2>Ready to Ignite?</h2>
+          <h2>The deadline is approaching.</h2>
           <p>Entries close 30 September 2026, 11:59 PM (WAT).</p>
           <Link to="/prize/enter" className="btnPrimary">Enter Now</Link>
         </div>

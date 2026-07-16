@@ -169,7 +169,6 @@ export default function JudgeDashboard() {
             <option value="all">All categories</option>
             <option value="junior">Junior</option>
             <option value="senior">Senior</option>
-            <option value="adult">Adult</option>
           </select>
         </div>
 

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../lib/auth';
 import Icon from './Icon';
 import styles from './Nav.module.css';
@@ -25,8 +25,10 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const lastScroll = useRef(0);
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { user, profile, signOut } = useAuth();
+  const handleSignOut = async () => { await signOut(); navigate('/prize/auth', { replace: true }); };
   const isPrize = pathname.startsWith('/prize');
   const links = isPrize ? prizeLinks : companyLinks;
 
@@ -119,7 +121,7 @@ export default function Nav() {
         )}
 
         {isPrize && user && (
-          <button className={styles.signOutBtn} onClick={() => { signOut(); setOpen(false); }}>
+          <button className={styles.signOutBtn} onClick={() => { handleSignOut(); setOpen(false); }}>
             Sign Out
           </button>
         )}

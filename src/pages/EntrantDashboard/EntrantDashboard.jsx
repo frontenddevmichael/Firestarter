@@ -198,7 +198,6 @@ export default function EntrantDashboard() {
               <select value={category} onChange={e => setCategory(e.target.value)} className={styles.input}>
                 <option value="junior">Junior (11 & under)</option>
                 <option value="senior">Senior (12–17)</option>
-                <option value="adult">Adult (18+)</option>
               </select>
             </div>
             <div className={styles.field}>
@@ -257,7 +256,7 @@ export default function EntrantDashboard() {
             </div>
 
             <div className={styles.stagesCard}>
-              <h4>What Happens Next</h4>
+              <h4>The Stages Ahead</h4>
               <div className={styles.stagesList}>
                 {STAGE_INFO.map(st => {
                   const done = STEPS.indexOf(st.phase) <= currentStep

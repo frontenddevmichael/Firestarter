@@ -23,8 +23,8 @@ export default function Musical() {
 
       <section className={styles.storySection}>
         <div className="container">
-          <Reveal>
-            <h2 className={styles.sectionTitle}>The story</h2>
+          <Reveal variant="soft">
+            <h2 className={styles.sectionTitle}>The Fire Stories</h2>
             <p className={styles.storyText}>
               Five characters. Each one stuck in a different force. A poet who cannot start. A musician who
               cannot finish. A painter who cannot show her work. A dancer who has lost the rhythm. A teacher
@@ -39,8 +39,8 @@ export default function Musical() {
 
       <section className={styles.creditSection}>
         <div className="container">
-          <Reveal>
-            <h2 className={styles.sectionTitle}>The team</h2>
+          <Reveal variant="clip">
+            <h2 className={styles.sectionTitle}>The founder behind it</h2>
             <p className={styles.creditText}>
               Book, music and lyrics by <strong>Shola Amaraibi</strong>. Developed through the Firestarter
               Method — each scene, each song, each movement forged through the five forces.
@@ -55,13 +55,13 @@ export default function Musical() {
       <section className={styles.ctaSection}>
         <div className="container">
           <Reveal>
-            <h2 className={styles.ctaTitle}>Be part of the journey</h2>
+            <h2 className={styles.ctaTitle}>Follow the flame</h2>
             <p className={styles.ctaText}>
               Follow the development process. Behind-the-scenes content, early drafts, and work-in-progress
               showings.
             </p>
             <Link to="/contact" className={styles.ctaBtn}>
-              Get in touch <Icon name="arrowRight" size={16} />
+              Reach out <Icon name="arrowRight" size={16} />
             </Link>
           </Reveal>
         </div>

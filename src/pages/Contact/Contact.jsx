@@ -133,7 +133,7 @@ export default function Contact() {
           <Reveal variant="up-large">
             <SparkMark />
             <span className="eyebrow">Contact &amp; FAQ</span>
-            <h1 className={styles.heroTitle}>Questions? We've Got Answers.</h1>
+            <h1 className={styles.heroTitle}>Something on your mind?</h1>
             <p className={styles.heroSub}>
               Whether it's eligibility, the judging process, or a technical hiccup during
               submission, our team is here to help.
@@ -144,15 +144,18 @@ export default function Contact() {
 
       <section className={styles.mainSection}>
         <div className={`container ${styles.grid}`}>
-          <Reveal className={styles.faqCol}>
-            <h2>Frequently Asked</h2>
+          <Reveal variant="soft" className={styles.faqCol}>
+            <h2>Common Questions</h2>
             <div className={styles.faqList}>
-              {faqs.map((item, i) => (
+              {faqs.map((item, i) => {
+                const panelId = `faq-panel-${i}`;
+                return (
                 <div key={item.q} className={styles.faqItem}>
                   <button
                     className={styles.faqQuestion}
                     onClick={() => setOpenIndex(openIndex === i ? null : i)}
                     aria-expanded={openIndex === i}
+                    aria-controls={panelId}
                   >
                     <span>{item.q}</span>
                     <Icon
@@ -162,13 +165,15 @@ export default function Contact() {
                     />
                   </button>
                   <div
+                    id={panelId}
                     className={styles.faqAnswerWrap}
                     style={{ gridTemplateRows: openIndex === i ? '1fr' : '0fr' }}
                   >
                     <p className={styles.faqAnswer}>{item.a}</p>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </Reveal>
 

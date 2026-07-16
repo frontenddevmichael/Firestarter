@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
 import { useToast } from '../../lib/toast'
@@ -17,6 +18,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip)
 export default function AdminDashboard() {
   const { profile } = useAuth()
   const toast = useToast()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const tab = searchParams.get('tab') || 'overview'
   const [entries, setEntries] = useState([])
   const [judges, setJudges] = useState([])
   const [allScores, setAllScores] = useState([])
@@ -31,10 +34,11 @@ export default function AdminDashboard() {
   const [bulkMode, setBulkMode] = useState(false)
   const [detailEntry, setDetailEntry] = useState(null)
   const [showWithdraw, setShowWithdraw] = useState(null)
-  const [withdrawReason, setWithdrawReason] = useState('')
 
   const [judgeForm, setJudgeForm] = useState({ name: '', email: '', password: '' })
   const [judgeFormMsg, setJudgeFormMsg] = useState('')
+
+  const setTab = (t) => setSearchParams({ tab: t })
 
   async function fetchData() {
     const [entriesRes, judgesRes, roundsRes, logsRes, scoresRes] = await Promise.all([
@@ -226,230 +230,168 @@ export default function AdminDashboard() {
 
   if (loading) return <div className={styles.page}><Skeleton width="100%" height="60vh" /></div>
 
-  return (
-    <div className={styles.page}>
-      <div className={styles.container}>
-        <SparkMark />
-        <CompetitionBanner compact />
-        <h1 className={styles.title}>Admin Dashboard</h1>
-        <p className={styles.email}>{profile?.email}</p>
+  const tabNav = [
+    { id: 'overview', label: 'Overview', icon: 'barChart' },
+    { id: 'entries', label: 'Entries', icon: 'fileText' },
+    { id: 'judges', label: 'Judges', icon: 'users' },
+    { id: 'phases', label: 'Phases', icon: 'clock' },
+    { id: 'logs', label: 'Logs', icon: 'search' },
+  ]
 
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}><Icon name="fileText" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{entries.length}</span><span className={styles.statLabel}>Entries</span></div>
-          <div className={styles.statCard}><Icon name="checkCircle" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{judgedCount}</span><span className={styles.statLabel}>Judged</span></div>
-          <div className={styles.statCard}><Icon name="star" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{shortlistedCount}</span><span className={styles.statLabel}>Shortlisted</span></div>
-          <div className={styles.statCard}><Icon name="award" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{finalistCount}</span><span className={styles.statLabel}>Finalists</span></div>
-          <div className={styles.statCard}><Icon name="users" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{judges.length}</span><span className={styles.statLabel}>Judges</span></div>
-          <div className={styles.statCard}><Icon name="target" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{allScores.length}</span><span className={styles.statLabel}>Scores Cast</span></div>
-        </div>
+  const renderOverview = () => (
+    <>
+      <div className={styles.statsGrid}>
+        <div className={styles.statCard}><Icon name="fileText" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{entries.length}</span><span className={styles.statLabel}>Entries</span></div>
+        <div className={styles.statCard}><Icon name="checkCircle" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{judgedCount}</span><span className={styles.statLabel}>Judged</span></div>
+        <div className={styles.statCard}><Icon name="star" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{shortlistedCount}</span><span className={styles.statLabel}>Shortlisted</span></div>
+        <div className={styles.statCard}><Icon name="award" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{finalistCount}</span><span className={styles.statLabel}>Finalists</span></div>
+        <div className={styles.statCard}><Icon name="users" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{judges.length}</span><span className={styles.statLabel}>Judges</span></div>
+        <div className={styles.statCard}><Icon name="target" size={20} className={styles.statIcon} strokeWidth={1.8} /><span className={styles.statValue}>{allScores.length}</span><span className={styles.statLabel}>Scores Cast</span></div>
+      </div>
 
-        <div className={styles.dualCol}>
-          <div className={styles.section}>
-            <h2>Entry Trend</h2>
-            <div className={styles.chartWrap}>
-              {trendData.length > 0 ? (
-                <Bar data={{
-                  labels: trendData.map(d => d.day.substring(5)),
-                  datasets: [{ label: 'Submissions', data: trendData.map(d => d.count), backgroundColor: 'rgba(0,0,0,0.85)', borderRadius: 0 }],
-                }} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: true } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.06)' } } } }} />
-              ) : <p className={styles.empty}>No entries yet.</p>}
-            </div>
-          </div>
-
-          <div className={styles.section}>
-            <h2>Score Distribution</h2>
-            <div className={styles.chartWrap}>
+      <div className={styles.dualCol}>
+        <div className={styles.section}>
+          <h2>Entry Trend</h2>
+          <div className={styles.chartWrap}>
+            {trendData.length > 0 ? (
               <Bar data={{
-                labels: Object.keys(scoreDist),
-                datasets: [{ label: 'Scores', data: Object.values(scoreDist), backgroundColor: Object.values(scoreDist).map(c => c > 0 ? '#d32f2f' : '#e0e0e0'), borderRadius: 0 }],
+                labels: trendData.map(d => d.day.substring(5)),
+                datasets: [{ label: 'Submissions', data: trendData.map(d => d.count), backgroundColor: 'rgba(0,0,0,0.85)', borderRadius: 0 }],
               }} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: true } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.06)' } } } }} />
-            </div>
+            ) : <p className={styles.empty}>No entries yet.</p>}
           </div>
         </div>
 
-        <div className={styles.dualCol}>
-          <div className={styles.section}>
-            <h2>Phase Timeline</h2>
-            <div className={styles.timeline}>
-              {['open', 'judging', 'shortlisted', 'finalists', 'closed'].map(p => {
-                const hist = phaseHistory.find(h => h.phase === p)
-                return (
-                  <div key={p} className={`${styles.tlItem} ${hist ? styles.tlDone : ''} ${p === currentPhase ? styles.tlCurrent : ''}`}>
-                    <div className={styles.tlDot}>{hist ? '✓' : '○'}</div>
-                    <div className={styles.tlContent}>
-                      <span className={styles.tlPhase}>{p.charAt(0).toUpperCase() + p.slice(1)}</span>
-                      {hist && <span className={styles.tlDate}>{new Date(hist.phase_started).toLocaleDateString()}</span>}
-                    </div>
+        <div className={styles.section}>
+          <h2>Score Distribution</h2>
+          <div className={styles.chartWrap}>
+            <Bar data={{
+              labels: Object.keys(scoreDist),
+              datasets: [{ label: 'Scores', data: Object.values(scoreDist), backgroundColor: Object.values(scoreDist).map(c => c > 0 ? '#d32f2f' : '#e0e0e0'), borderRadius: 0 }],
+            }} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: true } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.06)' } } } }} />
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h2>Phase Timeline</h2>
+        <div className={styles.timeline}>
+          {['open', 'judging', 'shortlisted', 'finalists', 'closed'].map(p => {
+            const hist = phaseHistory.find(h => h.phase === p)
+            return (
+              <div key={p} className={`${styles.tlItem} ${hist ? styles.tlDone : ''} ${p === currentPhase ? styles.tlCurrent : ''}`}>
+                <div className={styles.tlDot}>{hist ? '✓' : '○'}</div>
+                <div className={styles.tlContent}>
+                  <span className={styles.tlPhase}>{p.charAt(0).toUpperCase() + p.slice(1)}</span>
+                  {hist && <span className={styles.tlDate}>{new Date(hist.phase_started).toLocaleDateString()}</span>}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </>
+  )
+
+  const renderEntries = () => (
+    <>
+      <div className={styles.sectionHeader}>
+        <h2 className={styles.sectionTitle}>Entries ({filteredEntries.length})</h2>
+        <div className={styles.headerActions}>
+          {bulkMode && selected.size > 0 && (
+            <div className={styles.bulkBar}>
+              <span className={styles.bulkCount}>{selected.size} selected</span>
+              <select className={styles.select} onChange={e => bulkAssign(e.target.value)} defaultValue="">
+                <option value="" disabled>Assign judge</option>
+                {judges.map(j => <option key={j.id} value={j.id}>{j.full_name || j.email}</option>)}
+              </select>
+              <select className={styles.select} onChange={e => bulkStatus(e.target.value)} defaultValue="">
+                <option value="" disabled>Set status</option>
+                <option value="shortlisted">Shortlist</option>
+                <option value="finalist">Finalist</option>
+                <option value="submitted">Reset to Submitted</option>
+              </select>
+              <button className={styles.filterBtn} onClick={() => { setSelected(new Set()); setBulkMode(false) }}>Cancel</button>
+            </div>
+          )}
+          <button className={styles.filterBtn} onClick={() => { setBulkMode(!bulkMode); if (bulkMode) setSelected(new Set()) }}>
+            {bulkMode ? 'Exit Bulk' : 'Bulk Select'}
+          </button>
+          <input className={styles.searchInput} placeholder="Search entries..." value={search} onChange={e => setSearch(e.target.value)} />
+          <button className="btnPrimary" onClick={() => {
+            const csv = [['Ref','Entrant Name','Entrant Email','Category','Poem (first line)','Score','Status'].join(',')].concat(
+              entriesWithMeta.map(e => [
+                `FS-${e.submitted_at?.substring(0, 4) || '2026'}-${e.id.substring(0, 4)}`,
+                `"${(e.profiles?.full_name || '').replace(/"/g, '""')}"`,
+                `"${(e.profiles?.email || '').replace(/"/g, '""')}"`,
+                e.category,
+                `"${(e.poem_text || '').split('\n')[0].replace(/"/g, '""')}"`,
+                e.avgScore,
+                e.status || 'submitted',
+              ].join(','))
+            ).join('\n')
+            const blob = new Blob([csv], { type: 'text/csv' })
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url; a.download = `entries-${new Date().toISOString().substring(0, 10)}.csv`; a.click()
+            URL.revokeObjectURL(url)
+            toast('CSV downloaded')
+          }} style={{ fontSize: 'var(--fs-caption)', padding: '0.5rem 1rem' }}>Download CSV</button>
+        </div>
+      </div>
+      <div className={styles.tableWrap}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              {bulkMode && <th><input type="checkbox" checked={selected.size === filteredEntries.length && filteredEntries.length > 0} onChange={toggleAll} /></th>}
+              <th className={styles.sortTh} onClick={() => toggleSort('entrant')}>Entrant{sortIcon('entrant')}</th>
+              <th className={styles.sortTh} onClick={() => toggleSort('poemTitle')}>Poem{sortIcon('poemTitle')}</th>
+              <th className={styles.sortTh} onClick={() => toggleSort('category')}>Cat{sortIcon('category')}</th>
+              <th className={styles.sortTh} onClick={() => toggleSort('avgScore')}>Score{sortIcon('avgScore')}</th>
+              <th className={styles.sortTh} onClick={() => toggleSort('status')}>Status{sortIcon('status')}</th>
+              <th>Judge</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredEntries.map(e => (
+              <tr key={e.id} className={e.status === 'withdrawn' ? styles.withdrawnRow : ''}>
+                {bulkMode && <td><input type="checkbox" checked={selected.has(e.id)} onChange={() => toggleSelect(e.id)} /></td>}
+                <td>
+                  <div className={styles.entrantInfo}>
+                    <span className={styles.entrantName}>{e.profiles?.full_name || '—'}</span>
+                    <span className={styles.entrantEmail}>{e.profiles?.email || '—'}</span>
                   </div>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className={styles.section}>
-            <h2>Phase Control</h2>
-            <div className={styles.phaseGrid}>
-              {['open', 'judging', 'shortlisted', 'finalists', 'closed'].map(p => (
-                <button key={p} className={p === currentPhase ? styles.phaseBtnActive : styles.phaseBtn} onClick={() => changePhase(p)} disabled={p === currentPhase}>
-                  {p.charAt(0).toUpperCase() + p.slice(1)}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.section}>
-          <h2>Create Judge</h2>
-          {judgeFormMsg && <p className={judgeFormMsg.includes('created') ? styles.success : styles.error}>{judgeFormMsg}</p>}
-          <form onSubmit={createJudge} className={styles.judgeForm}>
-            <input placeholder="Full Name" value={judgeForm.name} onChange={e => setJudgeForm({ ...judgeForm, name: e.target.value })} className={styles.input} />
-            <input type="email" placeholder="Email" value={judgeForm.email} onChange={e => setJudgeForm({ ...judgeForm, email: e.target.value })} className={styles.input} />
-            <PasswordInput placeholder="Password" value={judgeForm.password} onChange={e => setJudgeForm({ ...judgeForm, password: e.target.value })} />
-            <button type="submit" className="btnPrimary">Create Judge</button>
-          </form>
-        </div>
-
-        <div className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <h2>Entries ({filteredEntries.length})</h2>
-            <div className={styles.headerActions}>
-              {bulkMode && selected.size > 0 && (
-                <div className={styles.bulkBar}>
-                  <span className={styles.bulkCount}>{selected.size} selected</span>
-                  <select className={styles.select} onChange={e => bulkAssign(e.target.value)} defaultValue="">
+                </td>
+                <td className={styles.poemPreview} onClick={() => setDetailEntry(e)} style={{ cursor: 'pointer', textDecoration: 'underline', textDecorationColor: 'var(--color-cream)' }}>
+                  {e.poemTitle}
+                </td>
+                <td><span className={styles.catBadge}>{e.category}</span></td>
+                <td className={styles.scoreCell}>{e.avgScore}</td>
+                <td><span className={`${styles.statusBadge} ${e.status === 'shortlisted' ? styles.s_shortlisted : ''} ${e.status === 'finalist' ? styles.s_finalist : ''} ${e.status === 'withdrawn' ? styles.s_withdrawn : ''}`}>{e.status}</span></td>
+                <td>
+                  <select className={styles.select} onChange={ev => assignJudge(e.id, ev.target.value)} defaultValue="">
                     <option value="" disabled>Assign judge</option>
                     {judges.map(j => <option key={j.id} value={j.id}>{j.full_name || j.email}</option>)}
                   </select>
-                  <select className={styles.select} onChange={e => bulkStatus(e.target.value)} defaultValue="">
-                    <option value="" disabled>Set status</option>
-                    <option value="shortlisted">Shortlist</option>
-                    <option value="finalist">Finalist</option>
-                    <option value="submitted">Reset to Submitted</option>
-                  </select>
-                  <button className={styles.filterBtn} onClick={() => { setSelected(new Set()); setBulkMode(false) }}>Cancel</button>
-                </div>
-              )}
-              <button className={styles.filterBtn} onClick={() => { setBulkMode(!bulkMode); if (bulkMode) setSelected(new Set()) }}>
-                {bulkMode ? 'Exit Bulk' : 'Bulk Select'}
-              </button>
-              <input className={styles.searchInput} placeholder="Search entries..." value={search} onChange={e => setSearch(e.target.value)} />
-              <button className="btnPrimary" onClick={() => {
-                const csv = [['Ref','Entrant Name','Entrant Email','Category','Poem (first line)','Score','Status'].join(',')].concat(
-                  entriesWithMeta.map(e => [
-                    `FS-${e.submitted_at?.substring(0, 4) || '2026'}-${e.id.substring(0, 4)}`,
-                    `"${(e.profiles?.full_name || '').replace(/"/g, '""')}"`,
-                    `"${(e.profiles?.email || '').replace(/"/g, '""')}"`,
-                    e.category,
-                    `"${(e.poem_text || '').split('\n')[0].replace(/"/g, '""')}"`,
-                    e.avgScore,
-                    e.status || 'submitted',
-                  ].join(','))
-                ).join('\n')
-                const blob = new Blob([csv], { type: 'text/csv' })
-                const url = URL.createObjectURL(blob)
-                const a = document.createElement('a')
-                a.href = url; a.download = `entries-${new Date().toISOString().substring(0, 10)}.csv`; a.click()
-                URL.revokeObjectURL(url)
-                toast('CSV downloaded')
-              }} style={{ fontSize: 'var(--fs-caption)', padding: '0.5rem 1rem' }}>Download CSV</button>
-            </div>
-          </div>
-          <div className={styles.tableWrap}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  {bulkMode && <th><input type="checkbox" checked={selected.size === filteredEntries.length && filteredEntries.length > 0} onChange={toggleAll} /></th>}
-                  <th className={styles.sortTh} onClick={() => toggleSort('entrant')}>Entrant{sortIcon('entrant')}</th>
-                  <th className={styles.sortTh} onClick={() => toggleSort('poemTitle')}>Poem{sortIcon('poemTitle')}</th>
-                  <th className={styles.sortTh} onClick={() => toggleSort('category')}>Cat{sortIcon('category')}</th>
-                  <th className={styles.sortTh} onClick={() => toggleSort('avgScore')}>Score{sortIcon('avgScore')}</th>
-                  <th className={styles.sortTh} onClick={() => toggleSort('status')}>Status{sortIcon('status')}</th>
-                  <th>Judge</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredEntries.map(e => (
-                  <tr key={e.id} className={e.status === 'withdrawn' ? styles.withdrawnRow : ''}>
-                    {bulkMode && <td><input type="checkbox" checked={selected.has(e.id)} onChange={() => toggleSelect(e.id)} /></td>}
-                    <td>
-                      <div className={styles.entrantInfo}>
-                        <span className={styles.entrantName}>{e.profiles?.full_name || '—'}</span>
-                        <span className={styles.entrantEmail}>{e.profiles?.email || '—'}</span>
-                      </div>
-                    </td>
-                    <td className={styles.poemPreview} onClick={() => setDetailEntry(e)} style={{ cursor: 'pointer', textDecoration: 'underline', textDecorationColor: 'var(--color-cream)' }}>
-                      {e.poemTitle}
-                    </td>
-                    <td><span className={styles.catBadge}>{e.category}</span></td>
-                    <td className={styles.scoreCell}>{e.avgScore}</td>
-                    <td><span className={`${styles.statusBadge} ${e.status === 'shortlisted' ? styles.s_shortlisted : ''} ${e.status === 'finalist' ? styles.s_finalist : ''} ${e.status === 'withdrawn' ? styles.s_withdrawn : ''}`}>{e.status}</span></td>
-                    <td>
-                      <select className={styles.select} onChange={ev => assignJudge(e.id, ev.target.value)} defaultValue="">
-                        <option value="" disabled>Assign judge</option>
-                        {judges.map(j => <option key={j.id} value={j.id}>{j.full_name || j.email}</option>)}
-                      </select>
-                      {e.judgeNames && <div className={styles.assignedJudge}>{e.judgeNames}</div>}
-                    </td>
-                    <td>
-                      <div className={styles.actionCell}>
-                        <select className={styles.select} onChange={ev => updateEntryStatus(e.id, ev.target.value)} defaultValue="">
-                          <option value="" disabled>Set status</option>
-                          <option value="shortlisted">Shortlist</option>
-                          <option value="finalist">Finalist</option>
-                          <option value="submitted">Reset to Submitted</option>
-                        </select>
-                        <button className={styles.withdrawBtn} onClick={() => setShowWithdraw(e)} title="Withdraw entry"><Icon name="x" size={12} strokeWidth={2.5} /></button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-                {filteredEntries.length === 0 && <tr><td colSpan={bulkMode ? 8 : 7} className={styles.empty}>No entries found.</td></tr>}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className={styles.dualCol}>
-          <div className={styles.section}>
-            <h2>Judges ({judges.length})</h2>
-            <div className={styles.tableWrap}>
-              <table className={styles.table}>
-                <thead><tr><th>Name</th><th>Email</th><th>Scored</th></tr></thead>
-                <tbody>
-                  {judgeActivity.map(j => (
-                    <tr key={j.id}>
-                      <td className={styles.judgeName}>{j.full_name || '—'}</td>
-                      <td>{j.email}</td>
-                      <td><span className={styles.scoredCount}>{j.scored}</span></td>
-                    </tr>
-                  ))}
-                  {judgeActivity.length === 0 && <tr><td colSpan="3" className={styles.empty}>No judges.</td></tr>}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className={styles.section}>
-            <h2>Email Logs</h2>
-            <div className={styles.tableWrap}>
-              <table className={styles.table}>
-                <thead><tr><th>Recipient</th><th>Type</th><th>Status</th><th>Sent</th></tr></thead>
-                <tbody>
-                  {emailLogs.map(l => (
-                    <tr key={l.id}>
-                      <td>{l.recipient}</td>
-                      <td><span className={styles.emailType}>{l.email_type}</span></td>
-                      <td><span className={l.status === 'sent' ? styles.success : styles.error}>{l.status}</span></td>
-                      <td className={styles.dateCell}>{new Date(l.sent_at).toLocaleString()}</td>
-                    </tr>
-                  ))}
-                  {emailLogs.length === 0 && <tr><td colSpan="4" className={styles.empty}>No email logs.</td></tr>}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+                  {e.judgeNames && <div className={styles.assignedJudge}>{e.judgeNames}</div>}
+                </td>
+                <td>
+                  <div className={styles.actionCell}>
+                    <select className={styles.select} onChange={ev => updateEntryStatus(e.id, ev.target.value)} defaultValue="">
+                      <option value="" disabled>Set status</option>
+                      <option value="shortlisted">Shortlist</option>
+                      <option value="finalist">Finalist</option>
+                      <option value="submitted">Reset to Submitted</option>
+                    </select>
+                    <button className={styles.withdrawBtn} onClick={() => setShowWithdraw(e)} title="Withdraw entry"><Icon name="x" size={12} strokeWidth={2.5} /></button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+            {filteredEntries.length === 0 && <tr><td colSpan={bulkMode ? 8 : 7} className={styles.empty}>No entries found.</td></tr>}
+          </tbody>
+        </table>
       </div>
 
       {detailEntry && (
@@ -500,12 +442,138 @@ export default function AdminDashboard() {
         open={!!showWithdraw}
         title="Withdraw Entry"
         onConfirm={withdrawEntry}
-        onCancel={() => { setShowWithdraw(null); setWithdrawReason('') }}
+        onCancel={() => { setShowWithdraw(null) }}
         confirmLabel="Withdraw"
         danger
       >
         Withdraw the entry from {showWithdraw?.profiles?.full_name || 'this entrant'}? This marks it as withdrawn.
       </ConfirmModal>
+    </>
+  )
+
+  const renderJudges = () => (
+    <div className={styles.dualCol}>
+      <div className={styles.section}>
+        <h2>Judges ({judges.length})</h2>
+        <div className={styles.tableWrap}>
+          <table className={styles.table}>
+            <thead><tr><th>Name</th><th>Email</th><th>Scored</th></tr></thead>
+            <tbody>
+              {judgeActivity.map(j => (
+                <tr key={j.id}>
+                  <td className={styles.judgeName}>{j.full_name || '—'}</td>
+                  <td>{j.email}</td>
+                  <td><span className={styles.scoredCount}>{j.scored}</span></td>
+                </tr>
+              ))}
+              {judgeActivity.length === 0 && <tr><td colSpan="3" className={styles.empty}>No judges.</td></tr>}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h2>Create Judge</h2>
+        {judgeFormMsg && <p className={judgeFormMsg.includes('created') ? styles.success : styles.error}>{judgeFormMsg}</p>}
+        <form onSubmit={createJudge} className={styles.judgeForm}>
+          <input placeholder="Full Name" value={judgeForm.name} onChange={e => setJudgeForm({ ...judgeForm, name: e.target.value })} className={styles.input} />
+          <input type="email" placeholder="Email" value={judgeForm.email} onChange={e => setJudgeForm({ ...judgeForm, email: e.target.value })} className={styles.input} />
+          <PasswordInput placeholder="Password" value={judgeForm.password} onChange={e => setJudgeForm({ ...judgeForm, password: e.target.value })} />
+          <button type="submit" className="btnPrimary">Create Judge</button>
+        </form>
+      </div>
+    </div>
+  )
+
+  const renderPhases = () => (
+    <div className={styles.dualCol}>
+      <div className={styles.section}>
+        <h2>Phase Timeline</h2>
+        <div className={styles.timeline}>
+          {['open', 'judging', 'shortlisted', 'finalists', 'closed'].map(p => {
+            const hist = phaseHistory.find(h => h.phase === p)
+            return (
+              <div key={p} className={`${styles.tlItem} ${hist ? styles.tlDone : ''} ${p === currentPhase ? styles.tlCurrent : ''}`}>
+                <div className={styles.tlDot}>{hist ? '✓' : '○'}</div>
+                <div className={styles.tlContent}>
+                  <span className={styles.tlPhase}>{p.charAt(0).toUpperCase() + p.slice(1)}</span>
+                  {hist && <span className={styles.tlDate}>{new Date(hist.phase_started).toLocaleDateString()}</span>}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      <div className={styles.section}>
+        <h2>Advance Phase</h2>
+        <p className={styles.phaseDesc}>Move the competition to the next stage. Each phase locks the previous actions.</p>
+        <div className={styles.phaseGrid}>
+          {['open', 'judging', 'shortlisted', 'finalists', 'closed'].map(p => (
+            <button key={p} className={p === currentPhase ? styles.phaseBtnActive : styles.phaseBtn} onClick={() => changePhase(p)} disabled={p === currentPhase}>
+              {p.charAt(0).toUpperCase() + p.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderLogs = () => (
+    <div className={styles.section}>
+      <h2>Email Logs</h2>
+      <p className={styles.sectionDesc}>Recent emails sent by the system, ordered by send time.</p>
+      <div className={styles.tableWrap}>
+        <table className={styles.table}>
+          <thead><tr><th>Recipient</th><th>Type</th><th>Status</th><th>Sent</th></tr></thead>
+          <tbody>
+            {emailLogs.map(l => (
+              <tr key={l.id}>
+                <td>{l.recipient}</td>
+                <td><span className={styles.emailType}>{l.email_type}</span></td>
+                <td><span className={l.status === 'sent' ? styles.success : styles.error}>{l.status}</span></td>
+                <td className={styles.dateCell}>{new Date(l.sent_at).toLocaleString()}</td>
+              </tr>
+            ))}
+            {emailLogs.length === 0 && <tr><td colSpan="4" className={styles.empty}>No email logs.</td></tr>}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <SparkMark />
+        <CompetitionBanner compact />
+        <div className={styles.titleRow}>
+          <div>
+            <h1 className={styles.title}>Admin</h1>
+            <p className={styles.email}>{profile?.email}</p>
+          </div>
+        </div>
+
+        {/* Tab navigation */}
+        <nav className={styles.tabNav}>
+          {tabNav.map(t => (
+            <button
+              key={t.id}
+              className={`${styles.tabBtn} ${tab === t.id ? styles.tabActive : ''}`}
+              onClick={() => setTab(t.id)}
+            >
+              <Icon name={t.icon} size={14} className={styles.tabIcon} />
+              {t.label}
+            </button>
+          ))}
+        </nav>
+
+        {tab === 'overview' && renderOverview()}
+        {tab === 'entries' && renderEntries()}
+        {tab === 'judges' && renderJudges()}
+        {tab === 'phases' && renderPhases()}
+        {tab === 'logs' && renderLogs()}
+      </div>
     </div>
   )
 }

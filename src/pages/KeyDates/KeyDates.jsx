@@ -63,6 +63,7 @@ export default function KeyDates() {
             {milestones.map((m, i) => (
               <Reveal
                 key={m.label}
+                variant={['up', 'soft', 'up', 'clip', 'up'][i]}
                 delay={[0, 120, 260, 420, 500][i]}
                 className={`${styles.milestone} ${m.highlight ? styles.milestoneHighlight : ''}`}
               >

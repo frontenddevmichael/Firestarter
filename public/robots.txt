@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /prize/auth
+Disallow: /prize/dashboard
+Disallow: /prize/judge
+Disallow: /prize/admin
+Disallow: /prize/reset-password
 
 Sitemap: https://firestartermethod.com/sitemap.xml

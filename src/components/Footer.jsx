@@ -1,20 +1,10 @@
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Icon from './Icon';
 import styles from './Footer.module.css';
 
 export default function Footer() {
   const { pathname } = useLocation();
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState('idle');
   const isPrize = pathname.startsWith('/prize');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
-    setStatus('success');
-    setEmail('');
-  };
 
   return (
     <footer className={styles.footer}>
@@ -24,24 +14,6 @@ export default function Footer() {
           <p className={styles.copy}>
             © 2026 Firestarter Method. All Rights Reserved.
           </p>
-          <div className={styles.signup}>
-            <span className={styles.footerLabel}>I write to this list often. Sometimes it is a poem. Sometimes it is the work. Come in.</span>
-            {status === 'success' ? (
-              <p className={styles.signupSuccess}>You are in. Watch your inbox.</p>
-            ) : (
-              <form className={styles.signupForm} onSubmit={handleSubmit}>
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className={styles.signupInput}
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <button type="submit" className={styles.signupBtn}>Subscribe</button>
-              </form>
-            )}
-          </div>
         </div>
 
         <div className={styles.col}>

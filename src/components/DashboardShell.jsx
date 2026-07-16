@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../lib/auth';
 import Icon from './Icon';
 import styles from './DashboardShell.module.css';
@@ -17,6 +17,8 @@ const sidebarConfig = {
     { label: 'Overview', href: '/prize/admin', icon: 'barChart', end: true },
     { label: 'Entries', href: '/prize/admin?tab=entries', icon: 'fileText' },
     { label: 'Judges', href: '/prize/admin?tab=judges', icon: 'users' },
+    { label: 'Phases', href: '/prize/admin?tab=phases', icon: 'clock' },
+    { label: 'Logs', href: '/prize/admin?tab=logs', icon: 'search' },
   ],
 };
 
@@ -25,19 +27,33 @@ const extraLinks = [
 ];
 
 function getPageTitle(pathname) {
+  const params = new URLSearchParams(pathname.split('?')[1] || '');
+  const tab = params.get('tab');
   if (pathname.startsWith('/prize/dashboard')) return 'My Dashboard';
   if (pathname.startsWith('/prize/judge')) return 'Judge Panel';
-  if (pathname.startsWith('/prize/admin')) return 'Admin';
+  if (pathname.startsWith('/prize/admin')) {
+    if (tab === 'entries') return 'Entries';
+    if (tab === 'judges') return 'Judges';
+    if (tab === 'phases') return 'Phases';
+    if (tab === 'logs') return 'Email Logs';
+    return 'Overview';
+  }
   return 'Dashboard';
 }
 
 export default function DashboardShell({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { profile, signOut } = useAuth();
   const role = profile?.role || 'entrant';
   const links = sidebarConfig[role] || sidebarConfig.entrant;
   const title = getPageTitle(pathname);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/prize/auth', { replace: true });
+  };
   const initials = profile?.full_name
     ? profile.full_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
     : profile?.email?.[0]?.toUpperCase() || '?';
@@ -87,7 +103,7 @@ export default function DashboardShell({ children }) {
         <div className={styles.sidebarSpacer} />
 
         <div className={styles.sidebarFooter}>
-          <button className={styles.signOutLink} onClick={signOut}>
+          <button className={styles.signOutLink} onClick={handleSignOut}>
             <Icon name="x" size={14} /> Sign Out
           </button>
         </div>

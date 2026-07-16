@@ -11,7 +11,7 @@ export default function SparkPack() {
         <div className="container">
           <Reveal variant="up-large">
             <SparkMark />
-            <span className="eyebrow">Free Resource</span>
+            <span className="eyebrow">Free Spark Kit</span>
             <h1 className={styles.heroTitle}>The Spark Pack.</h1>
             <p className={styles.heroSub}>
               A free pack for young poets, parents, and teachers. It explains the theme, what judges look for, and everything you need to enter the Firestarter Young Poets Prize 2026.
@@ -22,8 +22,8 @@ export default function SparkPack() {
 
       <section className={styles.whatsInside}>
         <div className="container">
-          <Reveal>
-            <h2 className={styles.sectionHeading}>What's Inside</h2>
+          <Reveal variant="soft">
+            <h2 className={styles.sectionHeading}>What the Pack Holds</h2>
             <ul className={styles.list}>
               <li><Icon name="pen" size={18} className={styles.listIcon} /> Writing prompts and plain advice on writing in your own voice</li>
               <li><Icon name="star" size={18} className={styles.listIcon} /> The five things every poem is judged on, explained simply</li>
@@ -36,8 +36,8 @@ export default function SparkPack() {
 
       <section className={styles.download}>
         <div className="container">
-          <Reveal className={styles.downloadInner}>
-            <h2 className={styles.downloadTitle}>Ready to get started</h2>
+          <Reveal variant="clip" className={styles.downloadInner}>
+            <h2 className={styles.downloadTitle}>Your first step.</h2>
             <p className={styles.downloadSub}>
               Download the Spark Pack
             </p>

@@ -16,7 +16,7 @@ export default function CompanyAbout() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <SparkMark drawIn />
-            <span className="eyebrow">About</span>
+            <span className="eyebrow">About the Method</span>
             <h1 className={styles.heroTitle}>The Firestarter Method</h1>
             <p className={styles.heroSub}>
               A philosophy of creative ignition — building stages for young voices
@@ -34,20 +34,20 @@ export default function CompanyAbout() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
             <img src="/WEBSITEIMAGE.jpeg" alt="Shola Amaraibi" className={styles.panelPhoto} loading="lazy" decoding="async" />
           </motion.div>
           <motion.div
             className={styles.storyText}
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           >
             <SparkMark />
-            <span className="eyebrow">The Story</span>
-            <h2>[Founder Name]</h2>
+            <span className="eyebrow">The Spark</span>
+            <h2>Shola Amaraibi</h2>
             <p>
               The Firestarter Method was not written in a classroom. It was forged in
               the space between breakthrough and proof — the gap where insight lives
@@ -71,8 +71,8 @@ export default function CompanyAbout() {
             className={styles.philosophyInner}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, ease: [0.65, 0, 0.35, 1] }}
           >
             <SparkMark />
             <span className="eyebrow">The Philosophy</span>
@@ -97,13 +97,13 @@ export default function CompanyAbout() {
         <div className="container">
           <motion.div
             className={styles.ctaInner}
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
           >
             <SparkMark />
-            <h2>Join the movement.</h2>
+            <h2>The stage is already burning.</h2>
             <p>
               Whether you're a student ready to enter the prize, a parent supporting
               a young poet, or a partner who shares the vision — there's a place
@@ -114,7 +114,7 @@ export default function CompanyAbout() {
                 Enter the Prize <Icon name="arrowRight" size={16} />
               </Link>
               <Link to="/contact" className="btnSecondary">
-                Get in Touch
+                Write to us
               </Link>
             </div>
           </motion.div>
