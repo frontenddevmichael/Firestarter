@@ -35,6 +35,8 @@ export default function FieraFlow({ className = '' }) {
   const [phase, setPhase] = useState(0);
 
   useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
     const t = setInterval(() => {
       setPhase(p => (p + 1) % 8);
     }, 1200);

@@ -92,9 +92,9 @@ const meta = {
   '/prize/spark-pack': { title: 'Spark Pack — Firestarter Young Poets Prize', desc: 'Download the Spark Pack — everything you need to prepare your entry.' },
   '/prize/contact': { title: 'Contact — Firestarter Young Poets Prize', desc: 'Get in touch with the Firestarter Young Poets Prize team.' },
   '/prize/auth': { title: 'Sign In — Firestarter Young Poets Prize', desc: 'Sign in to the Firestarter Young Poets Prize.' },
-  '/prize/dashboard': { title: 'My Entry — Firestarter Young Poets Prize', desc: 'Your Firestarter Young Poets Prize entry dashboard.' },
-  '/prize/judge': { title: 'Judge Dashboard — Firestarter Young Poets Prize', desc: 'Score and review assigned entries.' },
-  '/prize/admin': { title: 'Admin — Firestarter Young Poets Prize', desc: 'Admin panel for the Firestarter Young Poets Prize.' },
+  '/prize/dashboard': { title: 'My Entry — Firestarter Young Poets Prize', desc: 'Your Firestarter Young Poets Prize entry dashboard.', noindex: true },
+  '/prize/judge': { title: 'Judge Dashboard — Firestarter Young Poets Prize', desc: 'Score and review assigned entries.', noindex: true },
+  '/prize/admin': { title: 'Admin — Firestarter Young Poets Prize', desc: 'Admin panel for the Firestarter Young Poets Prize.', noindex: true },
   '/prize/reset-password': { title: 'Reset Password — Firestarter Young Poets Prize', desc: 'Reset your Firestarter Young Poets Prize password.' },
 };
 
@@ -118,6 +118,8 @@ function PageMeta() {
     if (el) el.setAttribute('content', `https://firestartermethod.com${pathname}`);
     el = document.querySelector('link[rel="canonical"]');
     if (el) el.setAttribute('href', `https://firestartermethod.com${pathname}`);
+    el = document.querySelector('meta[name="robots"]');
+    if (el) el.setAttribute('content', m.noindex ? 'noindex' : 'index, follow');
   }, [pathname]);
   useEffect(() => { setMeta(); }, [setMeta]);
   return null;

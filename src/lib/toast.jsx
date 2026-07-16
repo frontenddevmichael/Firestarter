@@ -24,7 +24,7 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={toast}>
       {children}
-      <div className="toast-container">
+      <div className="toast-container" aria-live="polite" role="alert">
         {toasts.map(t => (
           <div key={t.id} className={`toast toast-${t.type}`} onClick={() => remove(t.id)}>
             <span className="toast-icon">

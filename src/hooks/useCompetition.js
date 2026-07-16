@@ -29,14 +29,16 @@ export function useCompetition() {
       return
     }
     const target = new Date(targetDate + 'T23:59:59')
-    const entries = Object.entries(KEY_DATES)
-    const next = entries.find(([d]) => new Date(d) >= target) || entries[entries.length - 1]
+    let label = ''
+    for (const [d, l] of Object.entries(KEY_DATES)) {
+      if (d === targetDate) { label = l; break }
+    }
 
     const tick = () => {
       const now = new Date()
       const diff = target - now
       if (diff <= 0) {
-        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0, target: targetDate, label: next ? next[1] : '' })
+        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0, target: targetDate, label })
         return
       }
       setCountdown({
@@ -45,7 +47,7 @@ export function useCompetition() {
         minutes: Math.floor((diff % 3600000) / 60000),
         seconds: Math.floor((diff % 60000) / 1000),
         target: targetDate,
-        label: next ? next[1] : '',
+        label,
       })
     }
     tick()

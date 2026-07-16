@@ -6,7 +6,7 @@ export default function ProtectedRoute({ children, requiredRole }) {
   const { user, profile, loading } = useAuth()
   const location = useLocation()
 
-  if (loading) return <Skeleton />
+  if (loading) return <Skeleton width="100%" height="60vh" />
 
   if (!user) return <Navigate to="/prize/auth" state={{ from: location }} replace />
 
