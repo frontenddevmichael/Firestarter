@@ -7,12 +7,27 @@
   border: 2px solid var(--color-charcoal);
   font-size: var(--fs-caption);
   flex-wrap: wrap;
+  container-type: inline-size;
 }
 
 .compact {
   padding: 0.4rem var(--space-sm);
   margin-bottom: var(--space-sm);
   font-size: 0.7rem;
+}
+
+@container (max-width: 360px) {
+  .banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.7rem;
+  }
+
+  .countdown {
+    margin-left: 0;
+  }
 }
 
 .badge {

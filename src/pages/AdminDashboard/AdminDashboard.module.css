@@ -110,9 +110,14 @@
 }
 
 .chartWrap {
-  height: 160px;
-  display: flex;
-  align-items: center;
+  position: relative;
+  height: 180px;
+  width: 100%;
+  min-width: 0;
+}
+
+.chartWrap canvas {
+  max-width: 100%;
 }
 
 .timeline {
@@ -236,7 +241,19 @@
 
 .filterBtn:hover { background: var(--color-charcoal); color: white; }
 
-.tableWrap { overflow-x: auto; }
+.tableWrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* fade hint to indicate scrollability */
+  background:
+    linear-gradient(to right, white 30%, transparent),
+    linear-gradient(to left, white 30%, transparent) 100% 0,
+    linear-gradient(to right, rgba(0,0,0,0.04), transparent),
+    linear-gradient(to left, rgba(0,0,0,0.04), transparent) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 40px 100%, 40px 100%, 20px 100%, 20px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
 
 .table {
   width: 100%;

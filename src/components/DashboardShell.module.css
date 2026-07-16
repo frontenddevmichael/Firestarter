@@ -18,6 +18,9 @@
   z-index: 40;
   overflow-y: auto;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .sidebarLogo {
@@ -202,6 +205,7 @@
 .content {
   flex: 1;
   padding: var(--space-lg);
+  container-type: inline-size;
 }
 
 /* ====== Bottom tab bar (mobile) ====== */
@@ -270,15 +274,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 2px;
     text-decoration: none;
     color: rgba(250, 247, 242, 0.5);
     font-size: 10px;
     font-family: var(--font-body);
     letter-spacing: 0.05em;
-    padding: 4px 12px;
+    padding: 4px 8px;
+    min-height: 44px;
+    min-width: 44px;
     transition: color 0.2s;
-    min-width: 0;
   }
 
   .bottomTabActive {

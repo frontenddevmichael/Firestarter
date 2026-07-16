@@ -16,55 +16,37 @@
   --font-display: "EB Garamond", Georgia, serif;
   --font-body: "Work Sans", "Inter", sans-serif;
 
-  /* Type scale — matches the Stitch export's Tailwind config exactly */
-  --fs-display-xl: 4.5rem;
-  /* 72px, lh 64px, letter-spacing -0.04em, weight 600 — desktop hero */
-  --fs-display-xl-mobile: 3rem;
-  /* 48px, lh 44px, letter-spacing -0.03em, weight 600 — mobile hero */
-  --fs-headline-lg: 2.5rem;
-  /* 40px, lh 44px, letter-spacing -0.02em, weight 500 */
-  --fs-headline-lg-mobile: 2rem;
-  /* 32px, lh 36px, letter-spacing -0.01em, weight 500 */
-  --fs-headline-md: 1.75rem;
-  /* 28px, lh 32px, weight 500 */
-  --fs-body-lg: 1.125rem;
-  /* 18px, lh 28px, weight 400 */
-  --fs-body-md: 1rem;
-  /* 16px, lh 24px, weight 400 */
+  /*
+    Fluid type scale — uses clamp() to scale continuously between 320px (20rem)
+    and 1200px (75rem). No fixed breakpoints for type sizing.
+  */
+  --fs-display-xl: clamp(3rem, 2.4546rem + 2.727vw, 4.5rem);
+  --fs-display-xl-mobile: var(--fs-display-xl);
+  --fs-headline-lg: clamp(2rem, 1.8182rem + 0.909vw, 2.5rem);
+  --fs-headline-lg-mobile: var(--fs-headline-lg);
+  --fs-headline-md: clamp(1.5rem, 1.4091rem + 0.455vw, 1.75rem);
+  --fs-body-lg: clamp(1rem, 0.9545rem + 0.227vw, 1.125rem);
+  --fs-body-md: clamp(0.9375rem, 0.9148rem + 0.114vw, 1rem);
   --fs-caption: 0.875rem;
-  /* 14px, lh 20px, weight 400 */
   --fs-label-caps: 0.75rem;
-  /* 12px, lh 16px, letter-spacing 0.1em, weight 600 — always uppercase */
 
   --lh-tight: 1.1;
   --lh-body: 1.6;
 
-  /* ---- Spacing (8-point scale — matches Stitch export's named spacing) ---- */
+  /*
+    Fluid spacing scale — same viewport range (320px–1200px).
+    Smaller tokens scale subtly, larger tokens scale more aggressively.
+  */
   --space-xs: 0.5rem;
-  /* 8px */
-  --space-gutter: 1rem;
-  /* 16px */
-  --space-sm: 1rem;
-  /* 16px */
-  --space-md: 1.5rem;
-  /* 24px */
-  --space-lg: 2rem;
-  /* 32px */
-  --space-xl: 3rem;
-  /* 48px */
-  --space-xxl: 4rem;
-  /* 64px */
-  --space-huge: 6rem;
-  /* 96px */
-  --space-margin-mobile: 1.25rem;
-  /* 20px — page edge margin, mobile */
-  --space-margin-desktop: 4rem;
-  /* 64px — page edge margin, desktop */
-
-  /* ---- Breakpoints (reference only — use in media queries directly) ---- */
-  --bp-mobile: 390px;
-  --bp-tablet: 768px;
-  --bp-desktop: 1440px;
+  --space-gutter: clamp(0.75rem, 0.6591rem + 0.455vw, 1rem);
+  --space-sm: clamp(0.75rem, 0.6591rem + 0.455vw, 1rem);
+  --space-md: clamp(1.25rem, 1.1591rem + 0.455vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 1.3182rem + 0.909vw, 2rem);
+  --space-xl: clamp(2rem, 1.6364rem + 1.818vw, 3rem);
+  --space-xxl: clamp(3rem, 2.6364rem + 1.818vw, 4rem);
+  --space-huge: clamp(4rem, 3.2727rem + 3.636vw, 4.5rem);
+  --space-margin-mobile: clamp(1rem, -0.0909rem + 5.454vw, 4rem);
+  --space-margin-desktop: var(--space-margin-mobile);
 
   /* ---- Signature element ---- */
   --spark-mark-width: 72px;

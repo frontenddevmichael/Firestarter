@@ -7,6 +7,9 @@
   align-items: center;
   background-color: var(--color-charcoal);
   padding: var(--space-sm) var(--space-margin-mobile);
+  padding-top: calc(var(--space-sm) + env(safe-area-inset-top, 0px));
+  padding-left: calc(var(--space-margin-mobile) + env(safe-area-inset-left, 0px));
+  padding-right: calc(var(--space-margin-mobile) + env(safe-area-inset-right, 0px));
   border-bottom: 1px solid rgba(250, 247, 242, 0.1);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 56px;
