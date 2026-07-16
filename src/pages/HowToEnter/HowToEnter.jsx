@@ -40,9 +40,7 @@ export default function HowToEnter() {
             <div className={styles.panels}>
             <div className={styles.panel}>
               <span className={styles.panelBadge}>Category A</span>
-              <RevealImage className={styles.panelImage}>
-                <img src="/WEBSITEIMAGE.jpeg" alt="Junior Poet" className={styles.panelPhoto} loading="lazy" decoding="async" />
-              </RevealImage>
+              <RevealImage className={styles.panelImage} />
               <div className={styles.panelText}>
                 <h3>Junior Poets</h3>
                 <span className="eyebrow">Ages 10–13</span>
@@ -51,9 +49,7 @@ export default function HowToEnter() {
             </div>
             <div className={styles.panel}>
               <span className={styles.panelBadge}>Category B</span>
-              <RevealImage className={styles.panelImage}>
-                <img src="/WEBSITEIMAGE.jpeg" alt="Senior Poet" className={styles.panelPhoto} loading="lazy" decoding="async" />
-              </RevealImage>
+              <RevealImage className={styles.panelImage} />
               <div className={styles.panelText}>
                 <h3>Senior Poets</h3>
                 <span className="eyebrow">Ages 14–17</span>
