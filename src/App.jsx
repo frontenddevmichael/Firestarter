@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AuthProvider } from './lib/auth';
 import Nav from './components/Nav';
+import DashboardShell from './components/DashboardShell';
 import Footer from './components/Footer';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
@@ -124,6 +125,9 @@ function PageMeta() {
 
 export default function App() {
   const location = useLocation();
+  const isDashboard = location.pathname.startsWith('/prize/dashboard') ||
+                      location.pathname.startsWith('/prize/judge') ||
+                      location.pathname.startsWith('/prize/admin');
 
   return (
     <AuthProvider>
@@ -131,7 +135,7 @@ export default function App() {
       <ScrollToTop />
       <PageMeta />
       <SchemaMarkup />
-      <Nav />
+      {!isDashboard && <Nav />}
       <main id="main-content">
         <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
@@ -159,9 +163,9 @@ export default function App() {
           {/* Auth + Dashboard pages */}
           <Route path="/prize/auth" element={<PageWrapper><LazyPage Component={PrizeAuth} /></PageWrapper>} />
           <Route path="/prize/reset-password" element={<PageWrapper><LazyPage Component={ResetPassword} /></PageWrapper>} />
-          <Route path="/prize/dashboard" element={<PageWrapper><ProtectedRoute requiredRole="entrant"><LazyPage Component={EntrantDashboard} /></ProtectedRoute></PageWrapper>} />
-          <Route path="/prize/judge" element={<PageWrapper><ProtectedRoute requiredRole="judge"><LazyPage Component={JudgeDashboard} /></ProtectedRoute></PageWrapper>} />
-          <Route path="/prize/admin" element={<PageWrapper><ProtectedRoute requiredRole="admin"><LazyPage Component={AdminDashboard} /></ProtectedRoute></PageWrapper>} />
+          <Route path="/prize/dashboard" element={<DashboardShell><PageWrapper><ProtectedRoute requiredRole="entrant"><LazyPage Component={EntrantDashboard} /></ProtectedRoute></PageWrapper></DashboardShell>} />
+          <Route path="/prize/judge" element={<DashboardShell><PageWrapper><ProtectedRoute requiredRole="judge"><LazyPage Component={JudgeDashboard} /></ProtectedRoute></PageWrapper></DashboardShell>} />
+          <Route path="/prize/admin" element={<DashboardShell><PageWrapper><ProtectedRoute requiredRole="admin"><LazyPage Component={AdminDashboard} /></ProtectedRoute></PageWrapper></DashboardShell>} />
           <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
         </Routes>
       </AnimatePresence>

@@ -8,7 +8,6 @@ const companyLinks = [
   { text: 'The Method', href: '/', end: true },
   { text: 'The Deluxe', href: '/deluxe' },
   { text: 'The Musical', href: '/musical' },
-  { text: 'Poets Prize', href: '/prize' },
   { text: 'About', href: '/about' },
 ];
 
@@ -60,6 +59,8 @@ export default function Nav() {
     return '/prize/dashboard';
   };
 
+  const poetsPrizeHref = user && profile ? getDashboardLink() : '/prize';
+
   return (
     <nav className={`${styles.nav} ${hidden ? styles.navHidden : ''}`}>
       <Link to="/" className={styles.logo} aria-label="Home">
@@ -96,6 +97,20 @@ export default function Nav() {
             </svg>
           </NavLink>
         ))}
+
+        {!isPrize && (
+          <NavLink
+            to={poetsPrizeHref}
+            end={false}
+            style={{ '--i': 5 }}
+            className={({ isActive }) => `${styles.link} ${isActive ? styles.linkActive : ''}`}
+          >
+            Poets Prize
+            <svg className={styles.sparkHover} viewBox="0 0 72 14" fill="none" aria-hidden="true">
+              <path d="M2 12 Q 18 2, 36 10 T 70 4" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          </NavLink>
+        )}
 
         {isPrize && user && getDashboardLink() && (
           <Link to={getDashboardLink()} className={`${styles.link} ${styles.dashLink}`}>
