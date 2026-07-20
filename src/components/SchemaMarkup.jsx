@@ -70,7 +70,7 @@ const schemas = {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: 'The Firestarter Young Poets Prize 2026',
-    description: 'A poetry competition for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).',
+    description: 'A poetry competition building future skills for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).',
     url: `${url}/prize`,
     startDate: '2026-01-01',
     endDate: '2026-12-15',

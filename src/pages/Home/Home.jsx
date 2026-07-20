@@ -34,7 +34,7 @@ export default function Home() {
             <span className={styles.heroTitleAccent}>My Future.</span>
           </h1>
           <p className={styles.heroSub}>
-            A national stage for the poems Nigerian students haven't been asked to write yet.
+            The ability to observe, articulate, and finish what you start — that is the skill. Poetry is how you build it.
           </p>
           <div className={styles.heroActions}>
             <Link to="/prize/enter" className={`btnPrimary ${styles.btnIcon}`}>

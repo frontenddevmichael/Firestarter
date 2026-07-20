@@ -83,7 +83,7 @@ const meta = {
   '/assessment': { title: 'Creative Assessment — The Firestarter Method', desc: 'Discover where you are in the five forces. A personalised creative assessment.' },
   '/musical': { title: 'Firestarter Musical — Coming Soon', desc: 'Music, theatre, and performance under the Firestarter umbrella.' },
   '/contact': { title: 'Contact — The Firestarter Method', desc: 'Get in touch with Shola Amaraibi and the Firestarter team.' },
-  '/prize': { title: 'Firestarter Young Poets Prize 2026', desc: 'A poetry competition for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).' },
+  '/prize': { title: 'Firestarter Young Poets Prize 2026', desc: 'A poetry competition building future skills for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).' },
   '/prize/about': { title: 'About — Firestarter Young Poets Prize 2026', desc: 'Why the prize exists, the 2026 theme, and what judges are looking for.' },
   '/prize/how-to-enter': { title: 'How to Enter — Firestarter Young Poets Prize 2026', desc: 'Three steps to submit your poem: write, reflect, perform.' },
   '/prize/enter': { title: 'Submit Your Entry — Firestarter Young Poets Prize 2026', desc: 'Enter the Firestarter Young Poets Prize 2026. Submit your poem, reflection, and performance video.' },
