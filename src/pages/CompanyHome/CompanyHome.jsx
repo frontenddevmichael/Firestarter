@@ -328,15 +328,15 @@ export default function CompanyHome() {
             <span className={styles.smallHeading}>Also in this house</span>
             <p className={styles.houseLead}>Where else does the method show up?</p>
             <div className={styles.houseLinks}>
-              <a href="/musical" className={styles.houseLink}>
+              <Link to="/musical" className={styles.houseLink}>
                 <strong>Firestarter: The Musical.</strong> The method, on a stage, ticketed and open to the public.
-              </a>
+              </Link>
               <a href="#" target="_blank" rel="noopener noreferrer" className={styles.houseLink}>
                 <strong>SHEISAVOICE.</strong> We give ten percent of every Firestarter performance to SHEISAVOICE, our sister foundation supporting children with special needs.
               </a>
-              <a href="/prize" className={styles.houseLink}>
+              <Link to="/prize" className={styles.houseLink}>
                 <strong>Firestarter Young Poets Prize.</strong> We also kicked off the Firestarter Young Poets Prize. This year's theme: My Voice, My Future.
-              </a>
+              </Link>
             </div>
           </Reveal>
         </div>
