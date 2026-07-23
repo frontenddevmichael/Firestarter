@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /deluxe
+Disallow: /forge
+Disallow: /assessment
 Disallow: /prize/auth
 Disallow: /prize/dashboard
 Disallow: /prize/judge

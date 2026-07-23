@@ -6,9 +6,11 @@ import styles from './Nav.module.css';
 
 const companyLinks = [
   { text: 'The Method', href: '/', end: true },
-  { text: 'The Deluxe', href: '/deluxe' },
-  { text: 'The Musical', href: '/musical' },
+  { text: 'Work With Me', href: '/#work' },
   { text: 'About', href: '/about' },
+  { text: 'The Musical', href: '/musical' },
+  { text: 'Poets Prize', href: '/prize' },
+  { text: 'Contact', href: '/contact' },
 ];
 
 const prizeLinks = [

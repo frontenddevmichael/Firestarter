@@ -1,4 +1,4 @@
-/* ── 1. Hero — decorative ghosts ── */
+/* ── 1. Hero — full-bleed photo ── */
 .hero {
   position: relative;
   background-color: var(--color-charcoal);
@@ -13,12 +13,17 @@
   pointer-events: none;
 }
 
-.heroGhost {
-  position: absolute;
-  font-size: 4rem;
-  color: rgba(250, 247, 242, 0.04);
-  font-family: var(--font-display);
-  user-select: none;
+.heroPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.3;
+}
+
+.heroOverlay {
+  position: relative;
+  z-index: 1;
 }
 
 .heroBig {
@@ -203,30 +208,12 @@
   font-size: var(--fs-body-lg);
 }
 
-.diagram {
-  margin: var(--space-lg) auto;
-  max-width: 36rem;
-}
-
-.diagramSvg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.diagramCaption {
-  text-align: center;
-  color: var(--color-grey);
-  font-size: var(--fs-caption);
-  margin-top: var(--space-md);
-}
-
 .forces {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-lg);
   max-width: 48rem;
-  margin: 0 auto var(--space-xl);
+  margin: 0 auto;
 }
 
 .forceBlock {
@@ -250,34 +237,9 @@
   margin-bottom: var(--space-xs);
 }
 
-.forceDesc {
-  color: var(--color-warm-white);
-  font-size: var(--fs-body-md);
-  margin-bottom: var(--space-sm);
-}
-
-.forceQuestion {
-  color: var(--color-grey);
-  font-size: var(--fs-caption);
-  margin-bottom: var(--space-xs);
-}
-
-.forceHolding {
+.forceProse {
   color: var(--color-grey);
   line-height: var(--lh-body);
-  margin-bottom: var(--space-sm);
-}
-
-.methodOutro {
-  text-align: center;
-  max-width: 40rem;
-  margin: 0 auto;
-}
-
-.methodOutro p {
-  color: var(--color-grey);
-  line-height: var(--lh-body);
-  margin-bottom: var(--space-md);
 }
 
 /* ── 6. Where this came from ── */
@@ -327,11 +289,33 @@
   display: block;
 }
 
-.originPoem {
-  background-color: var(--color-warm-white);
-  padding: var(--space-lg);
+.originProse {
   line-height: var(--lh-body);
   color: var(--color-grey);
+}
+
+.originProse p {
+  margin-bottom: var(--space-md);
+}
+
+.poemBlock {
+  background-color: var(--color-warm-white);
+  padding: var(--space-xl);
+  margin: var(--space-lg) 0;
+  max-width: 28rem;
+}
+
+.poemLine {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-body-lg);
+  line-height: 1.8;
+  color: var(--color-charcoal);
+}
+
+.poemLine:last-child {
+  font-weight: 700;
+  font-style: normal;
 }
 
 .textLink {
@@ -362,31 +346,15 @@
   margin: 0 auto;
 }
 
-.trustLead {
-  font-size: var(--fs-body-lg);
-  margin-bottom: var(--space-lg);
+.trustProse {
+  max-width: 44rem;
+  margin: 0 auto;
 }
 
-.trustForces {
-  display: grid;
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
-}
-
-.trustItem {
-  line-height: var(--lh-body);
+.trustProse p {
   color: var(--color-grey);
-}
-
-.trustItem strong {
-  color: var(--color-charcoal);
-}
-
-.trustClose {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--fs-headline-md);
-  text-align: center;
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-md);
 }
 
 .clientResults {
@@ -394,21 +362,40 @@
   margin: var(--space-xl) auto 0;
 }
 
-.testimonials {
+.testimonialCard {
   display: grid;
+  grid-template-columns: 1fr;
   gap: var(--space-lg);
+  align-items: center;
 }
 
-.testimonial {
-  border-left: 3px solid var(--color-ember);
-  padding-left: var(--space-md);
+@media (min-width: 768px) {
+  .testimonialCard {
+    grid-template-columns: 1fr 2fr;
+  }
 }
 
-.testimonial p {
+.testimonialImageWrap {
+  aspect-ratio: 1;
+  max-width: 200px;
+  margin: 0 auto;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.testimonialImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.testimonialText p {
   color: var(--color-grey);
   line-height: var(--lh-body);
-  margin-bottom: var(--space-xs);
   font-style: italic;
+  margin-bottom: var(--space-sm);
 }
 
 .testimonialAttribution {
@@ -492,12 +479,6 @@
   margin-bottom: var(--space-sm);
 }
 
-.workPrice {
-  font-size: var(--fs-body-lg);
-  font-weight: 600;
-  color: var(--color-ember) !important;
-}
-
 .workCta {
   display: inline-flex;
   align-items: center;
@@ -513,12 +494,6 @@
 
 .workCta:hover {
   color: var(--color-burnt-orange);
-}
-
-.workNote {
-  color: var(--color-grey);
-  line-height: var(--lh-body);
-  text-align: center;
 }
 
 /* ── 9. Also in this house ── */
@@ -584,7 +559,7 @@
 
 @media (min-width: 768px) {
   .nextSteps {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

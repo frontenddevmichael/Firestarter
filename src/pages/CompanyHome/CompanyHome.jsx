@@ -2,9 +2,86 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
-import PrizeBanner from '../../components/PrizeBanner';
-import FieraFlow from '../../components/FieraFlow';
 import styles from './CompanyHome.module.css';
+
+const WHATSAPP = 'https://wa.me/2347039343468?text=';
+
+function waMsg(msg) {
+  return `${WHATSAPP}${encodeURIComponent(msg)}`;
+}
+
+const forces = [
+  {
+    name: 'FORGE',
+    text: 'First you set the foundation: who you actually are, tested, not assumed. Skip this, and everything you build afterward sits on ground you never checked. It holds, until pressure comes. Then it doesn\'t.',
+  },
+  {
+    name: 'ILLUMINATE',
+    text: 'Then you decide, without borrowing anyone else\'s answer, what this season is actually for. Skip this, and you can spend years arriving somewhere you never meant to go.',
+  },
+  {
+    name: 'ENACT',
+    text: 'Then the thing that\'s been sitting inside you finally leaves your hands and enters the world. This is the Point-To-It Standard: if you can\'t point to it, you haven\'t done it yet. Miss this, and your best work stays potential instead of proof.',
+  },
+  {
+    name: 'REGENERATE',
+    text: 'Somewhere in all of that, you protect what the building could cost you: your body, your people, your joy. So the life you\'re building doesn\'t quietly replace the person meant to live it. Otherwise, the building starts costing you pieces of yourself that were never meant to be payment.',
+  },
+  {
+    name: 'AMPLIFY',
+    text: 'Then what you\'ve built learns to travel: reaching people you\'ll never meet, running in rooms you\'re not in, carried by tools and systems built to spread work further than one person alone ever could. Leave this out, and what you built dies the day you stop showing up for it.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'IS THIS COACHING, THERAPY, OR A COURSE?',
+    a: 'It is a structured method with a clear sequence and a standard of proof at each stage. It is not therapy and does not replace therapy.',
+  },
+  {
+    q: 'DO I HAVE TO BE CREATIVE OR A POET?',
+    a: 'No. The Method began in poetry, but it is designed for anyone willing to examine their choices honestly and do the work.',
+  },
+  {
+    q: 'IS THIS A RELIGIOUS PROGRAMME?',
+    a: 'My own life is shaped by faith, and the Method grew out of that context. The Method itself asks you for evidence, not religious affiliation, and people of every background use it.',
+  },
+  {
+    q: 'HOW LONG DOES IT TAKE?',
+    a: 'Each force has its own pace. Some move faster, some take longer. The full Method is not designed to be completed in a weekend.',
+  },
+  {
+    q: 'WHERE ARE YOU BASED? CAN I DO THIS ONLINE?',
+    a: 'I am based between Lagos and Paris. The Method can be taught and completed online, in English.',
+  },
+  {
+    q: 'WHERE DO I START?',
+    a: 'Begin with the free 15-minute video on this page. It\'ll show you exactly where you stand, and give you one clear move to make next.',
+  },
+];
+
+const cards = [
+  {
+    title: 'Unstoppable Workshop',
+    desc: 'Unstoppable Workshop is a monthly, 90-minute group session built around the Firestarter Method.',
+    msg: "Hi, I'd like to talk about the Unstoppable Workshop",
+  },
+  {
+    title: 'Forge Intensive',
+    desc: 'Three hours, one to one. We work Force One properly: who you are under pressure, and the standard you will hold to. You leave with your Forge Standard started, in writing.',
+    msg: "Hi, I'd like to talk about the Forge Intensive",
+  },
+  {
+    title: 'Firestarter Deluxe',
+    desc: 'The complete method, taught in one sitting. Training and workbook. Watch it in an evening.',
+    msg: "Hi, I'd like to talk about the Firestarter Deluxe",
+  },
+  {
+    title: 'Firestarter Business Lane',
+    desc: 'Finds the money hiding in your business using the Firestarter Method, then helps you go get it. One scan shows you where. One 14-day sprint makes it real. You leave with proof you can build with.',
+    msg: "Hi, I'd like to talk about the Firestarter Business Lane",
+  },
+];
 
 function Reveal({ children, delay = 0, className = '' }) {
   return (
@@ -20,140 +97,50 @@ function Reveal({ children, delay = 0, className = '' }) {
   );
 }
 
-const forces = [
-  {
-    num: '01',
-    name: 'FORGE',
-    desc: 'Strip what isn\'t you. Name what is. Claim it under pressure.',
-    question: 'Who am I when I am under pressure?',
-    holding: 'Your standard, in writing. Fourteen days of logged proof that it held when things got hard. One of those moments confirmed by somebody other than you. And one habit that measurably dropped, by a number you can show.',
-  },
-  {
-    num: '02',
-    name: 'ILLUMINATE',
-    desc: 'See it clearly. Know it\'s yours. Prove it fits.',
-    question: 'What is my life actually in service of?',
-    holding: 'Your direction, in writing, and the one thing you are building this season. Seven days of real decisions proving it works. Including one real no that cost you something, and one thing you dropped and told the truth about.',
-  },
-  {
-    num: '03',
-    name: 'ENACT',
-    desc: 'Design the plan. Deploy the rhythm. Deliver the proof.',
-    question: 'How does the thing inside me get out of me and into the world?',
-    holding: 'A finished result. Released to a standard you set before you started, not after. Confirmed by two kinds of proof, at least one of which is not your own word for it.',
-  },
-  {
-    num: '04',
-    name: 'REGENERATE',
-    desc: 'Audit honestly. Architect humanely. Anchor what holds.',
-    question: 'If this season lasted much longer than I planned, would I still recognise myself?',
-    holding: 'Thirty days of evidence that you can build without losing your body, your joy, or the people who love you. Not a resolution. Thirty days you can point to.',
-  },
-  {
-    num: '05',
-    name: 'AMPLIFY',
-    desc: 'Multiply what you do. Magnetize through what you have built. Codify what must outlast you.',
-    question: 'Does any of this work when I am not in the room?',
-    holding: 'Work that runs without you. Three people who acted because they saw your proof, without you asking them to. And someone else who ran your method successfully, with nobody coming to rescue them.',
-  },
-];
-
-const faqs = [
-  {
-    q: 'Is this coaching, therapy, or a course?',
-    a: 'It is a method: a fixed sequence with a standard of proof at every step. It is not therapy and it does not replace therapy. Some people do both. I did.',
-  },
-  {
-    q: 'Do I have to be creative, or a poet?',
-    a: 'No. The method began in poetry, but it runs on evidence. Accountants finish it. Founders finish it. Mothers finish it. The only requirement is that you are willing to be honest on paper.',
-  },
-  {
-    q: 'Is this a religious programme?',
-    a: 'My own life is a life of faith, and the method was built inside it. The method itself asks you for evidence, not belief, and people of every background use it.',
-  },
-  {
-    q: 'How long does it take?',
-    a: 'Each force carries its own proof window: fourteen days in Forge, seven in Illuminate, thirty in Regenerate. Most people work one force per season. This is not a weekend. That is the point of it.',
-  },
-  {
-    q: 'Where are you based? Does this work online?',
-    a: 'Lagos and Paris. Everything can be done online, live, on Zoom, in English. The training and the workbook are available everywhere, instantly.',
-  },
-  {
-    q: 'Where do I start?',
-    a: 'The free training. Fifteen minutes. Then the assessment. Both cost nothing, and by the end of them you will know exactly where you stand.',
-  },
-];
-
 export default function CompanyHome() {
   return (
     <>
-      {/* ── 1. Hero ── */}
+      {/* 1. Hero */}
       <section className={`${styles.hero} grain`}>
         <div className={styles.heroBg}>
-          {Array.from({ length: 6 }).map((_, i) => (
-            <span
-              key={i}
-              className={styles.heroGhost}
-              style={{ left: `${12 + i * 14}%`, top: `${18 + i * 11}%` }}
-              aria-hidden="true"
-            >
-              {['✦', '✧', '◇', '⬟', '△', '○'][i]}
-            </span>
-          ))}
+          <img src="/WEBSITEIMAGE.jpeg" alt="Shola Amaraibi" className={styles.heroPhoto} />
         </div>
-        <div className="container">
+        <div className={`${styles.heroOverlay} container`}>
           <Reveal>
             <SparkMark drawIn />
             <span className="eyebrow">The Firestarter Method</span>
             <h1 className={styles.heroBig}>
-              You have had the breakthroughs.<br />
-              You have taken the notes.<br />
+              You have had the breakthroughs. You have taken the notes.<br />
               You still cannot point to what you built.
             </h1>
             <p className={styles.heroSub}>
               A breakthrough is a door. It was never meant to be the house.
             </p>
             <p className={styles.heroDesc}>
-              I teach the Firestarter Method. Five forces that take what you have seen
-              and turn it into what you can show: a decision made, a thing built,
-              a rhythm that holds, work that reaches people.
-              The whole method is on this page, free.
+              The Firestarter Method is a five-force system that helps you name the life you want, own the choices it requires, and make it real.
             </p>
             <Link to="/training" className="btnPrimary">
-              Watch the free training <Icon name="arrowRight" size={16} />
+              See how it works <Icon name="arrowRight" size={16} />
             </Link>
             <p className={styles.heroFootnote}>
-              Fifteen minutes. The whole method, on one real life.
+              Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.
             </p>
             <a href="#method" className={styles.heroRead}>Or read the whole method</a>
           </Reveal>
         </div>
       </section>
 
-      {/* ── 2. What this is ── */}
+      {/* 2. What This Is */}
       <section className={styles.whatThis}>
         <div className="container">
           <Reveal className={styles.whatThisGrid}>
             <div className={styles.whatThisText}>
               <span className={styles.smallHeading}>What this is</span>
               <p>
-                My name is Shola Amaraibi. I teach the Firestarter Method. It is a five-force
-                system for people who have plenty of insight and not enough evidence. Plenty
-                of clarity, not enough finished work. It takes you from knowing what you want
-                to holding proof that you built it.
+                I'm Shola Amaraibi. I'm a poet, a performance facilitator, and the creator of the Firestarter Method: five forces that turn what you've had (the breakthroughs, the notes, the ideas) into something you can point to.
               </p>
               <p>
-                The five forces are Forge, Illuminate, Enact, Regenerate and Amplify. Forge
-                settles who you are. Illuminate settles what it is for. Enact gets it built.
-                Regenerate keeps you whole while you build it. Amplify gets it to the people
-                it was made for.
-              </p>
-              <p>
-                By the end you are not inspired. You are finished. Those are different things,
-                and the difference changes how you carry yourself. The whole map is on this
-                page, free. What I sell is the teaching, the tools, and the guided work that
-                helps you apply it to your life.
+                See how it works in the video above. The full shape of the method is laid out below.
               </p>
             </div>
             <div className={styles.whatThisImageWrap}>
@@ -163,55 +150,47 @@ export default function CompanyHome() {
         </div>
       </section>
 
-      {/* ── 3. The problem ── */}
+      {/* 3. The Problem */}
       <section className={styles.problem}>
         <div className="container">
           <Reveal className={styles.problemInner}>
             <span className={styles.smallHeading}>The problem</span>
             <p>
-              You are not lazy. You are not unmotivated. You have been to the conferences.
-              You have the notebooks. You have had breakthroughs. Real ones. The kind where
-              you sit in the car afterwards and something in your chest has actually moved.
+              You are not lazy or unmotivated. You have been to the conferences and trainings. You have had breakthroughs. Real ones. The kind where you sit in the car afterwards and something in your chest has actually moved.
             </p>
             <p>
-              And then Monday comes. So you go looking for the next breakthrough. Another
-              workshop, another book, another prayer, another planner. Each one seems to
-              work for about eleven days.
+              And then Monday comes, you go looking for the next breakthrough. Another workshop, another book, another prayer, another planner. Each one seems to work for about eleven days.
             </p>
             <p>
               A breakthrough is a door. It is not a house. You have been collecting doors.
-              And every time you walk away from something you said mattered, you learn a
-              little more not to trust yourself.
             </p>
             <p>
-              Sometimes that looks dramatic. More often it looks ordinary. Another postponed
-              decision. Another project half built. Another promise quietly renegotiated
-              with yourself.
+              Sometimes that looks dramatic. More often it looks ordinary. Another postponed decision. Another project half built. Another promise quietly renegotiated with yourself.
             </p>
             <p>
-              That is the real cost. Not the business you never launched. The trust in
-              yourself that you spent. That is what this method is built to end.
+              That is the real cost. Not the business you never launched. Whether you still believe you're the kind of person who builds the life they meant to build.
             </p>
+            <p>That is where it starts.</p>
           </Reveal>
         </div>
       </section>
 
-      {/* ── 4. Who this is for ── */}
+      {/* 4. Who This Is For */}
       <section className={styles.whoFor}>
         <div className="container">
           <Reveal className={styles.whoForInner}>
             <span className={styles.smallHeading}>Who this is for</span>
             <div className={styles.whoForGrid}>
               <div className={styles.whoForCard}>
-                <h3>Builders</h3>
+                <h3>BUILDERS</h3>
                 <p>You are productive, capable and respected. And the one thing that matters most stays unfinished, unreleased, or too dependent on you to survive without you.</p>
               </div>
               <div className={styles.whoForCard}>
-                <h3>Starters</h3>
+                <h3>STARTERS</h3>
                 <p>The thing is inside you. You have never fully brought it into the world.</p>
               </div>
               <div className={styles.whoForCard}>
-                <h3>Returners</h3>
+                <h3>RETURNERS</h3>
                 <p>You had it. You lost it. And you are not sure you are allowed to want it again.</p>
               </div>
             </div>
@@ -220,103 +199,87 @@ export default function CompanyHome() {
         </div>
       </section>
 
-      {/* ── 5. The Firestarter Method ── */}
+      {/* 5. The Firestarter Method */}
       <section id="method" className={`${styles.methodSection} grain`}>
         <div className="container">
           <Reveal className={styles.methodIntro}>
             <SparkMark />
             <span className="eyebrow">The Firestarter Method</span>
             <p className={styles.methodLead}>
-              Five forces. Fifteen stages. Forty-five steps. Every step ends the same way.
-              You are holding something. A document. A number. A decision you actually made.
-              A thing you actually finished. Something a person other than you can confirm.
+              Five forces, each one setting up the next.
             </p>
-            <p>
-              If you cannot point to it, you have not done it yet. That is the standard,
-              and it is the same standard in all five. What follows is the complete map.
-              The deeper teaching, tools and application sit inside the work itself.
-            </p>
-            <div className={styles.diagram}>
-              <FieraFlow className={styles.diagramSvg} />
-              <p className={styles.diagramCaption}>The five forces of the Firestarter Method — a fixed sequence, each with its own standard of proof.</p>
-            </div>
           </Reveal>
 
           <div className={styles.forces}>
             {forces.map((f, i) => (
               <Reveal key={f.name} delay={i * 0.06} className={styles.forceBlock}>
-                <span className={styles.forceNum}>{f.num}.</span>
+                <span className={styles.forceNum}>0{i + 1}.</span>
                 <h3 className={styles.forceName}>{f.name}</h3>
-                <p className={styles.forceDesc}>{f.desc}</p>
-                <p className={styles.forceQuestion}>The question it answers: <em>{f.question}</em></p>
-                <p className={styles.forceHolding}>What you walk away holding: {f.holding}</p>
+                <p className={styles.forceProse}>{f.text}</p>
               </Reveal>
             ))}
           </div>
-
-          <Reveal className={styles.methodOutro}>
-            <p>
-              Notice what is missing from all of that. There is nothing in there you can download.
-              The proof has to be built, in a real life, over real time, and confirmed by real people.
-              That was always the hard part, and it is the part almost nobody survives alone.
-            </p>
-            <p>
-              That is why I can give you the whole method and lose nothing. And it is why the people
-              who finish do not sound inspired when they talk about it. They sound quiet. They point
-              at the thing. It is there.
-            </p>
-            <Link to="/training" className="btnPrimary">
-              Watch the free training <Icon name="arrowRight" size={16} />
-            </Link>
-          </Reveal>
         </div>
       </section>
 
-      {/* ── 6. Where this came from ── */}
+      {/* 6. Where This Came From */}
       <section className={styles.origin}>
         <div className="container">
           <Reveal className={styles.originInner}>
             <span className={styles.smallHeading}>Where this came from</span>
-            <p className={styles.originLead}>Before any of this was a method, it was a poem.</p>
+            <p className={styles.originLead}>The work is decades old. This poem is the moment it caught fire. Here is the closing verse.</p>
             <div className={styles.originLayout}>
               <div className={styles.originImageWrap}>
                 <img src="/WEBSITEIMAGE.jpeg" alt="Shola Amaraibi" className={styles.originImage} loading="lazy" decoding="async" />
               </div>
-              <div className={styles.originPoem}>
-                <p>[SHOLA: the origin poem goes here, plus no more than 120 words after it. What it cost you. What came out of it.]</p>
+              <div className={styles.originProse}>
+                <p>The philosophy behind this work has been mine for a long time, worked out slowly, across years, in rooms most people never saw.</p>
+                <p>Then in 2020, I wrote it into a poem. I called it Firestarter. I knew it was good. I didn't know that in a few days, it would reach more than 10,000 people across the world, women and men both.</p>
+                <p>The day before, almost nobody knew my work. The day after, everything changed. People weren't just moved. They wanted to know how to become one: a firestarter, in their own life.</p>
               </div>
+            </div>
+            <div className={styles.poemBlock}>
+              <p className={styles.poemLine}>Dear Firestarter, start something.</p>
+              <p className={styles.poemLine}>Burn by all means divinely given.</p>
+              <p className={styles.poemLine}>Start a revolution. Be one.</p>
+              <p className={styles.poemLine}>Be remembered as the woman who harnessed her fire,</p>
+              <p className={styles.poemLine}>who burned to the ground what she knew was wrong,</p>
+              <p className={styles.poemLine}>who did not apologise for existing by being quiet.</p>
+              <p className={styles.poemLine}>Let the earth feel your heat.</p>
+              <p className={styles.poemLine}>We do not eat cold or lukewarm.</p>
+              <p className={styles.poemLine}>You are not a bundle of excuses.</p>
+              <p className={styles.poemLine}>You are not a clich&eacute;.</p>
+              <p className={styles.poemLine}>You are the standard.</p>
+              <p className={styles.poemLine}>Stand and be seen. Now.</p>
             </div>
             <Link to="/about" className={styles.textLink}>The full story <Icon name="arrowRight" size={14} /></Link>
           </Reveal>
         </div>
       </section>
 
-      {/* ── 7. Why you can trust me ── */}
+      {/* 7. Why You Can Trust Me */}
       <section className={`${styles.trust} grain`}>
         <div className="container">
           <Reveal className={styles.trustInner}>
             <span className={styles.smallHeading}>Why you can trust me</span>
-            <p className={styles.trustLead}>I am not asking you to do anything I have not done.</p>
-            <div className={styles.trustForces}>
-              <div className={styles.trustItem}><strong>Forge.</strong> I did the inner work first. Years of therapy and honest self-examination, long before I taught anyone else to look at themselves.</div>
-              <div className={styles.trustItem}><strong>Illuminate.</strong> In 2013 I decided what my life was for. I have turned down work that did not fit it, including work that paid.</div>
-              <div className={styles.trustItem}><strong>Enact.</strong> I did not leave the work inside me. I turned ideas into finished projects, public experiences, organisations and a complete forty-five-step method that can be taught, tested and used by someone other than me.</div>
-              <div className={styles.trustItem}><strong>Regenerate.</strong> I began building recovery into the work itself, protecting time to rest, reset and return before entering the next demanding season. I learned that meaningful work should stretch me, but it should not require me to disappear inside it.</div>
-              <div className={styles.trustItem}><strong>Amplify.</strong> SHEISAVOICE reaches children I have never met. People who are not me now teach the method. Firestarter: The Musical is being prepared to travel.</div>
+            <div className={styles.trustProse}>
+              <p>I did the inner work first: honest self-examination, deep searching and paid work with experts, long before I asked anyone else to look at themselves.</p>
+              <p>In 2013, I decided what my life was for, and I have turned down work that didn't fit it, including work that paid.</p>
+              <p>I did not leave the work inside me. I turned ideas into finished projects, public experiences, and organisations that exist without me having to explain them.</p>
+              <p>I built recovery into the work itself: protecting time to rest, reset, and return, before the next demanding season. Meaningful work should stretch you. It should not require you to disappear inside it.</p>
+              <p>SHEISAVOICE reaches children I have never met.</p>
+              <p>I built this method by needing it.</p>
             </div>
-            <p className={styles.trustClose}>I built this method by needing it.</p>
           </Reveal>
 
           <Reveal className={styles.clientResults}>
-            <span className={styles.smallHeading}>Client Results</span>
-            <div className={styles.testimonials}>
-              <div className={styles.testimonial}>
-                <p>"[SHOLA: real client result — something concrete: a thing finished, a decision made, a number that moved]"</p>
-                <span className={styles.testimonialAttribution}>— Name, City. Forge Intensive.</span>
+            <div className={styles.testimonialCard}>
+              <div className={styles.testimonialImageWrap}>
+                <img src="/testimonial%20image.jpeg" alt="Annie Ogoshe" className={styles.testimonialImage} loading="lazy" decoding="async" />
               </div>
-              <div className={styles.testimonial}>
-                <p>"[SHOLA: second client result — same standard. Name. City. Offer.]"</p>
-                <span className={styles.testimonialAttribution}>— Name, City. Firestarter Deluxe.</span>
+              <div className={styles.testimonialText}>
+                <p>&ldquo;Working with Shola Amaraibi has impacted my life so much. In my Firestarter conversations with Shola, she asked me one question that shook me. It stripped away the false narratives I'd told myself about my love life and my business, and showed me how much I'd been deceiving myself. In the Unstoppable Workshop, she showed me a way to go after what I actually wanted. That same week, I asked five people to invest in my business, something I'd never had the courage to do. I hit a milestone I'd been chasing for six years, and the coaching ultimately led me and my team to China.&rdquo;</p>
+                <span className={styles.testimonialAttribution}>Annie Ogoshe</span>
               </div>
             </div>
           </Reveal>
@@ -326,64 +289,60 @@ export default function CompanyHome() {
             <div className={styles.pressRow}>
               <span className={styles.pressLogo}>The Guardian</span>
               <span className={styles.pressLogo}>BBC</span>
-              <span className={styles.pressLogo}>TEDx</span>
+              <span className={styles.pressLogo}>TEDX</span>
               <span className={styles.pressLogo}>Vogue</span>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ── 8. Work with me ── */}
-      <section className={styles.work}>
+      {/* 8. Work With Me */}
+      <section id="work" className={styles.work}>
         <div className="container">
           <Reveal className={styles.workInner}>
             <span className={styles.smallHeading}>Work with me</span>
             <div className={styles.workCards}>
-              <div className={styles.workCard}>
-                <h3>The Firestarter Deluxe</h3>
-                <p>The complete method, taught in one sitting. Training and workbook. Watch it in an evening.</p>
-                <p className={styles.workPrice}>₦185,000 / $135</p>
-                <Link to="/deluxe" className={styles.workCta}>Buy now <Icon name="arrowRight" size={14} /></Link>
-              </div>
-              <div className={styles.workCard}>
-                <h3>The Forge Intensive</h3>
-                <p>Three hours, one to one. We work Force One properly: who you are under pressure, and the standard you will hold to. You leave with your Forge Standard started, in writing.</p>
-                <p className={styles.workPrice}>₦350,000 / $250</p>
-                <Link to="/forge" className={styles.workCta}>Book now <Icon name="arrowRight" size={14} /></Link>
-              </div>
+              {cards.map((c) => (
+                <div key={c.title} className={styles.workCard}>
+                  <h3>{c.title}</h3>
+                  <p>{c.desc}</p>
+                  <a
+                    href={waMsg(c.msg)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.workCta}
+                  >
+                    Talk to me about this <Icon name="arrowRight" size={14} />
+                  </a>
+                </div>
+              ))}
             </div>
-            <p className={styles.workNote}>
-              Not sure which one? The free assessment will tell you where you actually are. Start there.<br />
-              <Link to="/assessment" className={styles.textLink}>Take the free assessment</Link>
-            </p>
           </Reveal>
         </div>
       </section>
 
-      <PrizeBanner />
-
-      {/* ── 9. Also in this house ── */}
+      {/* 9. Also In This House */}
       <section className={`${styles.house} grain`}>
         <div className="container">
           <Reveal className={styles.houseInner}>
             <span className={styles.smallHeading}>Also in this house</span>
-            <p className={styles.houseLead}>The method also lives outside the classroom.</p>
+            <p className={styles.houseLead}>Where else does the method show up?</p>
             <div className={styles.houseLinks}>
-              <Link to="/musical" className={styles.houseLink}>
-                <strong>Firestarter: The Musical.</strong> The method, on a stage. Edinburgh Fringe 2027.
-              </Link>
-              <a href="/prize" target="_blank" rel="noreferrer" className={styles.houseLink}>
-                <strong>The Firestarter Young Poets Prize.</strong> Young voices, given a stage of their own.
+              <a href="/musical" className={styles.houseLink}>
+                <strong>Firestarter: The Musical.</strong> The method, on a stage, ticketed and open to the public.
               </a>
               <a href="#" target="_blank" rel="noopener noreferrer" className={styles.houseLink}>
-                <strong>SHEISAVOICE.</strong> The foundation. Children with special needs, and the women who raise them.
+                <strong>SHEISAVOICE.</strong> We give ten percent of every Firestarter performance to SHEISAVOICE, our sister foundation supporting children with special needs.
+              </a>
+              <a href="/prize" className={styles.houseLink}>
+                <strong>Firestarter Young Poets Prize.</strong> We also kicked off the Firestarter Young Poets Prize. This year's theme: My Voice, My Future.
               </a>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ── 10. What to do next ── */}
+      {/* 10. What To Do Next */}
       <section className={styles.next}>
         <div className="container">
           <Reveal className={styles.nextInner}>
@@ -391,30 +350,20 @@ export default function CompanyHome() {
             <div className={styles.nextSteps}>
               <div className={styles.nextStep}>
                 <span className={styles.nextNum}>Step 1. <mark>Free</mark></span>
-                <p>Watch the training. Fifteen minutes. See the method working on one real life.</p>
-                <Link to="/training" className={styles.textLink}>Go to training <Icon name="arrowRight" size={14} /></Link>
+                <p>Watch the video. Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.</p>
+                <Link to="/training" className={styles.textLink}>See how it works <Icon name="arrowRight" size={14} /></Link>
               </div>
               <div className={styles.nextStep}>
-                <span className={styles.nextNum}>Step 2. <mark>Free</mark></span>
-                <p>Take the assessment. Find out which of the five forces you are actually stuck in.</p>
-                <Link to="/assessment" className={styles.textLink}>Take the assessment <Icon name="arrowRight" size={14} /></Link>
-              </div>
-              <div className={styles.nextStep}>
-                <span className={styles.nextNum}>Step 3.</span>
-                <p>Get the whole method. The Firestarter Deluxe: all five forces, taught in one sitting.</p>
-                <Link to="/deluxe" className={styles.textLink}>Get the Deluxe <Icon name="arrowRight" size={14} /></Link>
-              </div>
-              <div className={styles.nextStep}>
-                <span className={styles.nextNum}>Step 4.</span>
-                <p>Do the work with me. The Forge Intensive, and the road after it.</p>
-                <Link to="/forge" className={styles.textLink}>Book the Intensive <Icon name="arrowRight" size={14} /></Link>
+                <span className={styles.nextNum}>Step 2.</span>
+                <p>From there, you'll hear about the Pathfinding Session, or go straight to any of the four ways to work with me.</p>
+                <a href="#work" className={styles.textLink}>See how to work with me <Icon name="arrowRight" size={14} /></a>
               </div>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* ── 11. Questions ── */}
+      {/* 11. Questions */}
       <section className={styles.faq}>
         <div className="container">
           <Reveal className={styles.faqInner}>
@@ -431,13 +380,13 @@ export default function CompanyHome() {
         </div>
       </section>
 
-      {/* ── 12. Closing ── */}
+      {/* 12. Closing */}
       <section className={`${styles.closing} grain`}>
         <div className="container">
           <Reveal className={styles.closingInner}>
             <p className={styles.closingLead}>A breakthrough is a door. Firestarter is the life you build after it.</p>
             <Link to="/training" className="btnPrimary">
-              Watch the free training <Icon name="arrowRight" size={16} />
+              See how it works <Icon name="arrowRight" size={16} />
             </Link>
           </Reveal>
         </div>

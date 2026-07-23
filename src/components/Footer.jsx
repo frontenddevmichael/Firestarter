@@ -19,17 +19,16 @@ export default function Footer() {
         <div className={styles.col}>
           <span className={styles.heading}>Navigate</span>
           <Link to="/">The Method</Link>
-          <Link to="/deluxe">The Deluxe</Link>
-          <Link to="/forge">Forge Intensive</Link>
+          <Link to="/#work">Work With Me</Link>
+          <Link to="/about">About</Link>
           <Link to="/musical">The Musical</Link>
           <Link to="/prize">Poets Prize</Link>
-          <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
         </div>
 
         <div className={styles.col}>
           <span className={styles.heading}>Connect</span>
-          <a href="mailto:contactfirestartermethod@gmail.com">
+          <a href="mailto:contact@firestartermethod.com">
             <Icon name="mail" size={14} /> Email
           </a>
           <span className={styles.contactLine}>
@@ -49,8 +48,8 @@ export default function Footer() {
         <div className={styles.col}>
           <span className={styles.heading}>Also in this house</span>
           <Link to="/musical">Firestarter: The Musical</Link>
-          <Link to="/prize">Young Poets Prize</Link>
-          <span className={styles.contactLine}>SHEISAVOICE <span className={styles.comingSoon}>coming</span></span>
+          <Link to="/prize">The Firestarter Young Poets Prize</Link>
+          <a href="#" target="_blank" rel="noopener noreferrer" className={styles.contactLine}>SHEISAVOICE</a>
         </div>
       </div>
     </footer>

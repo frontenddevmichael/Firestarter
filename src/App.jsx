@@ -18,9 +18,7 @@ import SchemaMarkup from './components/SchemaMarkup';
 import CompanyHome from './pages/CompanyHome/CompanyHome';
 import CompanyAbout from './pages/CompanyAbout/CompanyAbout';
 import Training from './pages/Training/Training';
-import Deluxe from './pages/Deluxe/Deluxe';
-import Forge from './pages/Forge/Forge';
-import Assessment from './pages/Assessment/Assessment';
+
 import Musical from './pages/Musical/Musical';
 import ProtectedRoute from './components/ProtectedRoute';
 import Skeleton from './components/Skeleton';
@@ -75,12 +73,9 @@ function ScrollToTop() {
 }
 
 const meta = {
-  '/': { title: 'The Firestarter Method — Ignite Creative Voices', desc: 'A five-force system that turns what you have seen into what you can show. Forge, Illuminate, Enact, Regenerate, Amplify.' },
+  '/': { title: 'The Firestarter Method — Shola Amaraibi', desc: 'A five-force system that helps you name the life you want, own the choices it requires, and make it real. Forge, Illuminate, Enact, Regenerate, Amplify.' },
   '/about': { title: 'About — Shola Amaraibi & The Firestarter Method', desc: 'The story behind the Firestarter Method and the founder, Shola Amaraibi.' },
-  '/training': { title: 'Free Training — The Firestarter Method', desc: 'Fifteen minutes. The whole Firestarter Method applied to one real life.' },
-  '/deluxe': { title: 'The Firestarter Deluxe — Complete Training', desc: 'The complete method, taught in one sitting. Training and workbook included.' },
-  '/forge': { title: 'The Forge Intensive — One-to-One Coaching', desc: 'Three hours, one to one. Work Force One properly with Shola Amaraibi.' },
-  '/assessment': { title: 'Creative Assessment — The Firestarter Method', desc: 'Discover where you are in the five forces. A personalised creative assessment.' },
+  '/training': { title: 'Free Training — The Firestarter Method', desc: 'Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.' },
   '/musical': { title: 'Firestarter Musical — Coming Soon', desc: 'Music, theatre, and performance under the Firestarter umbrella.' },
   '/contact': { title: 'Contact — The Firestarter Method', desc: 'Get in touch with Shola Amaraibi and the Firestarter team.' },
   '/prize': { title: 'Firestarter Young Poets Prize 2026', desc: 'A poetry competition building future skills for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).' },
@@ -146,9 +141,7 @@ export default function App() {
           <Route path="/about" element={<PageWrapper><CompanyAbout /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
           <Route path="/training" element={<PageWrapper><Training /></PageWrapper>} />
-          <Route path="/deluxe" element={<PageWrapper><Deluxe /></PageWrapper>} />
-          <Route path="/forge" element={<PageWrapper><Forge /></PageWrapper>} />
-          <Route path="/assessment" element={<PageWrapper><Assessment /></PageWrapper>} />
+
           <Route path="/musical" element={<PageWrapper><Musical /></PageWrapper>} />
           {/* Prize pages under /prize */}
           <Route path="/prize" element={<PageWrapper><Home /></PageWrapper>} />
