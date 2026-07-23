@@ -6,11 +6,11 @@ import Reveal from '../../components/Reveal';
 import styles from './KeyDates.module.css';
 
 const milestones = [
-  { label: 'Entries Open', date: 'Now', desc: 'The portal is open for Lagos State secondary school students to submit.' },
+  { label: 'Entries Open', date: '15 Jul 2026', desc: 'The portal is open for Lagos State secondary school students to submit.' },
   { label: 'Deadline', date: '30 Sept 2026, 11:59 PM (WAT)', desc: 'All entries must be received by this time. No extensions.', highlight: true },
-  { label: 'Judging', date: 'October', desc: 'Our panel reviews every submission across both categories.' },
-  { label: 'Finalists Announced & Creative Lab', date: 'November', desc: 'Finalists are revealed and take part in a creative workshop.' },
-  { label: 'Grand Final', date: 'December', desc: 'A night of performance and recognition in Lagos.', star: true },
+  { label: 'Judging', date: 'Oct 2026', desc: 'Our panel reviews every submission across both categories.' },
+  { label: 'Finalists Announced & Creative Lab', date: '31 Oct 2026', desc: 'Finalists are revealed and take part in a creative workshop.' },
+  { label: 'Grand Final', date: '15 Nov 2026', desc: 'A night of performance and recognition in Lagos.', star: true },
 ];
 
 /**
