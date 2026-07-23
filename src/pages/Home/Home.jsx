@@ -93,7 +93,9 @@ export default function Home() {
           <div className={styles.panels}>
             <Reveal className={styles.panel}>
               <span className={styles.panelBadge}>Category A</span>
-              <RevealImage className={styles.panelImage} />
+              <RevealImage className={styles.panelImage}>
+                <img src="/Young%20firestarter%20age%20bracket%20(1).jpeg" alt="Young poet" className={styles.panelPhoto} loading="lazy" />
+              </RevealImage>
               <div className={styles.panelText}>
                 <h3>Junior Poets</h3>
                 <span className="eyebrow">Ages 10–13</span>
@@ -102,7 +104,9 @@ export default function Home() {
             </Reveal>
             <Reveal delay={120} className={styles.panel}>
               <span className={styles.panelBadge}>Category B</span>
-              <RevealImage className={styles.panelImage} />
+              <RevealImage className={styles.panelImage}>
+                <img src="/Old%20firestarter%20age%20bracket.jpeg" alt="Senior poet" className={styles.panelPhoto} loading="lazy" />
+              </RevealImage>
               <div className={styles.panelText}>
                 <h3>Senior Poets</h3>
                 <span className="eyebrow">Ages 14–17</span>

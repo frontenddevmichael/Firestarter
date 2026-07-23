@@ -103,7 +103,7 @@ export default function CompanyHome() {
       {/* 1. Hero */}
       <section className={`${styles.hero} grain`}>
         <div className={styles.heroBg}>
-          <img src="/WEBSITEIMAGE.jpeg" alt="Shola Amaraibi" className={styles.heroPhoto} />
+          <img src="/WEBSITEIMAGE.jpeg" alt="Shola Amaraibi" className={styles.heroPhoto} loading="eager" />
         </div>
         <div className={`${styles.heroOverlay} container`}>
           <Reveal>
