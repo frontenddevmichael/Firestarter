@@ -9,10 +9,9 @@ const LOGO = `${BASE}/FireStarter%20collective%20logo%201.png`;
 
 const routes = [
   { path: '/',           title: 'The Firestarter Method — Shola Amaraibi',                    desc: 'A five-force system that helps you name the life you want, own the choices it requires, and make it real. Forge, Illuminate, Enact, Regenerate, Amplify.',                                     ogImage: LOGO, ogImageAlt: 'The Firestarter Method',                                     ogType: 'website', noindex: false },
-  { path: '/about',      title: 'About — Shola Amaraibi & The Firestarter Method',            desc: 'The story behind the Firestarter Method and the founder, Shola Amaraibi.',                                                                                                                     ogImage: LOGO, ogImageAlt: 'Shola Amaraibi — Firestarter Method',                        ogType: 'website', noindex: false },
   { path: '/contact',    title: 'Contact — The Firestarter Method',                           desc: 'Get in touch with Shola Amaraibi and the Firestarter team.',                                                                                                                                      ogImage: LOGO, ogImageAlt: 'Contact Firestarter Method',                                ogType: 'website', noindex: false },
   { path: '/training',   title: 'Free Training — The Firestarter Method',                     desc: 'Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.',                                                                                 ogImage: LOGO, ogImageAlt: 'Free Training — Firestarter Method',                        ogType: 'website', noindex: false },
-  { path: '/musical',    title: 'Firestarter Musical — Coming Soon',                          desc: 'Music, theatre, and performance under the Firestarter umbrella.',                                                                                                                               ogImage: LOGO, ogImageAlt: 'Firestarter Musical',                                       ogType: 'website', noindex: false },
+  { path: '/musical',    title: 'Firestarter: The Musical — Creative-TechFormance at MUSON Centre', desc: 'Eight poems, one woman\'s journey, told in 90 minutes. December 19–20, 2026 at MUSON Centre, Lagos.',                          ogImage: LOGO, ogImageAlt: 'Firestarter: The Musical',                                 ogType: 'website', noindex: false },
   { path: '/prize',      title: 'Firestarter Young Poets Prize 2026',                         desc: 'A poetry competition building future skills for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).',                  ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'Firestarter Young Poets Prize 2026', ogType: 'website', noindex: false },
   { path: '/prize/about',   title: 'About — Firestarter Young Poets Prize 2026',             desc: 'Why the prize exists, the 2026 theme, and what judges are looking for.',                                                                                                                       ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'About the Firestarter Young Poets Prize', ogType: 'website', noindex: false },
   { path: '/prize/how-to-enter', title: 'How to Enter — Firestarter Young Poets Prize 2026', desc: 'Three steps to submit your poem: write, reflect, perform.',                                                                                                                                        ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'How to Enter the Firestarter Young Poets Prize', ogType: 'website', noindex: false },
@@ -27,7 +26,7 @@ const routes = [
 
 // ── Schema definitions (mirrors src/components/SchemaMarkup.jsx for prerender) ──
 const org = { '@type': 'Organization', name: 'Firestarter Method', url: BASE, logo: LOGO };
-const person = { '@type': 'Person', name: 'Shola Amaraibi', jobTitle: 'Founder & Creative Director', description: 'Founder of the Firestarter Method — a five-force creative system.', url: `${BASE}/about`, sameAs: [] };
+const person = { '@type': 'Person', name: 'Shola Amaraibi', jobTitle: 'Founder & Creative Director', description: 'Founder of the Firestarter Method — a five-force creative system.', url: BASE, sameAs: [] };
 
 function breadcrumbFor(path) {
   const parts = path.split('/').filter(Boolean);
@@ -47,7 +46,6 @@ const schemas = {
     description: 'A five-force system that helps you name the life you want, own the choices it requires, and make it real.', url: BASE, publisher: org,
     mainEntity: { '@type': 'Course', name: 'The Firestarter Method', description: 'A five-force system. Forge, Illuminate, Enact, Regenerate, Amplify.', provider: person },
   },
-  '/about': { '@context': 'https://schema.org', '@type': 'WebPage', name: 'About — The Firestarter Method', description: 'The story behind the Firestarter Method.', url: `${BASE}/about`, mainEntity: person },
   '/training': { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Free Training — The Firestarter Method', description: 'Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move.', url: `${BASE}/training` },
   '/musical': { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Firestarter Musical', description: 'Music, theatre, and performance.', url: `${BASE}/musical` },
   '/contact': { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Contact — The Firestarter Method', description: 'Get in touch.', url: `${BASE}/contact` },

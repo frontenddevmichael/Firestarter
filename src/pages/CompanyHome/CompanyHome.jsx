@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
@@ -98,6 +99,15 @@ function Reveal({ children, delay = 0, className = '' }) {
 }
 
 export default function CompanyHome() {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const el = document.querySelector(hash);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [hash]);
+
   return (
     <>
       {/* 1. Hero */}
@@ -213,6 +223,11 @@ export default function CompanyHome() {
                 <span className={styles.forceNum}>0{i + 1}.</span>
                 <h3 className={styles.forceName}>{f.name}</h3>
                 <p className={styles.forceProse}>{f.text}</p>
+                {i < forces.length - 1 && (
+                  <svg className={styles.forceArrow} viewBox="0 0 24 32" fill="none" aria-hidden="true">
+                    <path d="M12 0v24M4 16l8 8 8-8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
               </Reveal>
             ))}
           </div>
@@ -224,7 +239,6 @@ export default function CompanyHome() {
         <div className="container">
           <Reveal className={styles.originInner}>
             <span className={styles.smallHeading}>Where this came from</span>
-            <p className={styles.originLead}>The work is decades old. This poem is the moment it caught fire. Here is the closing verse.</p>
             <div className={styles.originLayout}>
               <div className={styles.originImageWrap}>
                 <img src="/WEBSITEIMAGE.jpeg" alt="Shola Amaraibi" className={styles.originImage} loading="lazy" decoding="async" />
@@ -236,6 +250,7 @@ export default function CompanyHome() {
               </div>
             </div>
             <div className={styles.poemBlock}>
+              <p className={styles.poemLead}>The work is decades old. This poem is the moment it caught fire. Here is the closing verse.</p>
               <p className={styles.poemLine}>Dear Firestarter, start something.</p>
               <p className={styles.poemLine}>Burn by all means divinely given.</p>
               <p className={styles.poemLine}>Start a revolution. Be one.</p>
@@ -249,7 +264,6 @@ export default function CompanyHome() {
               <p className={styles.poemLine}>You are the standard.</p>
               <p className={styles.poemLine}>Stand and be seen. Now.</p>
             </div>
-            <Link to="/about" className={styles.textLink}>The full story <Icon name="arrowRight" size={14} /></Link>
           </Reveal>
         </div>
       </section>
@@ -264,8 +278,8 @@ export default function CompanyHome() {
               <p>In 2013, I decided what my life was for, and I have turned down work that didn't fit it, including work that paid.</p>
               <p>I did not leave the work inside me. I turned ideas into finished projects, public experiences, and organisations that exist without me having to explain them.</p>
               <p>I built recovery into the work itself: protecting time to rest, reset, and return, before the next demanding season. Meaningful work should stretch you. It should not require you to disappear inside it.</p>
-              <p>SHEISAVOICE reaches children I have never met.</p>
-              <p>I built this method by needing it.</p>
+              <p className={styles.trustLast}>SHEISAVOICE reaches children I have never met.</p>
+              <p className={styles.trustLast}>I built this method by needing it.</p>
             </div>
           </Reveal>
 
@@ -297,7 +311,7 @@ export default function CompanyHome() {
       <section id="work" className={styles.work}>
         <div className="container">
           <Reveal className={styles.workInner}>
-            <span className={styles.smallHeading}>Work with me</span>
+            <h2 className={styles.workHeading}>Work with me</h2>
             <div className={styles.workCards}>
               {cards.map((c) => (
                 <div key={c.title} className={styles.workCard}>
@@ -327,12 +341,15 @@ export default function CompanyHome() {
             <div className={styles.houseLinks}>
               <Link to="/musical" className={styles.houseLink}>
                 <strong>Firestarter: The Musical.</strong> The method, on a stage, ticketed and open to the public.
+                <span className={styles.houseCta}>Click to know more <Icon name="arrowRight" size={12} /></span>
               </Link>
               <a href="#" target="_blank" rel="noopener noreferrer" className={styles.houseLink}>
                 <strong>SHEISAVOICE.</strong> We give ten percent of every Firestarter performance to SHEISAVOICE, our sister foundation supporting children with special needs.
+                <span className={styles.houseCta}>Click to know more <Icon name="arrowRight" size={12} /></span>
               </a>
               <Link to="/prize" className={styles.houseLink}>
                 <strong>Firestarter Young Poets Prize.</strong> We also kicked off the Firestarter Young Poets Prize. This year's theme: My Voice, My Future.
+                <span className={styles.houseCta}>Click to know more <Icon name="arrowRight" size={12} /></span>
               </Link>
             </div>
           </Reveal>

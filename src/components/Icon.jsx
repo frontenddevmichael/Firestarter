@@ -137,6 +137,8 @@ const paths = {
       <line x1="4" y1="22" x2="4" y2="15" />
     </>
   ),
+  play: <path d="M5 3l14 9-14 9z" />,
+  quote: <path d="M3 21c3 0 5-2 5-5V6H4v8h2a3 3 0 0 1-3 3v4zm13 0c3 0 5-2 5-5V6h-4v8h2a3 3 0 0 1-3 3v4z" />,
 };
 
 export default function Icon({ name, size = 22, className = '', strokeWidth = 1.6 }) {

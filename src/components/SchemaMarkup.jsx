@@ -9,7 +9,7 @@ const person = {
   name: 'Shola Amaraibi',
   jobTitle: 'Founder & Creative Director',
   description: 'Founder of the Firestarter Method — a five-force creative system and the Firestarter Young Poets Prize.',
-  url: `${url}/about`,
+  url: url,
   sameAs: [],
 };
 
@@ -34,14 +34,6 @@ const schemas = {
     url: url,
     publisher: org,
     mainEntity: { '@type': 'Course', name: 'The Firestarter Method', description: 'A five-force system. Forge, Illuminate, Enact, Regenerate, Amplify.', provider: person },
-  },
-  '/about': {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: 'About — The Firestarter Method',
-    description: 'The story behind the Firestarter Method — a philosophy of creative ignition.',
-    url: `${url}/about`,
-    mainEntity: person,
   },
   '/training': {
     '@context': 'https://schema.org',

@@ -10,14 +10,14 @@
 .heroBig {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: var(--fs-headline-lg);
-  line-height: 1.2;
-  margin-bottom: var(--space-md);
+  font-size: var(--fs-headline-md);
+  line-height: 1.3;
+  margin-bottom: var(--space-sm);
 }
 
 @media (min-width: 768px) {
   .heroBig {
-    font-size: var(--fs-display-xl-mobile);
+    font-size: var(--fs-headline-lg);
   }
 }
 
@@ -223,6 +223,15 @@
   line-height: var(--lh-body);
 }
 
+.forceArrow {
+  display: block;
+  width: 20px;
+  height: 28px;
+  margin: var(--space-md) auto 0;
+  color: var(--color-ember);
+  opacity: 0.6;
+}
+
 /* ── 6. Where this came from ── */
 .origin {
   background-color: var(--color-cream);
@@ -230,15 +239,7 @@
 }
 
 .originInner {
-  max-width: 40rem;
   margin: 0 auto;
-}
-
-.originLead {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--fs-headline-md);
-  margin-bottom: var(--space-md);
 }
 
 .originLayout {
@@ -246,6 +247,9 @@
   grid-template-columns: 1fr;
   gap: var(--space-lg);
   margin-bottom: var(--space-md);
+  max-width: 44rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (min-width: 768px) {
@@ -283,7 +287,16 @@
   background-color: var(--color-warm-white);
   padding: var(--space-xl);
   margin: var(--space-lg) 0;
-  max-width: 28rem;
+  max-width: 100%;
+  text-align: center;
+}
+
+.poemLead {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-lg);
+  color: var(--color-charcoal);
 }
 
 .poemLine {
@@ -336,6 +349,10 @@
   color: var(--color-grey);
   line-height: var(--lh-body);
   margin-bottom: var(--space-md);
+}
+
+.trustLast {
+  margin-bottom: var(--space-xs) !important;
 }
 
 .clientResults {
@@ -422,6 +439,18 @@
 .work {
   background-color: var(--color-cream);
   padding: var(--space-huge) 0;
+}
+
+.workHeading {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .workHeading {
+    font-size: var(--fs-display-xl);
+  }
 }
 
 .workInner {
@@ -519,6 +548,22 @@
   color: var(--color-warm-white);
   display: block;
   margin-bottom: var(--space-xs);
+}
+
+.houseCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  font-size: var(--fs-label-caps);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ember);
+  transition: color 0.3s ease;
+}
+
+.houseLink:hover .houseCta {
+  color: var(--color-burnt-orange);
 }
 
 /* ── 10. What to do next ── */

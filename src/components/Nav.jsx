@@ -7,7 +7,6 @@ import styles from './Nav.module.css';
 const companyLinks = [
   { text: 'The Method', href: '/', end: true },
   { text: 'Work With Me', href: '/#work' },
-  { text: 'About', href: '/about' },
   { text: 'The Musical', href: '/musical' },
   { text: 'Poets Prize', href: '/prize' },
   { text: 'Contact', href: '/contact' },
@@ -106,7 +105,7 @@ export default function Nav() {
           <NavLink
             to={poetsPrizeHref}
             end={false}
-            style={{ '--i': 5 }}
+            style={{ '--i': 4 }}
             className={({ isActive }) => `${styles.link} ${isActive ? styles.linkActive : ''}`}
           >
             Poets Prize

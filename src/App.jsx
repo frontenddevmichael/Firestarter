@@ -16,7 +16,6 @@ import NotFound from './pages/NotFound/NotFound';
 import SparkPack from './pages/SparkPack/SparkPack';
 import SchemaMarkup from './components/SchemaMarkup';
 import CompanyHome from './pages/CompanyHome/CompanyHome';
-import CompanyAbout from './pages/CompanyAbout/CompanyAbout';
 import Training from './pages/Training/Training';
 
 import Musical from './pages/Musical/Musical';
@@ -74,9 +73,8 @@ function ScrollToTop() {
 
 const meta = {
   '/': { title: 'The Firestarter Method — Shola Amaraibi', desc: 'A five-force system that helps you name the life you want, own the choices it requires, and make it real. Forge, Illuminate, Enact, Regenerate, Amplify.' },
-  '/about': { title: 'About — Shola Amaraibi & The Firestarter Method', desc: 'The story behind the Firestarter Method and the founder, Shola Amaraibi.' },
   '/training': { title: 'Free Training — The Firestarter Method', desc: 'Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.' },
-  '/musical': { title: 'Firestarter Musical — Coming Soon', desc: 'Music, theatre, and performance under the Firestarter umbrella.' },
+  '/musical': { title: 'Firestarter: The Musical — Creative-TechFormance at MUSON Centre', desc: 'Eight poems, one woman\'s journey, told in 90 minutes. December 19–20, 2026 at MUSON Centre, Lagos.' },
   '/contact': { title: 'Contact — The Firestarter Method', desc: 'Get in touch with Shola Amaraibi and the Firestarter team.' },
   '/prize': { title: 'Firestarter Young Poets Prize 2026', desc: 'A poetry competition building future skills for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).' },
   '/prize/about': { title: 'About — Firestarter Young Poets Prize 2026', desc: 'Why the prize exists, the 2026 theme, and what judges are looking for.' },
@@ -138,7 +136,6 @@ export default function App() {
         <Routes location={location} key={location.pathname}>
           {/* Company pages */}
           <Route path="/" element={<PageWrapper><CompanyHome /></PageWrapper>} />
-          <Route path="/about" element={<PageWrapper><CompanyAbout /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
           <Route path="/training" element={<PageWrapper><Training /></PageWrapper>} />
 
