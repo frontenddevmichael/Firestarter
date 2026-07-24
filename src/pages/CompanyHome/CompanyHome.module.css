@@ -296,24 +296,28 @@
   color: var(--color-grey);
 }
 
-.originDivider {
-  display: block;
-  width: 40px;
-  height: 2px;
-  background: var(--color-ember);
-  margin: var(--space-lg) auto;
-}
-
 .originProse p {
   margin-bottom: var(--space-md);
 }
 
+.poemBlockOuter {
+  background-color: var(--color-charcoal);
+  margin: var(--space-xl) calc(-50vw + 50%);
+  padding: var(--space-huge) 0;
+}
+
 .poemBlock {
-  background-color: var(--color-warm-white);
-  padding: var(--space-xl);
-  margin: var(--space-lg) 0;
-  max-width: 100%;
   text-align: center;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.poemFlame {
+  display: block;
+  font-size: 2rem;
+  color: var(--color-ember);
+  margin-bottom: var(--space-md);
+  line-height: 1;
 }
 
 .poemLead {
@@ -321,7 +325,8 @@
   font-style: italic;
   font-size: var(--fs-headline-md);
   margin-bottom: var(--space-lg);
-  color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  opacity: 0.85;
 }
 
 .poemLine {
@@ -329,12 +334,14 @@
   font-style: italic;
   font-size: var(--fs-body-lg);
   line-height: 1.8;
-  color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  opacity: 0.9;
 }
 
 .poemLine:last-child {
   font-weight: 700;
   font-style: normal;
+  opacity: 1;
 }
 
 .textLink {

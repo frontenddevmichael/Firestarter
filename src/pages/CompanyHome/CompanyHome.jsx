@@ -230,21 +230,25 @@ export default function CompanyHome() {
                 <p>The day before, almost nobody knew my work. The day after, everything changed. People weren't just moved. They wanted to know how to become one: a firestarter, in their own life.</p>
               </div>
             </div>
-            <span className={styles.originDivider} />
-            <div className={styles.poemBlock}>
-              <p className={styles.poemLead}>The work is decades old. This poem is the moment it caught fire. Here is the closing verse.</p>
-              <p className={styles.poemLine}>Dear Firestarter, start something.</p>
-              <p className={styles.poemLine}>Burn by all means divinely given.</p>
-              <p className={styles.poemLine}>Start a revolution. Be one.</p>
-              <p className={styles.poemLine}>Be remembered as the woman who harnessed her fire,</p>
-              <p className={styles.poemLine}>who burned to the ground what she knew was wrong,</p>
-              <p className={styles.poemLine}>who did not apologise for existing by being quiet.</p>
-              <p className={styles.poemLine}>Let the earth feel your heat.</p>
-              <p className={styles.poemLine}>We do not eat cold or lukewarm.</p>
-              <p className={styles.poemLine}>You are not a bundle of excuses.</p>
-              <p className={styles.poemLine}>You are not a clich&eacute;.</p>
-              <p className={styles.poemLine}>You are the standard.</p>
-              <p className={styles.poemLine}>Stand and be seen. Now.</p>
+            <div className={styles.poemBlockOuter}>
+              <div className="container">
+                <div className={styles.poemBlock}>
+                  <span className={styles.poemFlame} aria-hidden="true">&#10022;</span>
+                  <p className={styles.poemLead}>The work is decades old. This poem is the moment it caught fire. Here is the closing verse.</p>
+                  <p className={styles.poemLine}>Dear Firestarter, start something.</p>
+                  <p className={styles.poemLine}>Burn by all means divinely given.</p>
+                  <p className={styles.poemLine}>Start a revolution. Be one.</p>
+                  <p className={styles.poemLine}>Be remembered as the woman who harnessed her fire,</p>
+                  <p className={styles.poemLine}>who burned to the ground what she knew was wrong,</p>
+                  <p className={styles.poemLine}>who did not apologise for existing by being quiet.</p>
+                  <p className={styles.poemLine}>Let the earth feel your heat.</p>
+                  <p className={styles.poemLine}>We do not eat cold or lukewarm.</p>
+                  <p className={styles.poemLine}>You are not a bundle of excuses.</p>
+                  <p className={styles.poemLine}>You are not a clich&eacute;.</p>
+                  <p className={styles.poemLine}>You are the standard.</p>
+                  <p className={styles.poemLine}>Stand and be seen. Now.</p>
+                </div>
+              </div>
             </div>
           </Reveal>
         </div>
