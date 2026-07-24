@@ -17,6 +17,7 @@ import SparkPack from './pages/SparkPack/SparkPack';
 import SchemaMarkup from './components/SchemaMarkup';
 import CompanyHome from './pages/CompanyHome/CompanyHome';
 import Training from './pages/Training/Training';
+import WorkWithMe from './pages/WorkWithMe/WorkWithMe';
 
 import Musical from './pages/Musical/Musical';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -73,6 +74,7 @@ function ScrollToTop() {
 
 const meta = {
   '/': { title: 'The Firestarter Method — Shola Amaraibi', desc: 'A five-force system that helps you name the life you want, own the choices it requires, and make it real. Forge, Illuminate, Enact, Regenerate, Amplify.' },
+  '/work': { title: 'Work With Me — The Firestarter Method', desc: 'Choose the path that fits where you are: Unstoppable Workshop, Forge Intensive, Firestarter Deluxe, or Firestarter Business Lane.' },
   '/training': { title: 'Free Training — The Firestarter Method', desc: 'Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.' },
   '/musical': { title: 'Firestarter: The Musical — Creative-TechFormance at MUSON Centre', desc: 'Eight poems, one woman\'s journey, told in 90 minutes. December 19–20, 2026 at MUSON Centre, Lagos.' },
   '/contact': { title: 'Contact — The Firestarter Method', desc: 'Get in touch with Shola Amaraibi and the Firestarter team.' },
@@ -136,6 +138,7 @@ export default function App() {
         <Routes location={location} key={location.pathname}>
           {/* Company pages */}
           <Route path="/" element={<PageWrapper><CompanyHome /></PageWrapper>} />
+          <Route path="/work" element={<PageWrapper><WorkWithMe /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
           <Route path="/training" element={<PageWrapper><Training /></PageWrapper>} />
 

@@ -148,24 +148,6 @@ export default function Musical() {
         </div>
       </section>
 
-      {/* ── Watch Their Stories ── */}
-      <section className={Styles.videosSection}>
-        <div className="container">
-          <Reveal variant="soft">
-            <h2 className={Styles.sectionTitle}>Watch Their Stories</h2>
-            <p>Post-event feedback from the last Firestarter: The Musical.</p>
-          </Reveal>
-          <div className={Styles.videoGrid}>
-            {[1, 2, 3].map((v) => (
-              <div key={v} className={Styles.videoPlaceholder}>
-                <Icon name="play" size={28} className={Styles.playIcon} />
-                <span>Video {v}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Event Details ── */}
       <section className={Styles.detailsSection}>
         <div className="container">

@@ -32,19 +32,19 @@
 .heroDesc {
   color: rgba(250, 247, 242, 0.8);
   line-height: var(--lh-body);
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
   max-width: 36rem;
 }
 
-.heroFootnote {
-  margin-top: var(--space-sm);
-  font-size: var(--fs-caption);
-  color: rgba(250, 247, 242, 0.6);
+.heroCtaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: flex-start;
 }
 
 .heroRead {
   display: inline-block;
-  margin-top: var(--space-md);
   color: rgba(250, 247, 242, 0.6);
   font-size: var(--fs-caption);
   text-decoration: underline;
@@ -113,6 +113,16 @@
   margin-bottom: var(--space-lg);
 }
 
+.pullQuote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-headline-md) !important;
+  color: var(--color-charcoal) !important;
+  padding: var(--space-lg) var(--space-md);
+  border-left: 3px solid var(--color-ember);
+  margin: var(--space-lg) 0;
+}
+
 /* ── Shared small heading ── */
 .smallHeading {
   display: block;
@@ -147,6 +157,13 @@
   .whoForGrid {
     grid-template-columns: 1fr 1fr 1fr;
   }
+}
+
+.whoIcon {
+  width: 36px;
+  height: 36px;
+  color: var(--color-ember);
+  margin-bottom: var(--space-sm);
 }
 
 .whoForCard h3 {
@@ -260,8 +277,8 @@
 }
 
 .originImageWrap {
-  aspect-ratio: 1;
-  max-width: 320px;
+  aspect-ratio: 4 / 3;
+  max-width: 400px;
   margin: 0 auto;
   width: 100%;
   overflow: hidden;
@@ -277,6 +294,14 @@
 .originProse {
   line-height: var(--lh-body);
   color: var(--color-grey);
+}
+
+.originDivider {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-ember);
+  margin: var(--space-lg) auto;
 }
 
 .originProse p {
@@ -433,77 +458,6 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0.6;
-}
-
-/* ── 8. Work with me ── */
-.work {
-  background-color: var(--color-cream);
-  padding: var(--space-huge) 0;
-}
-
-.workHeading {
-  font-family: var(--font-display);
-  font-size: var(--fs-display-xl-mobile);
-  margin-bottom: var(--space-lg);
-}
-
-@media (min-width: 768px) {
-  .workHeading {
-    font-size: var(--fs-display-xl);
-  }
-}
-
-.workInner {
-  max-width: 48rem;
-  margin: 0 auto;
-}
-
-.workCards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-  margin-bottom: var(--space-lg);
-}
-
-@media (min-width: 768px) {
-  .workCards {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.workCard {
-  background-color: var(--color-warm-white);
-  border: 1px solid rgba(43, 43, 43, 0.1);
-  padding: var(--space-lg);
-}
-
-.workCard h3 {
-  font-family: var(--font-display);
-  font-size: var(--fs-headline-md);
-  margin-bottom: var(--space-sm);
-}
-
-.workCard p {
-  color: var(--color-grey);
-  line-height: var(--lh-body);
-  margin-bottom: var(--space-sm);
-}
-
-.workCta {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-  color: var(--color-ember);
-  font-size: var(--fs-label-caps);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.workCta:hover {
-  color: var(--color-burnt-orange);
 }
 
 /* ── 9. Also in this house ── */

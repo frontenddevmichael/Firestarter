@@ -47,7 +47,7 @@ export default function Footer() {
         <div className={styles.col}>
           <span className={styles.heading}>Navigate</span>
           <Link to="/">The Method</Link>
-          <Link to="/#work">Work With Me</Link>
+          <Link to="/work">Work With Me</Link>
           <Link to="/musical">The Musical</Link>
           <Link to="/prize">Poets Prize</Link>
           <Link to="/contact">Contact</Link>

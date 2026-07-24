@@ -5,12 +5,6 @@ import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import styles from './CompanyHome.module.css';
 
-const WHATSAPP = 'https://wa.me/2347039343468?text=';
-
-function waMsg(msg) {
-  return `${WHATSAPP}${encodeURIComponent(msg)}`;
-}
-
 const forces = [
   {
     name: 'FORGE',
@@ -61,29 +55,6 @@ const faqs = [
   },
 ];
 
-const cards = [
-  {
-    title: 'Unstoppable Workshop',
-    desc: 'Unstoppable Workshop is a monthly, 90-minute group session built around the Firestarter Method.',
-    msg: "Hi, I'd like to talk about the Unstoppable Workshop",
-  },
-  {
-    title: 'Forge Intensive',
-    desc: 'Three hours, one to one. We work Force One properly: who you are under pressure, and the standard you will hold to. You leave with your Forge Standard started, in writing.',
-    msg: "Hi, I'd like to talk about the Forge Intensive",
-  },
-  {
-    title: 'Firestarter Deluxe',
-    desc: 'The complete method, taught in one sitting. Training and workbook. Watch it in an evening.',
-    msg: "Hi, I'd like to talk about the Firestarter Deluxe",
-  },
-  {
-    title: 'Firestarter Business Lane',
-    desc: 'Finds the money hiding in your business using the Firestarter Method, then helps you go get it. One scan shows you where. One 14-day sprint makes it real. You leave with proof you can build with.',
-    msg: "Hi, I'd like to talk about the Firestarter Business Lane",
-  },
-];
-
 function Reveal({ children, delay = 0, className = '' }) {
   return (
     <motion.div
@@ -126,13 +97,12 @@ export default function CompanyHome() {
             <p className={styles.heroDesc}>
               The Firestarter Method is a five-force system that helps you name the life you want, own the choices it requires, and make it real.
             </p>
-            <Link to="/training" className="btnPrimary">
-              See how it works <Icon name="arrowRight" size={16} />
-            </Link>
-            <p className={styles.heroFootnote}>
-              Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.
-            </p>
-            <a href="#method" className={styles.heroRead}>Or read the whole method</a>
+            <div className={styles.heroCtaGroup}>
+              <Link to="/training" className="btnPrimary">
+                See how it works <Icon name="arrowRight" size={16} />
+              </Link>
+              <a href="#method" className={styles.heroRead}>Or read the whole method</a>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -168,7 +138,7 @@ export default function CompanyHome() {
             <p>
               And then Monday comes, you go looking for the next breakthrough. Another workshop, another book, another prayer, another planner. Each one seems to work for about eleven days.
             </p>
-            <p>
+            <p className={styles.pullQuote}>
               A breakthrough is a door. It is not a house. You have been collecting doors.
             </p>
             <p>
@@ -189,14 +159,25 @@ export default function CompanyHome() {
             <span className={styles.smallHeading}>Who this is for</span>
             <div className={styles.whoForGrid}>
               <div className={styles.whoForCard}>
+                <svg className={styles.whoIcon} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <path d="M16 4 L19 12 L28 12 L21 17 L24 26 L16 21 L8 26 L11 17 L4 12 L13 12 Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                </svg>
                 <h3>BUILDERS</h3>
                 <p>You are productive, capable and respected. And the one thing that matters most stays unfinished, unreleased, or too dependent on you to survive without you.</p>
               </div>
               <div className={styles.whoForCard}>
+                <svg className={styles.whoIcon} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <circle cx="16" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M16 20 L16 28 M10 24 L22 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
                 <h3>STARTERS</h3>
                 <p>The thing is inside you. You have never fully brought it into the world.</p>
               </div>
               <div className={styles.whoForCard}>
+                <svg className={styles.whoIcon} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <path d="M24 16 A10 10 0 1 1 16 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M16 2 L16 10 L24 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
                 <h3>RETURNERS</h3>
                 <p>You had it. You lost it. And you are not sure you are allowed to want it again.</p>
               </div>
@@ -241,7 +222,7 @@ export default function CompanyHome() {
             <span className={styles.smallHeading}>Where this came from</span>
             <div className={styles.originLayout}>
               <div className={styles.originImageWrap}>
-                <img src="/WEBSITEIMAGE.jpeg" alt="Shola Amaraibi" className={styles.originImage} loading="lazy" decoding="async" />
+                <img src="/newimage.jpeg" alt="Shola Amaraibi" className={styles.originImage} loading="lazy" decoding="async" />
               </div>
               <div className={styles.originProse}>
                 <p>The philosophy behind this work has been mine for a long time, worked out slowly, across years, in rooms most people never saw.</p>
@@ -249,6 +230,7 @@ export default function CompanyHome() {
                 <p>The day before, almost nobody knew my work. The day after, everything changed. People weren't just moved. They wanted to know how to become one: a firestarter, in their own life.</p>
               </div>
             </div>
+            <span className={styles.originDivider} />
             <div className={styles.poemBlock}>
               <p className={styles.poemLead}>The work is decades old. This poem is the moment it caught fire. Here is the closing verse.</p>
               <p className={styles.poemLine}>Dear Firestarter, start something.</p>
@@ -307,30 +289,7 @@ export default function CompanyHome() {
         </div>
       </section>
 
-      {/* 8. Work With Me */}
-      <section id="work" className={styles.work}>
-        <div className="container">
-          <Reveal className={styles.workInner}>
-            <h2 className={styles.workHeading}>Work with me</h2>
-            <div className={styles.workCards}>
-              {cards.map((c) => (
-                <div key={c.title} className={styles.workCard}>
-                  <h3>{c.title}</h3>
-                  <p>{c.desc}</p>
-                  <a
-                    href={waMsg(c.msg)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.workCta}
-                  >
-                    Talk to me about this <Icon name="arrowRight" size={14} />
-                  </a>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* 8. Work With Me — now at /work */}
 
       {/* 9. Also In This House */}
       <section className={`${styles.house} grain`}>
@@ -370,7 +329,7 @@ export default function CompanyHome() {
               <div className={styles.nextStep}>
                 <span className={styles.nextNum}>Step 2.</span>
                 <p>From there, you'll hear about the Pathfinding Session, or go straight to any of the four ways to work with me.</p>
-                <a href="#work" className={styles.textLink}>See how to work with me <Icon name="arrowRight" size={14} /></a>
+                <Link to="/work" className={styles.textLink}>See how to work with me <Icon name="arrowRight" size={14} /></Link>
               </div>
             </div>
           </Reveal>
@@ -398,6 +357,7 @@ export default function CompanyHome() {
       <section className={`${styles.closing} grain`}>
         <div className="container">
           <Reveal className={styles.closingInner}>
+            <SparkMark />
             <p className={styles.closingLead}>A breakthrough is a door. Firestarter is the life you build after it.</p>
             <Link to="/training" className="btnPrimary">
               See how it works <Icon name="arrowRight" size={16} />

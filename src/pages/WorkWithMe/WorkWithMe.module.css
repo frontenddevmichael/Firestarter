@@ -1,0 +1,150 @@
+.hero {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--fs-display-xl);
+  }
+}
+
+.heroSub {
+  color: var(--color-grey);
+  font-size: var(--fs-body-md);
+  max-width: 32rem;
+}
+
+.cardsSection {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.card {
+  background: var(--color-cream);
+  padding: var(--space-lg);
+  border-left: 3px solid var(--color-ember);
+}
+
+.cardVisual {
+  width: 48px;
+  height: 48px;
+  background: rgba(214, 90, 31, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-sm);
+  color: var(--color-ember);
+}
+
+.cardVisual svg {
+  width: 32px;
+  height: 32px;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  margin-bottom: var(--space-sm);
+}
+
+.cardDesc {
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-sm);
+  font-size: var(--fs-body-md);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-ember);
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cta:hover {
+  color: var(--color-burnt-orange);
+}
+
+.contactSection {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+  text-align: center;
+}
+
+.contactHeading {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.contactText {
+  color: var(--color-grey);
+  font-size: var(--fs-body-md);
+  max-width: 28rem;
+  margin: 0 auto var(--space-lg);
+}
+
+.contactLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+}
+
+.contactBtn,
+.contactBtnOutline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 12px 24px;
+  font-size: var(--fs-label-caps);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.contactBtn {
+  background: var(--color-ember);
+  color: var(--color-warm-white);
+}
+
+.contactBtn:hover {
+  background: var(--color-burnt-orange);
+}
+
+.contactBtnOutline {
+  border: 1px solid rgba(250, 247, 242, 0.3);
+  color: var(--color-warm-white);
+}
+
+.contactBtnOutline:hover {
+  border-color: var(--color-ember);
+  color: var(--color-ember);
+}
