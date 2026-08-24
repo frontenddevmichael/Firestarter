@@ -159,10 +159,12 @@ export default function AdminDashboard() {
       toast(error?.message || data?.error || 'Failed to create judge', 'error')
       return
     }
-    const { error: credErr } = await supabase.rpc('send_judge_credentials', {
-      judge_email: judgeForm.email,
-      judge_name: judgeForm.name.trim(),
-      judge_password: judgeForm.password,
+    const { error: credErr } = await supabase.functions.invoke('send-judge-email', {
+      body: {
+        judge_email: judgeForm.email,
+        judge_name: judgeForm.name.trim(),
+        judge_password: judgeForm.password,
+      },
     })
     if (credErr) {
       setJudgeFormMsg(`Judge created but credential email failed: ${credErr.message}`)

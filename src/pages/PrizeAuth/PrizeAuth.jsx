@@ -31,9 +31,7 @@ export default function PrizeAuth() {
       else navigate(from, { replace: true })
     } else {
       if (!name.trim()) { setMsg('Please enter your full name'); setLoading(false); return }
-      const captchaToken = window.hcaptcha?.getResponse()
-      if (!captchaToken) { setMsg('Please complete the security check'); setLoading(false); return }
-      const { error, profile } = await signUp(email, password, name.trim(), captchaToken)
+      const { error, profile } = await signUp(email, password, name.trim())
       if (error) { setMsg(error.message); setLoading(false); return }
       if (profile?.role === 'admin') navigate('/prize/admin', { replace: true })
       else if (profile?.role === 'judge') navigate('/prize/judge', { replace: true })
@@ -63,11 +61,6 @@ export default function PrizeAuth() {
             <label htmlFor="password" className={styles.label}>Password</label>
             <PasswordInput id="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Enter your password" autoComplete={mode === 'login' ? 'current-password' : 'new-password'} />
           </div>
-          {mode === 'signup' && (
-            <div className={styles.field}>
-              <div className="h-captcha" data-sitekey="22d4b56e-0c0e-4eaa-8cc4-2e1ca7e4d7bc" />
-            </div>
-          )}
           {msg && <p className={msg.includes('Check') || msg.includes('successfully') || msg.includes('updated') ? styles.success : styles.error}>{msg}</p>}
           <button type="submit" className="btnPrimary" disabled={loading} style={{ width: '100%' }}>
             {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : 'Create Account'}

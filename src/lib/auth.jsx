@@ -55,14 +55,13 @@ export function AuthProvider({ children }) {
     }
   }
 
-  const signUp = async (email, password, fullName, captchaToken) => {
+  const signUp = async (email, password, fullName) => {
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: { full_name: fullName },
-          captchaToken,
         },
       })
       if (error) return { error }
