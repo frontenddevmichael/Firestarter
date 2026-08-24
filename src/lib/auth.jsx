@@ -67,6 +67,7 @@ export function AuthProvider({ children }) {
         password,
         options: {
           data: { full_name: fullName },
+          emailRedirectTo: `${window.location.origin}/prize/auth`,
         },
       })
       if (error) return { error }

@@ -38,5 +38,9 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // If we intercepted tokens from a confirmation redirect, set the session now
 if (__pendingAuthTokens) {
-  supabase.auth.setSession(__pendingAuthTokens).catch(() => {})
+  supabase.auth.setSession(__pendingAuthTokens).then(() => {
+    if (!window.location.pathname.startsWith('/prize')) {
+      window.location.replace('/prize/auth')
+    }
+  }).catch(() => {})
 }
