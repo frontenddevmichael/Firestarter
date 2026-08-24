@@ -55,10 +55,22 @@
 .coverInner {
   max-width: 36rem;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
 }
 
 .coverSpark {
-  margin-bottom: var(--space-lg);
+  width: 280px;
+  height: 280px;
+}
+
+@media (min-width: 768px) {
+  .coverSpark {
+    width: 400px;
+    height: 400px;
+  }
 }
 
 .coverEyebrow {
