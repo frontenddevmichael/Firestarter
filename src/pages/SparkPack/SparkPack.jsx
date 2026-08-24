@@ -8,6 +8,11 @@ function handlePrint() {
   window.print();
 }
 
+function scrollToContent() {
+  const el = document.getElementById('spark-pack-start');
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
 export default function SparkPack() {
   return (
     <div className={styles.page}>
@@ -23,38 +28,41 @@ export default function SparkPack() {
               theme, what to write, how long it should be, and exactly how to send it in.
             </p>
             <div className={styles.heroActions}>
-              <button onClick={handlePrint} className={`btnPrimary ${styles.downloadBtn}`}>
-                <Icon name="arrowRight" size={16} /> Save as PDF
+              <button onClick={scrollToContent} className={`btnPrimary ${styles.downloadBtn}`}>
+                Read the Pack <Icon name="arrowRight" size={16} />
               </button>
-              <a href="/spark-pack.pdf" download className="btnSecondary">
-                Download original PDF
-              </a>
+              <button onClick={handlePrint} className="btnSecondary">
+                Save as PDF
+              </button>
             </div>
           </Reveal>
         </div>
       </section>
 
       {/* Printable content */}
-      <div className={styles.sparkPackContent}>
-        {/* Cover */}
+      <div className={styles.sparkPackContent} id="spark-pack-start">
+        {/* Cover — logo only online, full content for print */}
         <section className={`${styles.cover} ${styles.printSection}`}>
           <div className={styles.coverInner}>
             <SparkMark size="large" className={styles.coverSpark} />
-            <span className={styles.coverEyebrow}>Firestarter Young Poets Prize 2026</span>
-            <h1 className={styles.coverTitle}>My Voice, My Future</h1>
-            <h2 className={styles.coverSubtitle}>The Spark Pack</h2>
-            <p className={styles.coverQuote}>
-              Dear Firestarter, start something.<br />
-              Burn by all means divinely given.<br />
-              Start a revolution. Be one.<br />
-              Let the earth feel your heat.<br />
-              We do not eat cold or lukewarm.<br />
-              You are not a bundle of excuses.<br />
-              You are not a cliché.<br />
-              You are the standard.<br />
-              Stand and be seen. Now.
-            </p>
-            <p className={styles.coverAuthor}>— Shola Amaraibi</p>
+            {/* These are hidden online, shown in print */}
+            <div className={styles.printOnly}>
+              <span className={styles.coverEyebrow}>Firestarter Young Poets Prize 2026</span>
+              <h1 className={styles.coverTitle}>My Voice, My Future</h1>
+              <h2 className={styles.coverSubtitle}>The Spark Pack</h2>
+              <p className={styles.coverQuote}>
+                Dear Firestarter, start something.<br />
+                Burn by all means divinely given.<br />
+                Start a revolution. Be one.<br />
+                Let the earth feel your heat.<br />
+                We do not eat cold or lukewarm.<br />
+                You are not a bundle of excuses.<br />
+                You are not a cliché.<br />
+                You are the standard.<br />
+                Stand and be seen. Now.
+              </p>
+              <p className={styles.coverAuthor}>— Shola Amaraibi</p>
+            </div>
           </div>
         </section>
 

@@ -105,6 +105,11 @@
   color: var(--color-grey);
 }
 
+/* Hide print-only content online */
+.printOnly {
+  display: none;
+}
+
 /* Sections */
 .section {
   background-color: var(--color-warm-white);
@@ -356,6 +361,10 @@
 
   .coverSpark {
     display: none;
+  }
+
+  .printOnly {
+    display: block;
   }
 
   .sectionTitle {
