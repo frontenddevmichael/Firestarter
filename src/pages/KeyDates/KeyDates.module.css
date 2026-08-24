@@ -124,32 +124,30 @@
 }
 
 .closingCta {
-  background-color: var(--color-warm-white);
-  border-top: 1px solid rgba(43, 43, 43, 0.1);
-  padding: var(--space-xl) 0 var(--space-huge);
+  background-color: #0e0e0e;
+  padding: var(--space-huge) 0;
   text-align: center;
-  color: var(--color-grey);
 }
 
-.link {
+.ctaBtn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
-  color: var(--color-charcoal);
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-color: var(--color-ember);
+  background-color: var(--color-warm-white);
+  color: var(--color-ember);
+  font-size: var(--fs-label-caps);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
   transition: transform 0.2s ease;
 }
 
-.link svg {
-  transition: transform 0.2s ease;
+.ctaBtn:hover {
+  transform: scale(1.03);
 }
 
-.link:hover svg {
-  transform: translateX(4px);
-}
-
-.link:active {
+.ctaBtn:active {
   transform: scale(0.97);
 }

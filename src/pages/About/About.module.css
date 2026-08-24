@@ -43,100 +43,126 @@
   color: #333;
 }
 
+.sectionHeading {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-headline-lg);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.bodyText {
+  max-width: 40rem;
+  margin: 0 auto var(--space-lg);
+  line-height: var(--lh-body);
+  font-size: var(--fs-body-md);
+  color: var(--color-grey);
+}
+
+/* Why It Matters */
 .caseSection {
   background-color: var(--color-warm-white);
   padding: var(--space-huge) 0;
 }
 
-.quoteWrap {
-  position: relative;
-  max-width: 44rem;
-  margin-bottom: var(--space-xl);
-  padding-left: var(--space-xl);
+/* What the Prize Develops */
+.developsSection {
+  background-color: var(--color-cream);
+  padding: var(--space-huge) 0;
 }
 
-.quoteMark {
-  position: absolute;
-  top: -3rem;
-  left: -1rem;
-  font-family: var(--font-display);
-  font-size: 9rem;
-  line-height: 1;
-  color: rgba(184, 74, 21, 0.18);
-  pointer-events: none;
-}
-
-.pullQuote {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-display);
-  font-size: var(--fs-display-xl-mobile);
-  line-height: var(--lh-tight);
-}
-
-.twoCol {
+.skillsGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-lg);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .skillsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.skillItem {
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.skillItem h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-md);
+  color: var(--color-ember);
+  margin-bottom: var(--space-xs);
+}
+
+.skillItem p {
   color: var(--color-grey);
   line-height: var(--lh-body);
 }
 
-@media (min-width: 768px) {
-  .twoCol {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-huge);
-  }
+/* Technology as Amplifier */
+.techSection {
+  background-color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
 }
 
+/* The 2026 Theme */
 .themeSection {
   background-color: #0e0e0e;
   color: var(--color-warm-white);
   padding: var(--space-huge) 0;
-  border-top: 1px solid rgba(250, 247, 242, 0.1);
 }
 
-.themeInner {
+.themeIntro {
+  max-width: 40rem;
+  margin: 0 auto var(--space-xl);
+  line-height: var(--lh-body);
+  font-size: var(--fs-body-lg);
+  color: var(--color-grey);
+}
+
+.themePrompts {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-xl);
-  align-items: center;
+  gap: var(--space-lg);
+  max-width: 720px;
+  margin: 0 auto var(--space-xl);
 }
 
 @media (min-width: 768px) {
-  .themeInner {
-    grid-template-columns: 1.2fr 1fr;
+  .themePrompts {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-.themeTitle {
-  font-family: var(--font-display);
-  font-size: var(--fs-headline-lg-mobile);
+.promptCard {
+  border: 1px solid rgba(250, 247, 242, 0.15);
+  padding: var(--space-lg);
+}
+
+.promptCard .eyebrow {
+  display: block;
   margin-bottom: var(--space-md);
+  color: var(--color-ember);
 }
 
-@media (min-width: 768px) {
-  .themeTitle {
-    font-size: var(--fs-headline-lg);
-  }
-}
-
-.themeText {
+.promptCard p {
   color: var(--color-grey);
   line-height: var(--lh-body);
+  margin: 0;
 }
 
-.themeImage {
-  aspect-ratio: 4 / 5;
+.promptNote {
+  text-align: center;
+  font-style: italic;
+  color: var(--color-grey);
+  max-width: 40rem;
+  margin: 0 auto;
 }
 
-.panelPhoto {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
+/* CTA */
 .cta {
   background: linear-gradient(135deg, var(--color-ember) 0%, var(--color-burnt-orange) 100%);
   padding: var(--space-huge) 0;
@@ -159,6 +185,11 @@
 .cta p {
   opacity: 0.9;
   margin-bottom: var(--space-xl);
+}
+
+.ctaActions {
+  display: flex;
+  justify-content: center;
 }
 
 .ctaBtnDark {
@@ -195,4 +226,19 @@
 
 .btnIcon:hover svg {
   transform: translateX(4px);
+}
+
+/* Footnote */
+.footnote {
+  background-color: var(--color-warm-white);
+  padding: var(--space-lg) 0;
+  border-top: 1px solid rgba(43, 43, 43, 0.1);
+}
+
+.footnote p {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+  line-height: var(--lh-body);
+  max-width: 48rem;
+  margin: 0 auto;
 }

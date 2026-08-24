@@ -40,6 +40,12 @@
   margin-bottom: var(--space-xl);
 }
 
+.heroFine {
+  margin-top: var(--space-md);
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+}
+
 .heroActions {
   display: flex;
   flex-direction: column;
@@ -125,6 +131,15 @@
   color: var(--color-burnt-orange);
   font-style: normal;
   border-bottom: 3px solid var(--color-ember);
+}
+
+.deliveredBy {
+  margin-top: var(--space-xl);
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .twoCol {

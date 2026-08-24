@@ -7,13 +7,10 @@ import SparkMark from '../../components/SparkMark';
 import EmberField from '../../components/EmberField';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
-import RevealImage from '../../components/RevealImage';
 import styles from './Home.module.css';
 
 export default function Home() {
   const heroRef = useRef(null);
-  // Ghost numeral drifts slower than the foreground as the hero scrolls
-  // past — a cheap, single-layer parallax (transform only, no repaint cost).
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
@@ -34,14 +31,18 @@ export default function Home() {
             <span className={styles.heroTitleAccent}>My Future.</span>
           </h1>
           <p className={styles.heroSub}>
-            The ability to observe, articulate, and finish what you start — that is the skill. Poetry is how you build it.
+            For secondary school students across Lagos State, ages 10 to 17. Write one
+            original poem. Share the thinking behind it. Build original thinking, confident
+            communication and the responsible use of technology, through poetry, reflection
+            and spoken-word performance.
           </p>
           <div className={styles.heroActions}>
             <Link to="/prize/enter" className={`btnPrimary ${styles.btnIcon}`}>
-              Enter Now <Icon name="arrowRight" size={16} />
+              Enter now <Icon name="arrowRight" size={16} />
             </Link>
             <Link to="/prize/spark-pack" className="btnSecondary">Download the Spark Pack</Link>
           </div>
+          <p className={styles.heroFine}>Free to enter. Entries close October 30, 2026.</p>
         </div>
         <motion.span className={styles.heroGhostNumber} style={{ y: ghostY }}>
           01
@@ -50,83 +51,71 @@ export default function Home() {
 
       <PassingSpark />
 
-      {/* Why It Matters */}
+      {/* What This Is */}
       <section className={styles.whyMatters}>
         <div className="container">
           <Reveal>
             <SparkMark />
-            <span className="eyebrow">Why It Matters</span>
+            <span className="eyebrow">What this is</span>
           </Reveal>
-          <Reveal delay={100} variant="clip" className={styles.quoteWrap}>
-            {/* Ghost quote mark — static on purpose: parallax is reserved for hero-level ghosts (see heroGhostNumber above) to avoid fighting readability in content sections */}
-            <span className={styles.quoteMark} aria-hidden="true">&ldquo;</span>
-            <blockquote className={styles.pullQuote}>
-              Your voice is not a whisper to be kept in classrooms. It is a spark that can
-              ignite a nation. We aren't looking for grammar; we are looking for{' '}
-              <em>courage</em>.
-            </blockquote>
-          </Reveal>
-          <Reveal delay={200} variant="soft" className={styles.twoCol}>
+          <Reveal delay={100} variant="soft" className={styles.twoCol}>
             <p>
-              In the heart of every Nigerian student lies a narrative shaped by history,
-              resilience, and the vibrant pulse of our streets. The Firestarter Young Poets
-              Prize was founded to bridge the gap between creative impulse and national
-              visibility.
+              The Firestarter Young Poets Prize is a future-skills programme that uses
+              poetry, reflection and spoken-word performance to help young people develop
+              original thinking, confident communication and the responsible use of
+              technology.
             </p>
             <p>
-              By providing a platform for students aged 10 to 17, we are investing in the
-              intellectual architects of tomorrow. This is more than a competition — it's a
-              movement to reclaim our stories, one stanza at a time.
+              These abilities grow more valuable as the world changes, not less. A young
+              person who can observe closely, form an idea of their own, express it clearly,
+              and stand behind it in front of others is ready for any future. Poetry,
+              reflection and spoken-word performance are how we build those abilities. The
+              stage, the mentors and the Prize are how we honour them.
             </p>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className={styles.deliveredBy}>Delivered by The Firestarter Collective Africa.</p>
           </Reveal>
         </div>
       </section>
 
-      {/* Who Can Enter / What You Submit */}
+      {/* Who Can Enter */}
       <section className={`${styles.whoCanEnter} grain`}>
         <div className="container">
           <Reveal className={styles.sectionHeading}>
             <SparkMark />
-            <span className="eyebrow">Who Can Enter</span>
+            <span className="eyebrow">Who can enter</span>
             <h2>Your Stage Awaits.</h2>
           </Reveal>
           <div className={styles.panels}>
             <Reveal className={styles.panel}>
               <span className={styles.panelBadge}>Category A</span>
-              <RevealImage className={styles.panelImage}>
-                <img src="/Young%20firestarter%20age%20bracket%20(1).jpeg" alt="Young poet" className={styles.panelPhoto} loading="lazy" />
-              </RevealImage>
               <div className={styles.panelText}>
                 <h3>Junior Poets</h3>
                 <span className="eyebrow">Ages 10–13</span>
-                <p>The early sparks — for students just discovering the power of observation.</p>
+                <p>For younger writers discovering the power of their own voice.</p>
               </div>
             </Reveal>
             <Reveal delay={120} className={styles.panel}>
               <span className={styles.panelBadge}>Category B</span>
-              <RevealImage className={styles.panelImage}>
-                <img src="/Old%20firestarter%20age%20bracket.jpeg" alt="Senior poet" className={styles.panelPhoto} loading="lazy" />
-              </RevealImage>
               <div className={styles.panelText}>
                 <h3>Senior Poets</h3>
                 <span className="eyebrow">Ages 14–17</span>
-                <p>The roaring flame — for voices ready to challenge and redefine the narrative.</p>
+                <p>For older students ready to shape ideas and influence the future.</p>
               </div>
             </Reveal>
           </div>
 
           <p className={styles.eligibilityNote}>
-            Open to secondary school students across Lagos State, Nigeria.
+            Open to secondary school students across Lagos State.
           </p>
 
           <div className={styles.steps}>
             {[
-              { icon: 'pen', title: 'The Poem', desc: 'Write one original poem exploring our 2026 theme.' },
-              { icon: 'reflection', title: 'Voice Reflection', desc: 'A short written reflection on what your poem means to you.' },
-              { icon: 'video', title: 'Performance Video', desc: 'A video of you performing the same poem aloud.' },
+              { icon: 'pen', title: 'Stage One. Write.', desc: 'Submit one original poem on this year\'s theme, plus a short Voice Reflection: three to five sentences on what your poem is really about and why you wrote it. That is all. No video is needed to enter.' },
+              { icon: 'video', title: 'Stage Two. Perform.', desc: 'If you are shortlisted, we invite you to record yourself performing the same poem and share the video with us as a YouTube link. Winners in each category are chosen from these performances.' },
             ].map((s, i) => (
-              <Reveal key={s.title} delay={[0, 150, 250][i]} className={styles.step}>
-                {/* Ghost step numeral — static: parallax reserved for hero-level ghosts only (heroGhostNumber), inline numerals would drift awkwardly inside a grid */}
+              <Reveal key={s.title} delay={[0, 150][i]} className={styles.step}>
                 <span className={styles.stepNumber}>0{i + 1}</span>
                 <Icon name={s.icon} size={26} className={styles.stepIcon} />
                 <h4>{s.title}</h4>
@@ -148,34 +137,30 @@ export default function Home() {
             <span className="eyebrow">2026 Theme</span>
             <h2>My Voice, My Future.</h2>
             <p>
-              This year, we ask you to look inward and forward. What do you see when you
-              imagine the world of tomorrow? Who are you in that world? Use your pen to build
-              the bridge between who you are now and who the future needs you to be.
+              Every generation inherits a world shaped by the voices that came before it.
+              The future will be shaped by the voices that speak today. Yours is one of
+              them. Write honestly. Imagine boldly. Use your words to help shape the future
+              you want to see.
             </p>
             <Link to="/prize/about" className={styles.themeLink}>
-              Read the full theme <Icon name="arrowRight" size={14} />
+              Read the full theme and your age-group prompt <Icon name="arrowRight" size={14} />
             </Link>
           </Reveal>
-          <RevealImage className={styles.themeImage}>
-            <img src="/WEBSITEIMAGE.jpeg" alt="Theme visual" className={styles.panelPhoto} loading="lazy" decoding="async" />
-          </RevealImage>
         </div>
       </section>
 
       <PassingSpark />
 
-      {/* Key Dates snapshot — deliberately lighter than the Key Dates page.
-          This is a static preview (simple grid, hardcoded active dot for Deadline).
-          The full scroll-ignited timeline with fuse line lives on /key-dates. */}
+      {/* Key Dates snapshot */}
       <section className={styles.datesSnapshot}>
         <div className="container">
-          <h3 className={styles.sectionHeading}>Competition Timeline</h3>
+          <h3 className={styles.sectionHeading}>Timeline</h3>
           <div className={styles.datesRow}>
             {[
               { label: 'Entries Open', date: 'Now' },
-              { label: 'Deadline', date: '30 Sept 2026', active: true },
-              { label: 'Judging', date: 'October' },
-              { label: 'Finalists & Creative Lab', date: 'November' },
+              { label: 'Entries Close', date: 'Oct 30', active: true },
+              { label: 'Judging & Shortlist', date: 'November' },
+              { label: 'Creative-Tech Lab', date: 'Early Dec' },
               { label: 'Grand Final', date: 'December' },
             ].map((d, i) => (
               <Reveal key={d.label} delay={[0, 60, 140, 220, 280][i]} className={styles.dateItem}>
@@ -194,13 +179,13 @@ export default function Home() {
       {/* Parents & Teachers teaser */}
       <section className={styles.parentsTeaser}>
         <Reveal className="container">
-          <span className="eyebrow">For Parents &amp; Teachers</span>
+          <span className="eyebrow">For parents and teachers</span>
           <p>
-            Nurturing the next generation of Nigerian literature takes a village. See how you
-            can support a young poet through the submission process.
+            Behind every young voice is someone who believed it mattered. See what your
+            child or student gains from taking part, and how to support their entry.
           </p>
           <Link to="/prize/parents-and-teachers" className={styles.themeLink}>
-            Learn more <Icon name="arrowRight" size={14} />
+            Parents & Teachers <Icon name="arrowRight" size={14} />
           </Link>
         </Reveal>
       </section>
@@ -210,10 +195,10 @@ export default function Home() {
         <EmberField density="low" />
         <div className="container">
           <SparkMark size="large" className={styles.finalCtaSpark} drawIn />
-          <h2>Ready to raise your voice?</h2>
-          <p>Your journey from a blank page to a national stage starts here.</p>
+          <h2>Every voice begins somewhere.</h2>
+          <p>This could be where yours begins.</p>
           <Link to="/prize/enter" className={styles.finalCtaBtn}>
-            Enter Now <Icon name="arrowRight" size={16} />
+            Enter now <Icon name="arrowRight" size={16} />
           </Link>
         </div>
       </section>

@@ -6,19 +6,14 @@ import Reveal from '../../components/Reveal';
 import styles from './KeyDates.module.css';
 
 const milestones = [
-  { label: 'Entries Open', date: '15 Jul 2026', desc: 'The portal is open for Lagos State secondary school students to submit.' },
-  { label: 'Deadline', date: '30 Sept 2026, 11:59 PM (WAT)', desc: 'All entries must be received by this time. No extensions.', highlight: true },
-  { label: 'Judging', date: 'Oct 2026', desc: 'Our panel reviews every submission across both categories.' },
-  { label: 'Finalists Announced & Creative Lab', date: '31 Oct 2026', desc: 'Finalists are revealed and take part in a creative workshop.' },
-  { label: 'Grand Final', date: '15 Nov 2026', desc: 'A night of performance and recognition in Lagos.', star: true },
+  { label: 'Entries Open', date: 'Now', desc: 'Submit one original poem and your Voice Reflection.' },
+  { label: 'Entries Close', date: 'October 30, 2026', desc: 'No entries can be accepted after this date.', highlight: true },
+  { label: 'Judging and Shortlist', date: 'November', desc: 'Every entry is read. Shortlisted students are contacted and invited to record a performance video of their poem.' },
+  { label: 'Performance Videos Due', date: 'Late November', desc: 'Shortlisted students upload their video to YouTube as an unlisted link and share it with the Prize team.' },
+  { label: "Finalists' Creative-Tech Lab", date: 'Early December', desc: 'A two-day lab where finalists work with mentors and creative technology to bring their poems to life.' },
+  { label: 'Grand Final and Prize-giving', date: 'December', desc: 'Finalists perform and winners in each category are celebrated, at an event connected to Firestarter: The Musical at MUSON Centre, Lagos.', star: true },
 ];
 
-/**
- * MilestoneDot — the grey base dot is always visible; the ember "lit"
- * overlay fades/scales in as the fuse line's scroll progress passes this
- * milestone's position along the timeline, so each date visibly catches
- * as the reader scrolls to it.
- */
 function MilestoneDot({ progress, ratio, star, highlight }) {
   const glow = useTransform(progress, [Math.max(ratio - 0.1, 0), ratio], [0, 1]);
 
@@ -32,9 +27,6 @@ function MilestoneDot({ progress, ratio, star, highlight }) {
 
 export default function KeyDates() {
   const timelineRef = useRef(null);
-  // Progress runs 0→1 as the timeline scrolls from just entering view to
-  // just leaving it — this single value drives both the fuse fill and
-  // each dot's ignition point below.
   const { scrollYProgress } = useScroll({
     target: timelineRef,
     offset: ['start 0.85', 'end 0.4'],
@@ -45,9 +37,10 @@ export default function KeyDates() {
       <section className={styles.hero}>
         <Reveal variant="up-large" className="container">
           <span className="eyebrow">Key Dates</span>
-          <h1 className={styles.heroTitle}>The Road to the Grand Final.</h1>
+          <h1 className={styles.heroTitle}>Key dates</h1>
           <p className={styles.heroSub}>
-            Mark your calendar for the defining moments of the 2026 Prize.
+            Exact dates for the videos, the lab and the grand final are shared directly
+            with shortlisted students, their parents and their schools.
           </p>
         </Reveal>
       </section>
@@ -63,8 +56,8 @@ export default function KeyDates() {
             {milestones.map((m, i) => (
               <Reveal
                 key={m.label}
-                variant={['up', 'soft', 'up', 'clip', 'up'][i]}
-                delay={[0, 120, 260, 420, 500][i]}
+                variant={['up', 'soft', 'up', 'clip', 'up', 'up'][i]}
+                delay={[0, 120, 260, 420, 500, 600][i]}
                 className={`${styles.milestone} ${m.highlight ? styles.milestoneHighlight : ''}`}
               >
                 <MilestoneDot
@@ -84,12 +77,9 @@ export default function KeyDates() {
 
       <section className={styles.closingCta}>
         <div className="container">
-          <p>
-            Haven't entered yet?{' '}
-            <Link to="/prize/how-to-enter" className={styles.link}>
-              See How to Enter <Icon name="arrowRight" size={14} />
-            </Link>
-          </p>
+          <Link to="/prize/enter" className={styles.ctaBtn}>
+            Enter now <Icon name="arrowRight" size={16} />
+          </Link>
         </div>
       </section>
     </div>
