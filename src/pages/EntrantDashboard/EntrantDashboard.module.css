@@ -498,6 +498,96 @@
   background: #fff5f5;
 }
 
+/* Draft status badge */
+.draftBadge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  background: #fff3e0;
+  color: #e65100;
+}
+
+/* Saved indicator below form */
+.savedIndicator {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+  text-align: center;
+  padding: var(--space-sm) 0;
+  font-style: italic;
+}
+
+/* Outline button for Save Draft */
+.btnOutline {
+  background: transparent;
+  border: 2px solid var(--color-charcoal);
+  color: var(--color-charcoal);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-body-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btnOutline:hover {
+  background: var(--color-charcoal);
+  color: white;
+}
+
+/* Draft form button row */
+.draftActions {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.draftActions .btnOutline,
+.draftActions .btnPrimary {
+  flex: 1;
+  min-width: 140px;
+}
+
+/* Submit modal checkbox row */
+.modalCheckboxRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding: var(--space-sm);
+  background: #fff3e0;
+  border: 1px solid #e65100;
+}
+
+.modalCheckboxRow input[type="checkbox"] {
+  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-ember);
+  flex-shrink: 0;
+}
+
+.modalCheckboxLabel {
+  font-size: var(--fs-body-md);
+  font-weight: 600;
+  color: #e65100;
+}
+
+/* Submit warning text */
+.submitWarning {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body);
+  margin: 0;
+  color: var(--color-charcoal);
+}
+
+/* Disabled confirm button */
+.confirmDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 480px) {
   .stepLabel {
     font-size: 8px;

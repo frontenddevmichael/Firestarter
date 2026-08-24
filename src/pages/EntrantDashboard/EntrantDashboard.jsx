@@ -11,7 +11,7 @@ import Icon from '../../components/Icon'
 import SparkMark from '../../components/SparkMark'
 import styles from './EntrantDashboard.module.css'
 
-const STEPS = ['consent', 'submit', 'submitted', 'shortlisted', 'finalist']
+const STEPS = ['consent', 'draft', 'submitted', 'shortlisted', 'finalist']
 
 function formatRef(id, date) {
   const d = date ? new Date(date) : new Date()
@@ -46,6 +46,9 @@ export default function EntrantDashboard() {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [animState, setAnimState] = useState('')
+  const [showSubmitModal, setShowSubmitModal] = useState(false)
+  const [confirmChecked, setConfirmChecked] = useState(false)
+  const [savingDraft, setSavingDraft] = useState(false)
 
   const [category, setCategory] = useState('junior')
   const [poemText, setPoemText] = useState('')
@@ -62,8 +65,28 @@ export default function EntrantDashboard() {
     ]).then(([eRes, gRes]) => {
       if (eRes.data) setEntry(eRes.data)
       if (gRes.data) setGuardian(gRes.data)
-      if (!eRes.data && !gRes.data) setMode('consent')
-      if (!eRes.data && gRes.data) setMode('submit')
+      if (!eRes.data && !gRes.data) {
+        setMode('consent')
+      } else if (eRes.data) {
+        const s = eRes.data.status
+        if (s === 'draft') {
+          setMode('draft')
+          setPoemText(eRes.data.poem_text || '')
+          setVideoLink(eRes.data.video_link || '')
+          setVoiceReflection(eRes.data.voice_reflection || '')
+          setCategory(eRes.data.category || 'junior')
+        } else if (s === 'submitted' || s === 'shortlisted' || s === 'finalist') {
+          setMode('status')
+        } else {
+          setMode('draft')
+          setPoemText(eRes.data.poem_text || '')
+          setVideoLink(eRes.data.video_link || '')
+          setVoiceReflection(eRes.data.voice_reflection || '')
+          setCategory(eRes.data.category || 'junior')
+        }
+      } else if (gRes.data) {
+        setMode('draft')
+      }
       setLoading(false)
     }).catch(() => {
       toast('Failed to load your data. Please try again.', 'error')
@@ -83,25 +106,73 @@ export default function EntrantDashboard() {
     if (error) { toast(error.message, 'error'); return }
     toast('Guardian consent recorded!')
     setGuardian({ guardian_name: guardianName.trim(), guardian_email: guardianEmail.trim() })
-    setMode('submit')
+    setMode('draft')
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!poemText.trim()) { toast('Please provide your poem', 'error'); return }
-    const { error } = await supabase.from('entries').insert({
+  const handleSaveDraft = async () => {
+    if (!poemText.trim()) { toast('Please provide your poem before saving', 'error'); return }
+    setSavingDraft(true)
+    const payload = {
       entrant_id: user.id,
       poem_text: poemText.trim(),
       video_link: videoLink.trim() || null,
       voice_reflection: voiceReflection.trim() || null,
       category,
-    })
+      status: 'draft',
+    }
+    let error
+    if (entry) {
+      ;({ error } = await supabase.from('entries').update(payload).eq('id', entry.id))
+    } else {
+      ;({ error } = await supabase.from('entries').insert(payload))
+    }
+    if (error) { toast(error.message, 'error'); setSavingDraft(false); return }
+    const { data } = await supabase.from('entries').select('*').eq('entrant_id', user.id).single()
+    if (data) setEntry(data)
+    setSavingDraft(false)
+    toast('Draft saved')
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!poemText.trim()) { toast('Please provide your poem', 'error'); return }
+    if (!entry) {
+      const { error } = await supabase.from('entries').insert({
+        entrant_id: user.id,
+        poem_text: poemText.trim(),
+        video_link: videoLink.trim() || null,
+        voice_reflection: voiceReflection.trim() || null,
+        category,
+        status: 'draft',
+      })
+      if (error) { toast(error.message, 'error'); return }
+    } else {
+      const { error } = await supabase.from('entries').update({
+        poem_text: poemText.trim(),
+        video_link: videoLink.trim() || null,
+        voice_reflection: voiceReflection.trim() || null,
+        category,
+      }).eq('id', entry.id)
+      if (error) { toast(error.message, 'error'); return }
+    }
+    const { data } = await supabase.from('entries').select('*').eq('entrant_id', user.id).single()
+    if (data) setEntry(data)
+    setShowSubmitModal(true)
+  }
+
+  const handleFinalSubmit = async () => {
+    const { error } = await supabase.from('entries').update({
+      status: 'submitted',
+      submitted_at: new Date().toISOString(),
+    }).eq('id', entry.id)
     if (error) { toast(error.message, 'error'); return }
     const { data } = await supabase.from('entries').select('*').eq('entrant_id', user.id).single()
     if (data) setEntry(data)
+    setShowSubmitModal(false)
+    setConfirmChecked(false)
     setAnimState('just-submitted')
     setTimeout(() => setAnimState(''), 2000)
-    toast('Your poem has been submitted!')
+    toast('Entry submitted successfully!')
     setMode('status')
   }
 
@@ -115,9 +186,15 @@ export default function EntrantDashboard() {
 
   if (loading) return <div className={styles.page}><Skeleton width="100%" height="60vh" /></div>
 
-  const status = entry?.status || 'submitted'
+  const status = entry?.status || 'draft'
   const humanStatus = status === 'submitted' ? 'Submitted' : status.charAt(0).toUpperCase() + status.slice(1)
-  const currentStep = entry ? (status === 'finalist' ? 4 : status === 'shortlisted' ? 3 : 2) : (guardian ? 1 : 0)
+  const currentStep = entry
+    ? (status === 'finalist' ? 4
+      : status === 'shortlisted' ? 3
+      : status === 'submitted' ? 2
+      : status === 'draft' ? 1
+      : 2)
+    : (guardian ? 1 : 0)
 
   const statusIcon = status === 'finalist' ? 'award' : status === 'shortlisted' ? 'star' : 'fileText'
 
@@ -134,10 +211,10 @@ export default function EntrantDashboard() {
             {STEPS.map((s, i) => (
               <div key={s} className={`${styles.step} ${i <= currentStep ? styles.activeStep : ''} ${i === currentStep ? styles.currentStep : ''}`}>
                 <div className={styles.stepDot}>
-                  {i < currentStep ? '✓' : i + 1}
+                  {i < currentStep ? '\u2713' : i + 1}
                 </div>
                 <span className={styles.stepLabel}>
-                  {s === 'consent' ? 'Consent' : s === 'submit' ? 'Submit' : s === 'submitted' ? 'Submitted' : s === 'shortlisted' ? 'Shortlisted' : 'Finalist'}
+                  {s === 'consent' ? 'Consent' : s === 'draft' ? 'Draft' : s === 'submitted' ? 'Submitted' : s === 'shortlisted' ? 'Shortlisted' : 'Finalist'}
                 </span>
               </div>
             ))}
@@ -149,7 +226,7 @@ export default function EntrantDashboard() {
             <Icon name={statusIcon} size={32} className={styles.welcomeIcon} strokeWidth={1.6} />
             <div>
               <p className={styles.welcomeText}>
-                {status === 'finalist' ? "You're a finalist!" : status === 'shortlisted' ? "You've been shortlisted!" : 'Entry submitted!'}
+                {status === 'finalist' ? "You're a finalist!" : status === 'shortlisted' ? "You've been shortlisted!" : status === 'draft' ? 'Your draft is saved' : 'Entry submitted!'}
               </p>
               <p className={styles.welcomeSub}>
                 {profile?.full_name || profile?.email} &middot; {entry.category} &middot; <strong>{humanStatus}</strong>
@@ -194,13 +271,13 @@ export default function EntrantDashboard() {
           </form>
         )}
 
-        {mode === 'submit' && (
+        {mode === 'draft' && (
           <form onSubmit={handleSubmit} className={styles.form}>
             <h2 className={styles.formTitle}>Your Poem</h2>
             <div className={styles.field}>
               <label>Category</label>
               <select value={category} onChange={e => setCategory(e.target.value)} className={styles.input}>
-                <option value="junior">Junior (11 & under)</option>
+                <option value="junior">Junior (11 &amp; under)</option>
                 <option value="senior">Senior (12–17)</option>
               </select>
             </div>
@@ -216,11 +293,19 @@ export default function EntrantDashboard() {
               <label>Voice Reflection <span className={styles.hint}>— Why did you write this poem? (optional)</span></label>
               <textarea value={voiceReflection} onChange={e => setVoiceReflection(e.target.value)} className={styles.textarea} rows={4} placeholder="Tell us about your inspiration..." />
             </div>
-            <button type="submit" className="btnPrimary">Submit Entry</button>
+            {entry && entry.updated_at && (
+              <p className={styles.hint}>Draft saved at {new Date(entry.updated_at).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</p>
+            )}
+            <div className={styles.formActions}>
+              <button type="button" className="btnOutline" onClick={handleSaveDraft} disabled={savingDraft}>
+                {savingDraft ? 'Saving...' : 'Save Draft'}
+              </button>
+              <button type="submit" className="btnPrimary">Submit Entry</button>
+            </div>
           </form>
         )}
 
-        {entry && mode !== 'consent' && mode !== 'submit' && (
+        {entry && mode !== 'consent' && mode !== 'draft' && (
           <div className={styles.statusSection}>
             {status === 'shortlisted' && (
               <div className={styles.alert}>
@@ -267,7 +352,7 @@ export default function EntrantDashboard() {
                   const current = STEPS.indexOf(st.phase) === currentStep
                   return (
                     <div key={st.phase} className={`${styles.stageItem} ${done ? styles.stageDone : ''} ${current ? styles.stageCurrent : ''}`}>
-                      <div className={styles.stageDot}>{done ? '✓' : current ? '●' : '○'}</div>
+                      <div className={styles.stageDot}>{done ? '\u2713' : current ? '\u25CF' : '\u25CB'}</div>
                       <div className={styles.stageContent}>
                         <span className={styles.stageLabel}>{st.label}</span>
                         <span className={styles.stageDesc}>{st.desc}</span>
@@ -295,7 +380,7 @@ export default function EntrantDashboard() {
               ))}
             </div>
 
-            <button className={styles.deleteBtn} onClick={() => setShowDeleteModal(true)}>Delete Account & Entry</button>
+            <button className={styles.deleteBtn} onClick={() => setShowDeleteModal(true)}>Delete Account &amp; Entry</button>
           </div>
         )}
       </div>
@@ -309,6 +394,21 @@ export default function EntrantDashboard() {
         danger
       >
         This will permanently delete your account, profile, and entry. This cannot be undone.
+      </ConfirmModal>
+
+      <ConfirmModal
+        open={showSubmitModal}
+        title="Submit Entry?"
+        onConfirm={handleFinalSubmit}
+        onCancel={() => { setShowSubmitModal(false); setConfirmChecked(false) }}
+        confirmLabel="Submit Entry"
+        confirmDisabled={!confirmChecked}
+      >
+        <p>Once submitted, you cannot edit your entry. This is final.</p>
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', cursor: 'pointer' }}>
+          <input type="checkbox" checked={confirmChecked} onChange={e => setConfirmChecked(e.target.checked)} />
+          I understand this cannot be edited
+        </label>
       </ConfirmModal>
     </div>
   )

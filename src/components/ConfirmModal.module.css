@@ -1,4 +1,4 @@
-.overlay {
+﻿.overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.4);
@@ -70,4 +70,9 @@
 .dangerBtn:hover {
   background: #b71c1c;
   border-color: #b71c1c;
+}
+
+.confirmDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

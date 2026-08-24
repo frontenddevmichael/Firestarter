@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef } from 'react';
+﻿import { useCallback, useEffect, useRef } from 'react';
 import styles from './ConfirmModal.module.css'
 
-export default function ConfirmModal({ open, title, children, confirmLabel = 'Confirm', cancelLabel = 'Cancel', onConfirm, onCancel, danger }) {
+export default function ConfirmModal({ open, title, children, confirmLabel = 'Confirm', cancelLabel = 'Cancel', onConfirm, onCancel, danger, confirmDisabled }) {
   const modalRef = useRef(null);
   const prevFocus = useRef(null);
 
@@ -37,7 +37,7 @@ export default function ConfirmModal({ open, title, children, confirmLabel = 'Co
         <p className={styles.body}>{children}</p>
         <div className={styles.actions}>
           <button className={styles.cancelBtn} onClick={onCancel} type="button">{cancelLabel}</button>
-          <button className={`${styles.confirmBtn} ${danger ? styles.dangerBtn : ''}`} onClick={onConfirm} type="button">{confirmLabel}</button>
+          <button className={`${styles.confirmBtn} ${danger ? styles.dangerBtn : ''} ${confirmDisabled ? styles.confirmDisabled : ''}`} onClick={onConfirm} disabled={confirmDisabled} type="button">{confirmLabel}</button>
         </div>
       </div>
     </div>
