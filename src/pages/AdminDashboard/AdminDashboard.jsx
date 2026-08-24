@@ -178,20 +178,23 @@ export default function AdminDashboard() {
   }
 
   const changePhase = async (phase) => {
-    await supabase.from('rounds').insert({ phase })
+    const { error } = await supabase.from('rounds').insert({ phase })
+    if (error) { toast(error.message, 'error'); return }
     toast(`Phase advanced to ${phase}`)
     fetchData()
   }
 
   const updateEntryStatus = async (entryId, status) => {
-    await supabase.from('entries').update({ status }).eq('id', entryId)
+    const { error } = await supabase.from('entries').update({ status }).eq('id', entryId)
+    if (error) { toast(error.message, 'error'); return }
     toast(`Entry status updated to ${status}`)
     fetchData()
   }
 
   const assignJudge = async (entryId, judgeId) => {
     if (!judgeId) return
-    await supabase.from('judge_assignments').insert({ entry_id: entryId, judge_id: judgeId })
+    const { error } = await supabase.from('judge_assignments').insert({ entry_id: entryId, judge_id: judgeId })
+    if (error) { toast(error.message, 'error'); return }
     toast('Judge assigned')
     fetchData()
   }
@@ -218,10 +221,10 @@ export default function AdminDashboard() {
 
   const withdrawEntry = async () => {
     if (!showWithdraw) return
-    await supabase.from('entries').update({ status: 'withdrawn' }).eq('id', showWithdraw.id)
+    const { error } = await supabase.from('entries').update({ status: 'withdrawn' }).eq('id', showWithdraw.id)
+    if (error) { toast(error.message, 'error'); return }
     toast('Entry withdrawn')
     setShowWithdraw(null)
-    setWithdrawReason('')
     fetchData()
   }
 

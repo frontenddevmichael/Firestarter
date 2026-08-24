@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 
 const KEY_DATES = {
@@ -21,8 +21,10 @@ export function useCompetition() {
   const [phase, setPhase] = useState('open')
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, target: '', label: '' })
   const [loading, setLoading] = useState(true)
+  const cleanupRef = useRef(null)
 
   const calcCountdown = useCallback((currentPhase) => {
+    if (cleanupRef.current) { cleanupRef.current(); cleanupRef.current = null }
     const targetDate = PHASE_MILESTONES[currentPhase]
     if (!targetDate) {
       setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0, target: '', label: '' })
@@ -52,23 +54,30 @@ export function useCompetition() {
     }
     tick()
     const interval = setInterval(tick, 1000)
-    return () => clearInterval(interval)
+    cleanupRef.current = () => clearInterval(interval)
   }, [])
 
   const refresh = useCallback(async () => {
-    const { data } = await supabase
-      .from('rounds')
-      .select('phase')
-      .order('phase_started', { ascending: false })
-      .limit(1)
-      .single()
-    const currentPhase = data?.phase || 'open'
-    setPhase(currentPhase)
-    calcCountdown(currentPhase)
+    try {
+      const { data } = await supabase
+        .from('rounds')
+        .select('phase')
+        .order('phase_started', { ascending: false })
+        .limit(1)
+        .single()
+      const currentPhase = data?.phase || 'open'
+      setPhase(currentPhase)
+      calcCountdown(currentPhase)
+    } catch {
+      calcCountdown('open')
+    }
     setLoading(false)
   }, [calcCountdown])
 
-  useEffect(() => { refresh() }, [refresh])
+  useEffect(() => {
+    refresh()
+    return () => { if (cleanupRef.current) cleanupRef.current() }
+  }, [refresh])
 
   return { phase, countdown, loading, refresh }
 }

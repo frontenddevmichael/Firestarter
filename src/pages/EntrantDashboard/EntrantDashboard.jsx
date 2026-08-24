@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
 import { useToast } from '../../lib/toast'
@@ -63,6 +64,9 @@ export default function EntrantDashboard() {
       if (gRes.data) setGuardian(gRes.data)
       if (!eRes.data && !gRes.data) setMode('consent')
       if (!eRes.data && gRes.data) setMode('submit')
+      setLoading(false)
+    }).catch(() => {
+      toast('Failed to load your data. Please try again.', 'error')
       setLoading(false)
     })
   }, [user])
@@ -284,10 +288,10 @@ export default function EntrantDashboard() {
 
             <div className={styles.resourcesGrid}>
               {RESOURCES.map(r => (
-                <a key={r.title} href={r.link} className={styles.resourceCard}>
+                <Link key={r.title} to={r.link} className={styles.resourceCard}>
                   <strong>{r.title}</strong>
                   <span>{r.desc}</span>
-                </a>
+                </Link>
               ))}
             </div>
 

@@ -70,7 +70,7 @@ export default function Training() {
             <p className={styles.ctaText}>
               The free training shows you the map. The Deluxe hands you the tools.
             </p>
-            <Link to="/deluxe" className={styles.ctaBtn}>
+            <Link to="/work" className={styles.ctaBtn}>
               Explore the Firestarter Deluxe <Icon name="arrowRight" size={16} />
             </Link>
           </Reveal>

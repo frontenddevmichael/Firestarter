@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
 import { useToast } from '../../lib/toast'
@@ -29,6 +29,12 @@ export default function JudgeDashboard() {
   const [fullscreen, setFullscreen] = useState(false)
   const [saving, setSaving] = useState(null)
   const [savingTimeout, setSavingTimeout] = useState(null)
+  const scoreInputsRef = useRef({})
+  const noteInputsRef = useRef({})
+
+  useEffect(() => {
+    return () => { if (savingTimeout) clearTimeout(savingTimeout) }
+  }, [savingTimeout])
 
   useEffect(() => {
     if (!user) return
@@ -45,6 +51,7 @@ export default function JudgeDashboard() {
       supabase.from('judge_assignments').select('*, entries(*)').eq('judge_id', user.id),
       supabase.from('scores').select('*').eq('judge_id', user.id),
     ])
+    if (asgnRes.error) { toast(asgnRes.error.message, 'error'); setLoading(false); return }
     if (asgnRes.data) setAssignments(asgnRes.data)
     const scoreMap = {}
     if (scoreRes.data) scoreRes.data.forEach(s => { scoreMap[s.entry_id] = s })
@@ -53,23 +60,33 @@ export default function JudgeDashboard() {
   }
 
   const handleScoreChange = (entryId, value) => {
-    setScoreInputs(s => ({ ...s, [entryId]: value }))
+    setScoreInputs(s => {
+      scoreInputsRef.current[entryId] = value
+      return { ...s, [entryId]: value }
+    })
     if (savingTimeout) clearTimeout(savingTimeout)
     const timeout = setTimeout(() => autoSave(entryId), 1500)
     setSavingTimeout(timeout)
   }
 
+  const handleNoteChange = (entryId, value) => {
+    setNoteInputs(n => {
+      noteInputsRef.current[entryId] = value
+      return { ...n, [entryId]: value }
+    })
+  }
+
   const autoSave = async (entryId) => {
-    const val = scoreInputs[entryId]
+    const val = scoreInputsRef.current[entryId] ?? scoreInputs[entryId]
     if (!val || val < 1 || val > 100) return
     setSaving(entryId)
     const { error } = await supabase.from('scores').upsert({
       judge_id: user.id,
       entry_id: entryId,
       score: Number(val),
-      notes: noteInputs[entryId] || '',
+      notes: (noteInputsRef.current[entryId] ?? noteInputs[entryId]) || '',
     }, { onConflict: 'judge_id, entry_id' })
-    setSaving(false)
+    setSaving(null)
     if (error) { toast(error.message, 'error'); return }
     toast('Score saved!', 'success', 2000)
     loadAssignments()
@@ -235,7 +252,7 @@ export default function JudgeDashboard() {
                       className={styles.noteInput}
                       rows={2}
                       value={noteInputs[entry.entries?.id] ?? (s?.notes || '')}
-                      onChange={e => setNoteInputs(n => ({ ...n, [entry.entries?.id]: e.target.value }))}
+                      onChange={e => handleNoteChange(entry.entries?.id, e.target.value)}
                     />
                   </div>
                 </div>

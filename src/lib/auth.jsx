@@ -11,14 +11,21 @@ export function AuthProvider({ children }) {
 
   const fetchProfile = useCallback(async (userId) => {
     try {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single()
-      if (data) setProfile(data)
+      if (error) {
+        console.error('fetchProfile error:', error.message)
+        return null
+      }
+      setProfile(data)
       return data
-    } catch (_) { return null }
+    } catch (e) {
+      console.error('fetchProfile exception:', e)
+      return null
+    }
   }, [])
 
   useEffect(() => {
@@ -47,9 +54,7 @@ export function AuthProvider({ children }) {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) return { error }
-      setUser(data.user)
-      const prof = await fetchProfile(data.user.id)
-      return { data, profile: prof }
+      return { data }
     } catch {
       return { error: { message: 'Network error — check your connection and try again.' } }
     }
@@ -65,12 +70,6 @@ export function AuthProvider({ children }) {
         },
       })
       if (error) return { error }
-
-      if (data?.user) {
-        setUser(data.user)
-        const prof = await fetchProfile(data.user.id)
-        return { data, profile: prof }
-      }
       return { data }
     } catch {
       return { error: { message: 'Network error — check your connection and try again.' } }
@@ -79,8 +78,11 @@ export function AuthProvider({ children }) {
 
   const signOut = async () => {
     try {
-      await supabase.auth.signOut()
-    } catch (_) {}
+      const { error } = await supabase.auth.signOut()
+      if (error) return { error }
+    } catch {
+      return { error: { message: 'Network error during sign out.' } }
+    }
     setUser(null)
     setProfile(null)
   }
@@ -90,7 +92,7 @@ export function AuthProvider({ children }) {
       return await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/prize/reset-password`,
       })
-    } catch (e) {
+    } catch {
       return { error: { message: 'Network error — check your connection and try again.' } }
     }
   }
@@ -111,7 +113,7 @@ export function AuthProvider({ children }) {
         setProfile(null)
       }
       return { error }
-    } catch (e) {
+    } catch {
       return { error: { message: 'Network error — check your connection and try again.' } }
     }
   }

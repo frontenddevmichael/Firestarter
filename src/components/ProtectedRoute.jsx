@@ -10,9 +10,11 @@ export default function ProtectedRoute({ children, requiredRole }) {
 
   if (!user) return <Navigate to="/prize/auth" state={{ from: location }} replace />
 
-  if (requiredRole && profile?.role !== requiredRole) {
-    if (profile?.role === 'admin') return <Navigate to="/prize/admin" replace />
-    if (profile?.role === 'judge') return <Navigate to="/prize/judge" replace />
+  if (!profile) return <div style={{ padding: '2rem', textAlign: 'center' }}><p>Unable to load profile. Please <a href="/prize/auth">sign in again</a>.</p></div>
+
+  if (requiredRole && profile.role !== requiredRole) {
+    if (profile.role === 'admin') return <Navigate to="/prize/admin" replace />
+    if (profile.role === 'judge') return <Navigate to="/prize/judge" replace />
     return <Navigate to="/prize/dashboard" replace />
   }
 
