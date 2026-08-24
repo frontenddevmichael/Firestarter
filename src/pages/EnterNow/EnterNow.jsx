@@ -16,7 +16,7 @@ export default function EnterNow() {
             <span className="eyebrow">Submit Your Entry</span>
             <h1 className={styles.heroTitle}>Your Voice, Submitted.</h1>
             <p className={styles.heroSub}>
-              Entries close <strong>30 September 2026, 11:59 PM (WAT)</strong>.
+              Entries close <strong>October 30, 2026</strong>.
             </p>
           </Reveal>
         </div>

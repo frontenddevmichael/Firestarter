@@ -52,11 +52,11 @@ const faqs = [
   },
   {
     q: 'What do I need to submit?',
-    a: 'One original poem, a short Voice Reflection, and a performance video of you reading the same poem aloud.',
+    a: 'One original poem (up to 40 lines) and a short Voice Reflection (three to five sentences). Performance videos are only needed if you are shortlisted.',
   },
   {
     q: 'Is there an entry fee?',
-    a: 'This will be confirmed before launch — check back or contact us directly for the latest.',
+    a: 'No. Entry is free, and payment is never requested at any stage.',
   },
   {
     q: 'How is judging decided?',
