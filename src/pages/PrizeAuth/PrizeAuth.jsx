@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../lib/auth'
 import PasswordInput from '../../components/PasswordInput'
@@ -17,6 +17,14 @@ export default function PrizeAuth() {
   const [name, setName] = useState('')
   const [msg, setMsg] = useState('')
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const authError = sessionStorage.getItem('auth_error')
+    if (authError) {
+      sessionStorage.removeItem('auth_error')
+      setMsg(authError)
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()

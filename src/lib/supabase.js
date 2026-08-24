@@ -14,13 +14,20 @@ if (!supabaseUrl || !supabaseAnonKey) {
 let __pendingAuthTokens = null
 if (typeof window !== 'undefined') {
   const hash = window.location.hash
-  if (hash && hash.includes('access_token')) {
+  if (hash && hash.length > 1) {
     try {
-      const params = new URLSearchParams(hash.substring(1))
-      const accessToken = params.get('access_token')
-      const refreshToken = params.get('refresh_token')
-      if (accessToken && refreshToken) {
-        __pendingAuthTokens = { access_token: accessToken, refresh_token: refreshToken }
+      if (hash.includes('access_token')) {
+        const params = new URLSearchParams(hash.substring(1))
+        const accessToken = params.get('access_token')
+        const refreshToken = params.get('refresh_token')
+        if (accessToken && refreshToken) {
+          __pendingAuthTokens = { access_token: accessToken, refresh_token: refreshToken }
+          window.history.replaceState(null, '', window.location.pathname + window.location.search)
+        }
+      } else if (hash.includes('error=')) {
+        const params = new URLSearchParams(hash.substring(1))
+        const desc = params.get('error_description') || 'Link expired or invalid'
+        sessionStorage.setItem('auth_error', desc)
         window.history.replaceState(null, '', window.location.pathname + window.location.search)
       }
     } catch (_) { /* let Supabase handle it normally */ }
