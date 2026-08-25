@@ -65,8 +65,7 @@ export default function HowToEnter() {
             <p className={styles.bodyText}>
               Go to the entry page, fill in your details and your school's name, add your
               poem and your Voice Reflection, and submit before October 30, 2026.
-            </p>
-            <Link to="/prize/enter" className="btnPrimary">Enter now</Link>
+            </p> 
           </Reveal>
         </div>
       </section>

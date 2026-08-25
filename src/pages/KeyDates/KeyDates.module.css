@@ -151,3 +151,70 @@
 .ctaBtn:active {
   transform: scale(0.97);
 }
+
+
+/* CTA SECTION */
+.cta {
+  background: linear-gradient(135deg, var(--color-ember) 0%, var(--color-burnt-orange) 100%);
+  padding: var(--space-huge) 0;
+  text-align: center;
+  color: var(--color-warm-white);
+}
+
+.cta h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-lg-mobile);
+  margin-bottom: var(--space-sm);
+}
+
+@media (min-width: 768px) {
+  .cta h2 {
+    font-size: var(--fs-headline-lg);
+  }
+}
+
+.cta p {
+  opacity: 0.9;
+  margin-bottom: var(--space-xl);
+}
+
+.ctaActions {
+  display: flex;
+  justify-content: center;
+}
+
+.ctaBtnDark {
+  display: inline-block;
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  font-size: var(--fs-label-caps);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-charcoal);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.ctaBtnDark:hover {
+  background-color: transparent;
+}
+
+.ctaBtnDark:active {
+  transform: scale(0.97);
+}
+
+.btnIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.btnIcon svg {
+  transition: transform 0.2s ease;
+}
+
+.btnIcon:hover svg {
+  transform: translateX(4px);
+}

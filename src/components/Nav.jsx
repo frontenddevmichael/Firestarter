@@ -5,19 +5,18 @@ import Icon from './Icon';
 import styles from './Nav.module.css';
 
 const companyLinks = [
-  { text: 'The Method', href: '/', end: true },
-  { text: 'Work With Me', href: '/work' },
-  { text: 'The Musical', href: '/musical' },
-  { text: 'Poets Prize', href: '/prize' },
+  { text: 'Method', href: '/', end: true },
+  { text: 'Work', href: '/work' },
+  { text: ' Musical', href: '/musical' },
   { text: 'Contact', href: '/contact' },
 ];
 
 const prizeLinks = [
   { text: 'Home', href: '/prize', end: true },
-  { text: 'About & Theme', href: '/prize/about' },
+  { text: 'About ', href: '/prize/about' },
   { text: 'How to Enter', href: '/prize/how-to-enter' },
-  { text: 'Key Dates', href: '/prize/key-dates' },
-  { text: 'Parents & Teachers', href: '/prize/parents-and-teachers' },
+  { text: ' Dates', href: '/prize/key-dates' },
+  { text: 'Guardians', href: '/prize/parents-and-teachers' },
   { text: 'Spark Pack', href: '/prize/spark-pack' },
   { text: 'Contact', href: '/prize/contact' },
 ];

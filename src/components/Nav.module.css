@@ -6,10 +6,6 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--color-charcoal);
-  padding: var(--space-sm) var(--space-margin-mobile);
-  padding-top: calc(var(--space-sm) + env(safe-area-inset-top, 0px));
-  padding-left: calc(var(--space-margin-mobile) + env(safe-area-inset-left, 0px));
-  padding-right: calc(var(--space-margin-mobile) + env(safe-area-inset-right, 0px));
   border-bottom: 1px solid rgba(250, 247, 242, 0.1);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 56px;
@@ -235,7 +231,7 @@
 /* ====== DESKTOP (≥ 768px) ====== */
 @media (min-width: 768px) {
   .nav {
-    padding: var(--space-sm) var(--space-margin-desktop);
+    padding: var(--space-sm);
   }
 
   .hamburger {
@@ -256,7 +252,7 @@
     padding: 0;
     background: none;
     border: none;
-    gap: var(--space-lg);
+    gap: var(--space-sm);
     overflow: visible;
   }
 
@@ -264,17 +260,10 @@
     opacity: 1;
     transform: none;
     transition-delay: 0s;
-    font-size: 11px;
+    font-size: 10px;
     padding: 0;
   }
 
-  .linkActive::before {
-    left: auto;
-    right: -2px;
-    top: -4px;
-    width: 6px;
-    height: 6px;
-  }
 
   .sparkHover {
     position: absolute;
@@ -315,3 +304,15 @@
     font-size: 11px;
   }
 }
+
+
+
+
+  .linkActive::before {
+    left: auto;
+    right: -2px;
+    top: -4px;
+    width: 6px;
+    height: 6px;
+    display: none;
+  }

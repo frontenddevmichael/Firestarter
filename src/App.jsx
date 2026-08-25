@@ -11,6 +11,7 @@ import HowToEnter from './pages/HowToEnter/HowToEnter';
 import KeyDates from './pages/KeyDates/KeyDates';
 import ForParentsTeachers from './pages/ForParentsTeachers/ForParentsTeachers';
 import Contact from './pages/Contact/Contact';
+import CompanyContact from './pages/CompanyContact/CompanyContact';
 import EnterNow from './pages/EnterNow/EnterNow';
 import NotFound from './pages/NotFound/NotFound';
 import SparkPack from './pages/SparkPack/SparkPack';
@@ -77,7 +78,7 @@ const meta = {
   '/work': { title: 'Work With Me — The Firestarter Method', desc: 'Choose the path that fits where you are: Unstoppable Workshop, Forge Intensive, Firestarter Deluxe, or Firestarter Business Lane.' },
   '/training': { title: 'Free Training — The Firestarter Method', desc: 'Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.' },
   '/musical': { title: 'Firestarter: The Musical — Creative-TechFormance at MUSON Centre', desc: 'Eight poems, one woman\'s journey, told in 90 minutes. December 19–20, 2026 at MUSON Centre, Lagos.' },
-  '/contact': { title: 'Contact — The Firestarter Method', desc: 'Get in touch with Shola Amaraibi and the Firestarter team.' },
+  '/contact': { title: 'Contact — The Firestarter Method', desc: 'Get in touch with Shola Amaraibi and the Firestarter team. Questions about the Method, collaboration, or just want to say hello.' },
   '/prize': { title: 'Firestarter Young Poets Prize 2026', desc: 'A poetry competition building future skills for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).' },
   '/prize/about': { title: 'About — Firestarter Young Poets Prize 2026', desc: 'Why the prize exists, the 2026 theme, and what judges are looking for.' },
   '/prize/how-to-enter': { title: 'How to Enter — Firestarter Young Poets Prize 2026', desc: 'Three steps to submit your poem: write, reflect, perform.' },
@@ -140,7 +141,7 @@ export default function App() {
           {/* Company pages */}
           <Route path="/" element={<PageWrapper><CompanyHome /></PageWrapper>} />
           <Route path="/work" element={<PageWrapper><WorkWithMe /></PageWrapper>} />
-          <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+          <Route path="/contact" element={<PageWrapper><CompanyContact /></PageWrapper>} />
           <Route path="/training" element={<PageWrapper><Training /></PageWrapper>} />
 
           <Route path="/musical" element={<PageWrapper><Musical /></PageWrapper>} />

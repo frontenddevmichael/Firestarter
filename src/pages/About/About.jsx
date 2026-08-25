@@ -166,6 +166,17 @@ export default function About() {
         </div>
       </section>
 
+       <section className={styles.footnote}>
+        <div className="container">
+          <p>
+            *UNESCO, Recommendation on the Ethics of Artificial Intelligence, adopted by
+            all member states in November 2021; UNESCO AI Competency Framework for
+            Students, which frames young people as responsible citizens and co-creators in
+            the age of artificial intelligence.
+          </p>
+        </div>
+      </section>
+
       <section className={styles.cta}>
         <Reveal className="container">
           <h2>Find your starting line.</h2>
@@ -176,17 +187,6 @@ export default function About() {
             </Link>
           </div>
         </Reveal>
-      </section>
-
-      <section className={styles.footnote}>
-        <div className="container">
-          <p>
-            *UNESCO, Recommendation on the Ethics of Artificial Intelligence, adopted by
-            all member states in November 2021; UNESCO AI Competency Framework for
-            Students, which frames young people as responsible citizens and co-creators in
-            the age of artificial intelligence.
-          </p>
-        </div>
       </section>
     </div>
   );
