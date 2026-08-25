@@ -231,7 +231,7 @@
 /* ====== DESKTOP (≥ 768px) ====== */
 @media (min-width: 768px) {
   .nav {
-    padding: var(--space-sm);
+    padding: var(--space-sm) var(--space-margin-desktop);
   }
 
   .hamburger {
@@ -252,7 +252,7 @@
     padding: 0;
     background: none;
     border: none;
-    gap: var(--space-sm);
+    gap: clamp(0.6rem, 1.2vw, 1.2rem);
     overflow: visible;
   }
 
@@ -262,8 +262,16 @@
     transition-delay: 0s;
     font-size: 10px;
     padding: 0;
+    white-space: nowrap;
   }
 
+  .linkActive::before {
+    left: auto;
+    right: -2px;
+    top: -4px;
+    width: 6px;
+    height: 6px;
+  }
 
   .sparkHover {
     position: absolute;
@@ -302,17 +310,6 @@
     margin-top: 0;
     padding: 0.6rem 1.25rem;
     font-size: 11px;
+    white-space: nowrap;
   }
 }
-
-
-
-
-  .linkActive::before {
-    left: auto;
-    right: -2px;
-    top: -4px;
-    width: 6px;
-    height: 6px;
-    display: none;
-  }

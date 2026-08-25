@@ -99,7 +99,7 @@ export default function CompanyHome() {
             </p>
             <div className={styles.heroCtaGroup}>
               <Link to="/training" className="btnPrimary">
-                See how it works <Icon name="arrowRight" size={16} />
+                Watch the brief <Icon name="arrowRight" size={16} />
               </Link>
               <a href="#method" className={styles.heroRead}>Or read the whole method</a>
             </div>
@@ -328,7 +328,7 @@ export default function CompanyHome() {
               <div className={styles.nextStep}>
                 <span className={styles.nextNum}>Step 1. <mark>Free</mark></span>
                 <p>Watch the video. Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.</p>
-                <Link to="/training" className={styles.textLink}>See how it works <Icon name="arrowRight" size={14} /></Link>
+                <Link to="/training" className={styles.textLink}>Watch the brief <Icon name="arrowRight" size={14} /></Link>
               </div>
               <div className={styles.nextStep}>
                 <span className={styles.nextNum}>Step 2.</span>
@@ -364,7 +364,7 @@ export default function CompanyHome() {
             <SparkMark />
             <p className={styles.closingLead}>A breakthrough is a door. Firestarter is the life you build after it.</p>
             <Link to="/training" className="btnPrimary">
-              See how it works <Icon name="arrowRight" size={16} />
+              Watch the brief <Icon name="arrowRight" size={16} />
             </Link>
           </Reveal>
         </div>
