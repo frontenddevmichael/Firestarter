@@ -167,8 +167,8 @@ export default function CompanyHome() {
               </div>
               <div className={styles.whoForCard}>
                 <svg className={styles.whoIcon} viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                  <circle cx="16" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M16 20 L16 28 M10 24 L22 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  <path d="M16 4 C11 4 8 8 8 12 C8 15 9 17 11 18.5 L11 22 L21 22 L21 18.5 C23 17 24 15 24 12 C24 8 21 4 16 4 Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                  <path d="M13 24 L19 24 M14 27 L18 27 M16 22 L16 27" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
                 <h3>STARTERS</h3>
                 <p>You've had this idea for a while now. Maybe years. You think about it. You plan for it. You save notes about it. But you haven't actually started. Not really.</p>
