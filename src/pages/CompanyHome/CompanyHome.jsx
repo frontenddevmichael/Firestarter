@@ -284,10 +284,9 @@ export default function CompanyHome() {
           <Reveal className={styles.pressLogos}>
             <p className={styles.pressLabel}>As featured in</p>
             <div className={styles.pressRow}>
-              <span className={styles.pressLogo}>The Guardian</span>
-              <span className={styles.pressLogo}>BBC</span>
-              <span className={styles.pressLogo}>TEDX</span>
-              <span className={styles.pressLogo}>Vogue</span>
+              <a href="https://www.thisdaylive.com/2024/03/15/all-set-for-elevate-poetry-event/" target="_blank" rel="noopener noreferrer" className={styles.pressLogo}>ThisDay Live</a>
+              <a href="https://tribuneonlineng.com/all-set-for-elevate-poetry-event/" target="_blank" rel="noopener noreferrer" className={styles.pressLogo}>Tribune Online</a>
+              <a href="https://thenationonlineng.net/writing-since-13/" target="_blank" rel="noopener noreferrer" className={styles.pressLogo}>The Nation Online</a>
             </div>
           </Reveal>
         </div>

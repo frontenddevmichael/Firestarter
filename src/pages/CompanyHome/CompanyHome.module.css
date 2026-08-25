@@ -463,6 +463,11 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.pressLogo:hover {
+  opacity: 1;
 }
 
 /* ── 9. Also in this house ── */
