@@ -33,8 +33,10 @@
   margin: 0 auto;
   text-align: center;
   padding: var(--space-xl);
-  border: 2px solid var(--color-charcoal);
-  background: white;
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  background: var(--color-warm-white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .submitIcon {

@@ -124,7 +124,7 @@
 }
 
 .closingCta {
-  background-color: #0e0e0e;
+  background-color: var(--color-deep-black);
   padding: var(--space-huge) 0;
   text-align: center;
 }

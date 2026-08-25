@@ -26,8 +26,8 @@ const extraLinks = [
   { label: 'Spark Pack', href: '/prize/spark-pack', icon: 'download' },
 ];
 
-function getPageTitle(pathname) {
-  const params = new URLSearchParams(pathname.split('?')[1] || '');
+function getPageTitle(pathname, search) {
+  const params = new URLSearchParams(search || '');
   const tab = params.get('tab');
   if (pathname.startsWith('/prize/dashboard')) return 'My Dashboard';
   if (pathname.startsWith('/prize/judge')) return 'Judge Panel';
@@ -44,11 +44,11 @@ function getPageTitle(pathname) {
 export default function DashboardShell({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const { profile, signOut } = useAuth();
   const role = profile?.role || 'entrant';
   const links = sidebarConfig[role] || sidebarConfig.entrant;
-  const title = getPageTitle(pathname);
+  const title = getPageTitle(pathname, search);
 
   const handleSignOut = async () => {
     await signOut();

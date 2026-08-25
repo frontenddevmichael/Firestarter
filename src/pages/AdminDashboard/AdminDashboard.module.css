@@ -37,8 +37,10 @@
 }
 
 .statCard {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-md);
   display: flex;
   flex-direction: column;
@@ -61,8 +63,10 @@
 }
 
 .section {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-lg);
   margin-bottom: var(--space-md);
 }
@@ -188,11 +192,12 @@
   font-family: var(--font-body);
   font-weight: 600;
   cursor: pointer;
-  border: 2px solid var(--color-charcoal);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
   transition: all 0.15s;
 }
 
-.phaseBtn { background: white; color: var(--color-charcoal); }
+.phaseBtn { background: var(--color-warm-white); color: var(--color-charcoal); }
 .phaseBtn:hover { background: var(--color-charcoal); color: white; }
 .phaseBtn:disabled { opacity: 0.4; cursor: not-allowed; }
 .phaseBtnActive { background: var(--color-charcoal); color: white; cursor: default; }
@@ -209,8 +214,9 @@
   font-family: var(--font-body);
   font-size: var(--fs-body-md);
   color: var(--color-charcoal);
-  background: var(--color-warm-white);
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-cream);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
   outline: none;
   transition: border-color 0.2s;
 }
@@ -232,8 +238,9 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all 0.15s;
   white-space: nowrap;
@@ -322,9 +329,9 @@
 }
 
 .s_submitted { background: var(--color-cream); }
-.s_shortlisted { background: #e8f5e9; color: #2e7d32; }
-.s_finalist { background: #fff3e0; color: #e65100; }
-.s_withdrawn { background: #f5f5f5; color: #9e9e9e; text-decoration: line-through; }
+.s_shortlisted { background: rgba(46, 125, 50, 0.1); color: var(--color-success); }
+.s_finalist { background: rgba(230, 81, 0, 0.1); color: var(--color-warning); }
+.s_withdrawn { background: rgba(158, 158, 158, 0.08); color: #9e9e9e; text-decoration: line-through; }
 
 .assignedJudge {
   font-size: 0.65rem;
@@ -341,15 +348,16 @@
 
 .withdrawBtn {
   background: none;
-  border: 1px solid #d32f2f;
-  color: #d32f2f;
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
   padding: 2px 6px;
   cursor: pointer;
   font-size: 10px;
   line-height: 1;
+  border-radius: var(--radius-sm);
 }
 
-.withdrawBtn:hover { background: #fff5f5; }
+.withdrawBtn:hover { background: rgba(211, 47, 47, 0.05); }
 
 .judgeName { font-weight: 600; }
 
@@ -370,8 +378,8 @@
 .dateCell { white-space: nowrap; font-size: 0.7rem; color: var(--color-grey); }
 
 .empty { color: var(--color-grey); text-align: center; padding: var(--space-md); }
-.error { color: #d32f2f; font-size: var(--fs-caption); margin-top: var(--space-sm); }
-.success { color: #2e7d32; font-size: var(--fs-caption); margin-top: var(--space-sm); }
+.error { color: var(--color-error); font-size: var(--fs-caption); margin-top: var(--space-sm); }
+.success { color: var(--color-success); font-size: var(--fs-caption); margin-top: var(--space-sm); }
 
 .overlay {
   position: fixed;
@@ -384,8 +392,8 @@
 }
 
 .detailPanel {
-  background: white;
-  border-left: 3px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border-left: 3px solid var(--color-ember);
   width: 480px;
   max-width: 100vw;
   height: 100vh;

@@ -105,8 +105,11 @@
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  border-left: 3px solid var(--color-ember);
   padding: var(--space-md);
   margin-bottom: var(--space-sm);
 }
@@ -137,8 +140,10 @@
 }
 
 .countdownCard {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   padding: 0.5rem 0.75rem;
   display: flex;
   flex-direction: column;
@@ -167,8 +172,10 @@
 }
 
 .form {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
@@ -223,8 +230,9 @@
   font-family: var(--font-body);
   font-size: var(--fs-body-md);
   color: var(--color-charcoal);
-  background: var(--color-warm-white);
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-cream);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
   outline: none;
   transition: border-color 0.2s;
 }
@@ -248,8 +256,9 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-sm);
-  background: #e8f5e9;
-  border: 2px solid #2e7d32;
+  background: rgba(46, 125, 50, 0.08);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-sm);
   padding: var(--space-md);
   font-size: var(--fs-body-md);
 }
@@ -260,8 +269,10 @@
 }
 
 .entryCard {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .entryHeader {
@@ -293,8 +304,8 @@
   background: var(--color-cream);
 }
 
-.shortlisted { background: #e8f5e9; color: #2e7d32; }
-.finalist { background: #fff3e0; color: #e65100; }
+.shortlisted { background: rgba(46, 125, 50, 0.1); color: var(--color-success); }
+.finalist { background: rgba(230, 81, 0, 0.1); color: var(--color-warning); }
 
 .refNumber {
   margin-left: auto;
@@ -351,8 +362,10 @@
 }
 
 .stagesCard {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-lg);
 }
 
@@ -387,7 +400,7 @@
   margin-top: 2px;
   background: var(--color-cream);
   color: var(--color-grey);
-  border: 1px solid var(--color-grey);
+  border: 1px solid rgba(43, 43, 43, 0.15);
 }
 
 .stageDone .stageDot {
@@ -400,6 +413,7 @@
   background: var(--color-ember);
   color: white;
   border-color: var(--color-ember);
+  box-shadow: 0 0 0 3px rgba(214, 90, 31, 0.2);
 }
 
 .stageContent {
@@ -425,8 +439,10 @@
 }
 
 .guardianCard {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-md);
 }
 
@@ -455,19 +471,22 @@
 }
 
 .resourceCard {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-md);
   text-decoration: none;
   color: inherit;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  transition: background 0.15s;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .resourceCard:hover {
-  background: var(--color-warm-white);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
 .resourceCard strong {
@@ -483,19 +502,20 @@
 
 .deleteBtn {
   background: none;
-  border: 2px solid #d32f2f;
-  color: #d32f2f;
+  border: 1px solid var(--color-error);
+  color: var(--color-error);
   padding: var(--space-sm) var(--space-md);
   font-family: var(--font-body);
   font-size: var(--fs-caption);
   font-weight: 600;
   cursor: pointer;
+  border-radius: var(--radius-sm);
   align-self: flex-start;
   transition: background 0.2s;
 }
 
 .deleteBtn:hover {
-  background: #fff5f5;
+  background: rgba(211, 47, 47, 0.05);
 }
 
 /* Draft status badge */
@@ -505,8 +525,8 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 3px 8px;
-  background: #fff3e0;
-  color: #e65100;
+  background: rgba(230, 81, 0, 0.1);
+  color: var(--color-warning);
 }
 
 /* Saved indicator below form */
@@ -521,7 +541,8 @@
 /* Outline button for Save Draft */
 .btnOutline {
   background: transparent;
-  border: 2px solid var(--color-charcoal);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
   color: var(--color-charcoal);
   padding: 0.75rem 1.5rem;
   font-family: var(--font-body);
@@ -556,8 +577,9 @@
   gap: var(--space-sm);
   margin-top: var(--space-md);
   padding: var(--space-sm);
-  background: #fff3e0;
-  border: 1px solid #e65100;
+  background: rgba(230, 81, 0, 0.06);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-sm);
 }
 
 .modalCheckboxRow input[type="checkbox"] {
@@ -571,7 +593,7 @@
 .modalCheckboxLabel {
   font-size: var(--fs-body-md);
   font-weight: 600;
-  color: #e65100;
+  color: var(--color-warning);
 }
 
 /* Submit warning text */

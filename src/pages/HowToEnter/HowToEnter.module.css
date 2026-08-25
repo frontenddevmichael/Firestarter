@@ -112,7 +112,7 @@
 }
 
 .entryCta {
-  background-color: #0e0e0e;
+  background-color: var(--color-deep-black);
   color: var(--color-warm-white);
   text-align: center;
   padding: var(--space-huge) 0;

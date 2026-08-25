@@ -10,8 +10,10 @@
 }
 
 .modal {
-  background: white;
-  border: 3px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
   max-width: 420px;
   width: 100%;
   padding: var(--space-lg);
@@ -42,12 +44,13 @@
   font-size: var(--fs-caption);
   font-weight: 600;
   cursor: pointer;
-  border: 2px solid var(--color-charcoal);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
   transition: all 0.15s;
 }
 
 .cancelBtn {
-  background: white;
+  background: var(--color-warm-white);
   color: var(--color-charcoal);
 }
 
@@ -62,8 +65,8 @@
 }
 
 .dangerBtn {
-  background: #d32f2f;
-  border-color: #d32f2f;
+  background: var(--color-error);
+  border-color: var(--color-error);
   color: white;
 }
 

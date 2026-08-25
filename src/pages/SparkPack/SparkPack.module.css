@@ -191,9 +191,11 @@
 }
 
 .promptCard {
-  border: 2px solid var(--color-charcoal);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-lg);
-  background: white;
+  background: var(--color-warm-white);
 }
 
 .promptLabel {

@@ -133,6 +133,7 @@ export default function App() {
       <PageMeta />
       <SchemaMarkup />
       {!isDashboard && <Nav />}
+      <a href="#main-content" className="skipLink">Skip to content</a>
       <main id="main-content">
         <AnimatePresence mode="sync" initial={false}>
         <Routes location={location} key={location.pathname}>

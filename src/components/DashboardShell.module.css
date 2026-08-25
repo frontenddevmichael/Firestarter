@@ -296,6 +296,6 @@
   }
 
   .userName {
-    display: none;
+    display: block;
   }
 }

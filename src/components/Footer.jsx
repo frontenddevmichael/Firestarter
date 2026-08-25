@@ -34,6 +34,7 @@ export default function Footer() {
                   type="email"
                   placeholder="Your email"
                   className={styles.signupInput}
+                  aria-label="Email address"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -76,7 +77,7 @@ export default function Footer() {
           <span className={styles.heading}>Also in this house</span>
           <Link to="/musical">Firestarter: The Musical</Link>
           <Link to="/prize">The Firestarter Young Poets Prize</Link>
-          <a href="#" target="_blank" rel="noopener noreferrer" className={styles.contactLine}>SHEISAVOICE</a>
+          <a href="https://sheisavoice.com" target="_blank" rel="noopener noreferrer" className={styles.contactLine}>SHEISAVOICE</a>
         </div>
       </div>
     </footer>

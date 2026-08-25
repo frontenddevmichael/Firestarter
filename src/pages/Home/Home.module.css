@@ -253,7 +253,7 @@
 
 @media (min-width: 768px) {
   .steps {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -292,7 +292,7 @@
 /* ---- Theme Spotlight ---- */
 .theme {
   position: relative;
-  background-color: #141313;
+  background-color: var(--color-deep-black);
   color: var(--color-warm-white);
   padding: var(--space-huge) 0;
 }
@@ -302,12 +302,7 @@
   grid-template-columns: 1fr;
   gap: var(--space-xl);
   align-items: center;
-}
-
-@media (min-width: 768px) {
-  .themeInner {
-    grid-template-columns: 1fr 1fr;
-  }
+  max-width: 48rem;
 }
 
 .themeText h2 {
@@ -444,13 +439,13 @@
 
 .finalCta h2 {
   font-family: var(--font-display);
-  font-size: var(--fs-display-xl-mobile);
+  font-size: var(--fs-headline-lg-mobile);
   margin-bottom: var(--space-md);
 }
 
 @media (min-width: 768px) {
   .finalCta h2 {
-    font-size: var(--fs-headline-lg);
+    font-size: var(--fs-display-sm);
   }
 }
 

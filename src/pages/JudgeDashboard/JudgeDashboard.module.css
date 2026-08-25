@@ -29,8 +29,10 @@
 }
 
 .progressCard {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-md) var(--space-lg);
   margin-bottom: var(--space-md);
   display: flex;
@@ -69,7 +71,8 @@
 
 .progressFill {
   height: 100%;
-  background: var(--color-charcoal);
+  background: var(--color-ember);
+  border-radius: var(--radius-sm);
   transition: width 0.4s;
 }
 
@@ -81,8 +84,10 @@
 }
 
 .rubricBox {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   margin-bottom: var(--space-md);
 }
 
@@ -136,7 +141,9 @@
 .filterGroup {
   display: flex;
   gap: 2px;
-  border: 2px solid var(--color-charcoal);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
 }
 
 .filterBtn, .filterActive {
@@ -152,7 +159,7 @@
 }
 
 .filterBtn {
-  background: white;
+  background: var(--color-warm-white);
   color: var(--color-grey);
 }
 
@@ -170,8 +177,9 @@
   font-family: var(--font-body);
   font-size: 11px;
   font-weight: 600;
-  border: 2px solid var(--color-charcoal);
-  background: white;
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
+  background: var(--color-warm-white);
   outline: none;
   cursor: pointer;
 }
@@ -199,8 +207,9 @@
   font-family: var(--font-body);
   font-size: var(--fs-caption);
   font-weight: 600;
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -222,8 +231,10 @@
 }
 
 .card {
-  background: white;
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   margin-bottom: var(--space-lg);
 }
 
@@ -263,8 +274,8 @@
   border: 1px solid var(--color-grey);
 }
 
-.shortlisted { background: #e8f5e9; color: #2e7d32; border-color: #2e7d32; }
-.finalist { background: #fff3e0; color: #e65100; border-color: #e65100; }
+.shortlisted { background: rgba(46, 125, 50, 0.1); color: var(--color-success); border-color: var(--color-success); }
+.finalist { background: rgba(230, 81, 0, 0.1); color: var(--color-warning); border-color: var(--color-warning); }
 
 .scoredBadge {
   font-size: 11px;
@@ -282,7 +293,7 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 3px 8px;
-  background: #fff8e1;
+  background: rgba(245, 127, 23, 0.08);
   color: #f57f17;
   border: 1px solid #f57f17;
 }
@@ -382,8 +393,9 @@
   font-family: var(--font-body);
   font-size: var(--fs-body-md);
   color: var(--color-charcoal);
-  background: var(--color-warm-white);
-  border: 2px solid var(--color-charcoal);
+  background: var(--color-cream);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
   outline: none;
   transition: border-color 0.2s;
 }
@@ -410,7 +422,7 @@
 .savedAt {
   font-size: 10px;
   font-weight: 600;
-  color: #2e7d32;
+  color: var(--color-success);
   letter-spacing: 0.05em;
 }
 

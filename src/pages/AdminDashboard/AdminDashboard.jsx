@@ -261,7 +261,7 @@ export default function AdminDashboard() {
             {trendData.length > 0 ? (
               <Bar data={{
                 labels: trendData.map(d => d.day.substring(5)),
-                datasets: [{ label: 'Submissions', data: trendData.map(d => d.count), backgroundColor: 'rgba(0,0,0,0.85)', borderRadius: 0 }],
+                datasets: [{ label: 'Submissions', data: trendData.map(d => d.count), backgroundColor: 'rgba(43, 43, 43, 0.85)', borderRadius: 0 }],
               }} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: true } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.06)' } } } }} />
             ) : <p className={styles.empty}>No entries yet.</p>}
           </div>
@@ -272,7 +272,7 @@ export default function AdminDashboard() {
           <div className={styles.chartWrap}>
             <Bar data={{
               labels: Object.keys(scoreDist),
-              datasets: [{ label: 'Scores', data: Object.values(scoreDist), backgroundColor: Object.values(scoreDist).map(c => c > 0 ? '#d32f2f' : '#e0e0e0'), borderRadius: 0 }],
+              datasets: [{ label: 'Scores', data: Object.values(scoreDist), backgroundColor: Object.values(scoreDist).map(c => c > 0 ? '#D65A1F' : '#e0e0e0'), borderRadius: 0 }],
             }} options={{ responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: true } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 } } }, y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 10 } }, grid: { color: 'rgba(0,0,0,0.06)' } } } }} />
           </div>
         </div>

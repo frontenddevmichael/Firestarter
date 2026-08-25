@@ -4,7 +4,8 @@
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
   margin-bottom: var(--space-md);
-  border: 2px solid var(--color-charcoal);
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: var(--radius-sm);
   font-size: var(--fs-caption);
   flex-wrap: wrap;
   container-type: inline-size;
@@ -43,17 +44,17 @@
   font-weight: 600;
 }
 
-.phase_open { background: #e3f2fd; }
+.phase_open { background: rgba(21, 101, 192, 0.08); }
 .phase_open .badge { color: #1565c0; }
 
-.phase_judging { background: #fff3e0; }
-.phase_judging .badge { color: #e65100; }
+.phase_judging { background: rgba(230, 81, 0, 0.08); }
+.phase_judging .badge { color: var(--color-warning); }
 
-.phase_shortlisted { background: #e8f5e9; }
-.phase_shortlisted .badge { color: #2e7d32; }
+.phase_shortlisted { background: rgba(46, 125, 50, 0.08); }
+.phase_shortlisted .badge { color: var(--color-success); }
 
-.phase_finalists { background: #fce4ec; }
+.phase_finalists { background: rgba(198, 40, 40, 0.08); }
 .phase_finalists .badge { color: #c62828; }
 
-.phase_closed { background: #f5f5f5; }
+.phase_closed { background: rgba(97, 97, 97, 0.08); }
 .phase_closed .badge { color: #616161; }

@@ -138,7 +138,7 @@
 }
 
 .inputError {
-  border-bottom-color: #c0392b !important;
+  border-bottom-color: var(--color-error) !important;
 }
 
 .inputValid {
@@ -149,7 +149,7 @@
 .fieldError {
   display: block;
   font-size: var(--fs-caption);
-  color: #c0392b;
+  color: var(--color-error);
   font-style: italic;
   margin-top: var(--space-xs);
   line-height: var(--lh-body);

@@ -55,6 +55,13 @@ export default function Nav() {
     setOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (!open) return;
+    const handleKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, [open]);
+
   const getDashboardLink = () => {
     if (!profile) return null;
     if (profile.role === 'admin') return '/prize/admin';
