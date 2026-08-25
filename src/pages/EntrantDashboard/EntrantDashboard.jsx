@@ -398,16 +398,16 @@ export default function EntrantDashboard() {
 
       <ConfirmModal
         open={showSubmitModal}
-        title="Submit Entry?"
+        title="Ready to submit?"
         onConfirm={handleFinalSubmit}
         onCancel={() => { setShowSubmitModal(false); setConfirmChecked(false) }}
         confirmLabel="Submit Entry"
         confirmDisabled={!confirmChecked}
       >
-        <p>Once submitted, you cannot edit your entry. This is final.</p>
+        <p>Once you submit, your entry is locked in and can't be edited. Take one more look, then send it in.</p>
         <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', cursor: 'pointer' }}>
           <input type="checkbox" checked={confirmChecked} onChange={e => setConfirmChecked(e.target.checked)} />
-          I understand this cannot be edited
+          I've reviewed my entry and I'm ready to submit
         </label>
       </ConfirmModal>
     </div>
