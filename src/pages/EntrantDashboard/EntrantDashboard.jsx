@@ -277,8 +277,8 @@ export default function EntrantDashboard() {
             <div className={styles.field}>
               <label>Category</label>
               <select value={category} onChange={e => setCategory(e.target.value)} className={styles.input}>
-                <option value="junior">Junior (11 &amp; under)</option>
-                <option value="senior">Senior (12–17)</option>
+                <option value="junior">Junior (10–13)</option>
+                <option value="senior">Senior (14–17)</option>
               </select>
             </div>
             <div className={styles.field}>
