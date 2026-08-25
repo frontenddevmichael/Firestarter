@@ -126,7 +126,7 @@ export default function Nav() {
           }
           className={`${styles.enterBtn} btnPrimary`}
         >
-          {isPrize ? (user ? 'Dashboard' : 'Sign In') : 'Watch the brief'} <Icon name="arrowRight" size={14} />
+          {isPrize ? (user ? 'Dashboard' : 'Sign In') : 'Watch the briefing'} <Icon name="arrowRight" size={14} />
         </Link>
       </div>
     </nav>
