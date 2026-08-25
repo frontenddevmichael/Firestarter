@@ -163,7 +163,7 @@ export default function CompanyHome() {
                   <path d="M16 4 L19 12 L28 12 L21 17 L24 26 L16 21 L8 26 L11 17 L4 12 L13 12 Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
                 </svg>
                 <h3>BUILDERS</h3>
-                <p>You are productive, capable and respected. And the one thing that matters most stays unfinished, unreleased, or too dependent on you to survive without you.</p>
+                <p>You're good at what you do. People respect it. But the thing that matters most to you is still not done. It's half-finished, still unreleased, or it falls apart the moment you step away.</p>
               </div>
               <div className={styles.whoForCard}>
                 <svg className={styles.whoIcon} viewBox="0 0 32 32" fill="none" aria-hidden="true">
@@ -171,7 +171,7 @@ export default function CompanyHome() {
                   <path d="M16 20 L16 28 M10 24 L22 24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
                 <h3>STARTERS</h3>
-                <p>The thing is inside you. You have never fully brought it into the world.</p>
+                <p>You've had this idea for a while now. Maybe years. You think about it. You plan for it. You save notes about it. But you haven't actually started. Not really.</p>
               </div>
               <div className={styles.whoForCard}>
                 <svg className={styles.whoIcon} viewBox="0 0 32 32" fill="none" aria-hidden="true">
@@ -179,10 +179,10 @@ export default function CompanyHome() {
                   <path d="M16 2 L16 10 L24 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <h3>RETURNERS</h3>
-                <p>You had it. You lost it. And you are not sure you are allowed to want it again.</p>
+                <p>You had it once. Then life happened, and somewhere along the way, it went quiet. Now you find yourself wanting it again. But part of you isn't sure you're allowed to claim it.</p>
               </div>
             </div>
-            <p className={styles.whoForFooter}>Different doors, same house. The method works the same way for all three. Start at the beginning.</p>
+            <p className={styles.whoForFooter}>The Method is a cycle, not a checklist. Start where your fire already is.</p>
           </Reveal>
         </div>
       </section>
