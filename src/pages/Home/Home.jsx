@@ -90,6 +90,9 @@ export default function Home() {
           <div className={styles.panels}>
             <Reveal className={styles.panel}>
               <span className={styles.panelBadge}>Category A</span>
+              <div className={styles.panelImage}>
+                <img src="/Young%20firestarter%20age%20bracket%20(1).jpeg" alt="Junior Poets" className={styles.panelPhoto} loading="lazy" decoding="async" />
+              </div>
               <div className={styles.panelText}>
                 <h3>Junior Poets</h3>
                 <span className="eyebrow">Ages 10–13</span>
@@ -98,6 +101,9 @@ export default function Home() {
             </Reveal>
             <Reveal delay={120} className={styles.panel}>
               <span className={styles.panelBadge}>Category B</span>
+              <div className={styles.panelImage}>
+                <img src="/Old%20firestarter%20age%20bracket.jpeg" alt="Senior Poets" className={styles.panelPhoto} loading="lazy" decoding="async" />
+              </div>
               <div className={styles.panelText}>
                 <h3>Senior Poets</h3>
                 <span className="eyebrow">Ages 14–17</span>
