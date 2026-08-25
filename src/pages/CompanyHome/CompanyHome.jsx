@@ -295,7 +295,45 @@ export default function CompanyHome() {
 
       {/* 8. Work With Me — now at /work */}
 
-      {/* 9. Also In This House */}
+      {/* 9. What To Do Next */}
+      <section className={styles.next}>
+        <div className="container">
+          <Reveal className={styles.nextInner}>
+            <span className={styles.smallHeading}>What to do next</span>
+            <div className={styles.nextSteps}>
+              <div className={styles.nextStep}>
+                <span className={styles.nextNum}>Step 1. <mark>Free</mark></span>
+                <p>Watch the video. Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.</p>
+                <Link to="/training" className={styles.textLink}>Watch the brief <Icon name="arrowRight" size={14} /></Link>
+              </div>
+              <div className={styles.nextStep}>
+                <span className={styles.nextNum}>Step 2.</span>
+                <p>From there, you'll hear about the Pathfinding Session, or go straight to any of the four ways to work with me.</p>
+                <Link to="/work" className={styles.textLink}>See how to work with me <Icon name="arrowRight" size={14} /></Link>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 10. Questions */}
+      <section className={styles.faq}>
+        <div className="container">
+          <Reveal className={styles.faqInner}>
+            <span className={styles.smallHeading}>Questions</span>
+            <div className={styles.faqList}>
+              {faqs.map((item) => (
+                <div key={item.q} className={styles.faqItem}>
+                  <p className={styles.faqQ}>{item.q}</p>
+                  <p className={styles.faqA}>{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 12. Also In This House */}
       <section className={`${styles.house} grain`}>
         <div className="container">
           <Reveal className={styles.houseInner}>
@@ -319,45 +357,7 @@ export default function CompanyHome() {
         </div>
       </section>
 
-      {/* 10. What To Do Next */}
-      <section className={styles.next}>
-        <div className="container">
-          <Reveal className={styles.nextInner}>
-            <span className={styles.smallHeading}>What to do next</span>
-            <div className={styles.nextSteps}>
-              <div className={styles.nextStep}>
-                <span className={styles.nextNum}>Step 1. <mark>Free</mark></span>
-                <p>Watch the video. Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.</p>
-                <Link to="/training" className={styles.textLink}>Watch the brief <Icon name="arrowRight" size={14} /></Link>
-              </div>
-              <div className={styles.nextStep}>
-                <span className={styles.nextNum}>Step 2.</span>
-                <p>From there, you'll hear about the Pathfinding Session, or go straight to any of the four ways to work with me.</p>
-                <Link to="/work" className={styles.textLink}>See how to work with me <Icon name="arrowRight" size={14} /></Link>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 11. Questions */}
-      <section className={styles.faq}>
-        <div className="container">
-          <Reveal className={styles.faqInner}>
-            <span className={styles.smallHeading}>Questions</span>
-            <div className={styles.faqList}>
-              {faqs.map((item) => (
-                <div key={item.q} className={styles.faqItem}>
-                  <p className={styles.faqQ}>{item.q}</p>
-                  <p className={styles.faqA}>{item.a}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* 12. Closing */}
+      {/* 13. Closing */}
       <section className={`${styles.closing} grain`}>
         <div className="container">
           <Reveal className={styles.closingInner}>

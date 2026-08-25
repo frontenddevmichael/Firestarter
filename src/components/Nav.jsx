@@ -8,7 +8,7 @@ const companyLinks = [
   { text: 'The Method', href: '/', end: true },
   { text: 'Work With Me', href: '/work' },
   { text: 'The Musical', href: '/musical' },
-  { text: 'Young Poets Prize', href: '/prize' },
+  { text: ' Poets Prize', href: '/prize' },
   { text: 'Contact', href: '/contact' },
 ];
 
