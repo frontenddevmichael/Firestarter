@@ -98,9 +98,9 @@ export default function CompanyHome() {
               The Firestarter Method is a five-force system that helps you name the life you want, own the choices it requires, and make it real.
             </p>
             <div className={styles.heroCtaGroup}>
-              <Link to="/training" className="btnPrimary">
-                Watch the brief <Icon name="arrowRight" size={16} />
-              </Link>
+            <Link to="/training" className="btnPrimary">
+              Watch the brief <Icon name="arrowRight" size={16} />
+            </Link>
               <a href="#method" className={styles.heroRead}>Or read the whole method</a>
             </div>
           </Reveal>
