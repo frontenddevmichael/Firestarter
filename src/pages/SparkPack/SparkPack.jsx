@@ -356,7 +356,10 @@ export default function SparkPack() {
             <h2 className={styles.sectionTitle}>What You Could Win</h2>
             <ul className={styles.bulletList}>
               <li><strong>Top 100 finalists:</strong> certificates, recognition, a place at the Creative-Tech Lab, and a spot at the December grand final.</li>
-              <li><strong>Top 3 students:</strong> education-support awards worth ₦1,000,000 in total, paid toward school fees or approved learning needs.</li>
+              <li><strong>1st place:</strong> ₦1,000,000 in education support</li>
+              <li><strong>2nd place:</strong> ₦500,000 in education support</li>
+              <li><strong>3rd place:</strong> ₦250,000 in education support</li>
+              <li><strong>4th–20th place:</strong> ₦50,000 each in education support</li>
             </ul>
             <p className={styles.bodyText}>
               This Prize is built around growth, not just prizes. The goal is to open doors
