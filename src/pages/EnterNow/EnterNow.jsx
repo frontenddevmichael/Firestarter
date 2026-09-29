@@ -29,10 +29,12 @@ export default function EnterNow() {
               <Icon name="fileText" size={32} className={styles.submitIcon} />
               <h2 className={styles.submitTitle}>Submit through the Prize Platform</h2>
               <p className={styles.submitDesc}>
-                All entries are now submitted through the Firestarter judging platform. Sign in or create an account to write, submit, and track your poem.
+                Create your free account to get your personal dashboard. Explore the Spark
+                Pack, save a draft, and submit your poem whenever you're ready — your
+                guardian verifies with an email code before anything is submitted.
               </p>
               <Link to="/prize/auth" className="btnPrimary">
-                Sign In to Submit <Icon name="arrowRight" size={16} />
+                Create Account / Sign In <Icon name="arrowRight" size={16} />
               </Link>
             </div>
           </Reveal>

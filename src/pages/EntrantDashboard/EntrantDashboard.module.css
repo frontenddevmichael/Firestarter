@@ -558,6 +558,7 @@
 }
 
 /* Draft form button row */
+.formActions,
 .draftActions {
   display: flex;
   gap: var(--space-sm);
@@ -565,7 +566,9 @@
 }
 
 .draftActions .btnOutline,
-.draftActions .btnPrimary {
+.draftActions .btnPrimary,
+.formActions .btnOutline,
+.formActions .btnPrimary {
   flex: 1;
   min-width: 140px;
 }
