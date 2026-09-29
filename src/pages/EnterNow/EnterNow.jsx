@@ -2,11 +2,13 @@ import { Link } from 'react-router-dom';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
+import { useSiteSettings } from '../../hooks/useSiteSettings';
 import styles from './EnterNow.module.css';
 
-const WHATSAPP_LINK = 'https://chat.whatsapp.com/EDm92HpP6k26FCbvWq5V7P';
-
 export default function EnterNow() {
+  const { setting } = useSiteSettings();
+  const whatsappLink = setting('community.whatsapp_link');
+  const showWhatsapp = setting('show.whatsapp', true);
   return (
     <div>
       <section className={styles.hero}>
@@ -16,7 +18,7 @@ export default function EnterNow() {
             <span className="eyebrow">Submit Your Entry</span>
             <h1 className={styles.heroTitle}>Your Voice, Submitted.</h1>
             <p className={styles.heroSub}>
-              Entries close <strong>October 30, 2026</strong>.
+              {setting('enter.hero_sub')}
             </p>
           </Reveal>
         </div>
@@ -29,9 +31,7 @@ export default function EnterNow() {
               <Icon name="fileText" size={32} className={styles.submitIcon} />
               <h2 className={styles.submitTitle}>Submit through the Prize Platform</h2>
               <p className={styles.submitDesc}>
-                Create your free account to get your personal dashboard. Explore the Spark
-                Pack, save a draft, and submit your poem whenever you're ready — your
-                guardian verifies with an email code before anything is submitted.
+                {setting('enter.card_desc')}
               </p>
               <Link to="/prize/auth" className="btnPrimary">
                 Create Account / Sign In <Icon name="arrowRight" size={16} />
@@ -39,16 +39,17 @@ export default function EnterNow() {
             </div>
           </Reveal>
 
+          {showWhatsapp && (
           <Reveal delay={200}>
             <div className={styles.afterForm}>
               <div className={styles.afterFormLine} />
               <h2 className={styles.afterFormTitle}>You're in good company</h2>
               <p className={styles.afterFormSub}>
-                Join <strong>200+ young poets</strong> in the Firestarter WhatsApp Community for
+                Join <strong>{setting('community.whatsapp_count')} young poets</strong> in the Firestarter WhatsApp Community for
                 real-time updates, writing prompts, and prize announcements.
               </p>
               <a
-                href={WHATSAPP_LINK}
+                href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.whatsappBtn}
@@ -59,6 +60,7 @@ export default function EnterNow() {
               </a>
             </div>
           </Reveal>
+          )}
         </div>
       </section>
     </div>

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
+import { useSiteSettings } from '../../hooks/useSiteSettings';
 import styles from './SparkPack.module.css';
 
 function handlePrint() {
@@ -14,6 +15,8 @@ function scrollToContent() {
 }
 
 export default function SparkPack() {
+  const { setting } = useSiteSettings();
+  const showPrizes = setting('show.prizes', true);
   return (
     <div className={styles.page}>
       {/* Online hero — hidden when printing */}
@@ -48,7 +51,7 @@ export default function SparkPack() {
             {/* These are hidden online, shown in print */}
             <div className={styles.printOnly}>
               <span className={styles.coverEyebrow}>Firestarter Young Poets Prize 2026</span>
-              <h1 className={styles.coverTitle}>My Voice, My Future</h1>
+              <h1 className={styles.coverTitle}>{setting('theme.name')}</h1>
               <h2 className={styles.coverSubtitle}>The Spark Pack</h2>
               <p className={styles.coverQuote}>
                 Dear Firestarter, start something.<br />
@@ -77,7 +80,7 @@ export default function SparkPack() {
             </p>
             <p className={styles.bodyText}>
               You do not have to be "good at poetry" already. You just have to be honest.
-              This year's theme is <strong>My Voice, My Future</strong>, and the only
+              This year's theme is <strong>{setting('theme.name')}</strong>, and the only
               person who can write that poem is you.
             </p>
             <p className={styles.bodyText}>
@@ -96,7 +99,7 @@ export default function SparkPack() {
         {/* The Theme */}
         <section className={`${styles.section} ${styles.sectionAlt} ${styles.printSection}`}>
           <div className={styles.sectionInner}>
-            <h2 className={styles.sectionTitle}>The Theme: My Voice, My Future</h2>
+            <h2 className={styles.sectionTitle}>The Theme: {setting('theme.name')}</h2>
             <p className={styles.bodyText}>
               Your voice is the way you see the world that no one else sees in exactly the
               same way. Your future is what you are walking toward. The person you are
@@ -325,7 +328,7 @@ export default function SparkPack() {
           <div className={styles.sectionInner}>
             <h2 className={styles.sectionTitle}>Deadline</h2>
             <p className={styles.bodyText}>
-              <strong>Friday, 30 October 2026, 11:59 PM (WAT).</strong> Entries close at
+              <strong>{setting('dates.deadline_full')}</strong> Entries close at
               the deadline. Build in time before then. Do not wait for the last hour.
             </p>
           </div>
@@ -351,15 +354,16 @@ export default function SparkPack() {
         </section>
 
         {/* What You Could Win */}
+        {showPrizes && (
         <section className={`${styles.section} ${styles.printSection}`}>
           <div className={styles.sectionInner}>
             <h2 className={styles.sectionTitle}>What You Could Win</h2>
             <ul className={styles.bulletList}>
-              <li><strong>Top 100 finalists:</strong> certificates, recognition, a place at the Creative-Tech Lab, and a spot at the December grand final.</li>
-              <li><strong>1st place:</strong> ₦1,000,000 in education support</li>
-              <li><strong>2nd place:</strong> ₦500,000 in education support</li>
-              <li><strong>3rd place:</strong> ₦250,000 in education support</li>
-              <li><strong>4th–20th place:</strong> ₦50,000 each in education support</li>
+              <li><strong>Top 100 finalists:</strong> {setting('prize.top100')}.</li>
+              <li><strong>1st place:</strong> {setting('prize.first')} in education support</li>
+              <li><strong>2nd place:</strong> {setting('prize.second')} in education support</li>
+              <li><strong>3rd place:</strong> {setting('prize.third')} in education support</li>
+              <li><strong>4th–20th place:</strong> {setting('prize.rest')} each in education support</li>
             </ul>
             <p className={styles.bodyText}>
               This Prize is built around growth, not just prizes. The goal is to open doors
@@ -367,6 +371,7 @@ export default function SparkPack() {
             </p>
           </div>
         </section>
+        )}
 
         {/* Note for Parents */}
         <section className={`${styles.section} ${styles.sectionAlt} ${styles.printSection}`}>
@@ -411,7 +416,7 @@ export default function SparkPack() {
         <section className={`${styles.closing} ${styles.printSection}`}>
           <div className={styles.sectionInner}>
             <p className={styles.closingText}>
-              Now go write something only you could have written.
+              {setting('spark.closing')}
             </p>
             <p className={styles.closingFooter}>
               The Firestarter Collective Africa &nbsp;|&nbsp; firestartermethod.com

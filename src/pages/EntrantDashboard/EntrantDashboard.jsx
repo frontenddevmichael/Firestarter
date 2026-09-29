@@ -4,6 +4,7 @@ import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../lib/auth'
 import { useToast } from '../../lib/toast'
 import { useCompetition } from '../../hooks/useCompetition'
+import { useSiteSettings } from '../../hooks/useSiteSettings'
 import Skeleton from '../../components/Skeleton'
 import CompetitionBanner from '../../components/CompetitionBanner'
 import ConfirmModal from '../../components/ConfirmModal'
@@ -41,6 +42,8 @@ export default function EntrantDashboard() {
   const { user, profile, deleteAccount } = useAuth()
   const toast = useToast()
   const competition = useCompetition()
+  const { setting } = useSiteSettings()
+  const showCountdown = setting('show.countdown', true)
   const [entry, setEntry] = useState(null)
   const [guardian, setGuardian] = useState(null)
   const [consent, setConsent] = useState(null)
@@ -333,6 +336,7 @@ export default function EntrantDashboard() {
           </div>
         )}
 
+        {showCountdown && (
         <div className={styles.countdownRow}>
           <div className={styles.countdownCard}>
             <span className={styles.cdValue}>{competition.countdown.days}</span>
@@ -350,6 +354,7 @@ export default function EntrantDashboard() {
             until {competition.countdown.label || 'competition closes'}
           </div>
         </div>
+        )}
 
         {mode === 'welcome' && (
           <>

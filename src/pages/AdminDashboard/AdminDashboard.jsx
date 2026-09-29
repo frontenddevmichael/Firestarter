@@ -6,6 +6,7 @@ import { useToast } from '../../lib/toast'
 import { Bar } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from 'chart.js'
 import Skeleton from '../../components/Skeleton'
+import SiteContent from './SiteContent'
 import CompetitionBanner from '../../components/CompetitionBanner'
 import ConfirmModal from '../../components/ConfirmModal'
 import PasswordInput from '../../components/PasswordInput'
@@ -240,6 +241,7 @@ export default function AdminDashboard() {
     { id: 'entries', label: 'Entries', icon: 'fileText' },
     { id: 'judges', label: 'Judges', icon: 'users' },
     { id: 'phases', label: 'Phases', icon: 'clock' },
+    { id: 'content', label: 'Site Content', icon: 'pen' },
     { id: 'logs', label: 'Logs', icon: 'search' },
   ]
 
@@ -577,6 +579,7 @@ export default function AdminDashboard() {
         {tab === 'entries' && renderEntries()}
         {tab === 'judges' && renderJudges()}
         {tab === 'phases' && renderPhases()}
+        {tab === 'content' && <SiteContent />}
         {tab === 'logs' && renderLogs()}
       </div>
     </div>

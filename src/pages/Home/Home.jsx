@@ -7,9 +7,11 @@ import SparkMark from '../../components/SparkMark';
 import EmberField from '../../components/EmberField';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
+import { useSiteSettings } from '../../hooks/useSiteSettings';
 import styles from './Home.module.css';
 
 export default function Home() {
+  const { setting } = useSiteSettings();
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -25,24 +27,21 @@ export default function Home() {
         <DriftSpark density="low" />
         <div className={`${styles.heroInner} container`}>
           <SparkMark interactive drawIn />
-          <span className="eyebrow">The Firestarter Young Poets Prize 2026</span>
+          <span className="eyebrow">{setting('hero.eyebrow')}</span>
           <h1 className={styles.heroTitle}>
-            My Voice, <br />
-            <span className={styles.heroTitleAccent}>My Future.</span>
+            {setting('hero.title_a')} <br />
+            <span className={styles.heroTitleAccent}>{setting('hero.title_b')}</span>
           </h1>
           <p className={styles.heroSub}>
-            For secondary school students across Lagos State, ages 10 to 17. Write one
-            original poem. Share the thinking behind it. Build original thinking, confident
-            communication and the responsible use of technology, through poetry, reflection
-            and spoken-word performance.
+            {setting('hero.sub')}
           </p>
           <div className={styles.heroActions}>
             <Link to="/prize/enter" className={`btnPrimary ${styles.btnIcon}`}>
-              Enter now <Icon name="arrowRight" size={16} />
+              {setting('hero.cta_enter')} <Icon name="arrowRight" size={16} />
             </Link>
-            <Link to="/prize/spark-pack" className="btnSecondary">Download the Spark Pack</Link>
+            <Link to="/prize/spark-pack" className="btnSecondary">{setting('hero.cta_pack')}</Link>
           </div>
-          <p className={styles.heroFine}>Free to enter. Entries close October 30, 2026.</p>
+          <p className={styles.heroFine}>{setting('hero.fine')}</p>
         </div>
         <motion.span className={styles.heroGhostNumber} style={{ y: ghostY }}>
           01
@@ -141,12 +140,9 @@ export default function Home() {
           <Reveal className={styles.themeText}>
             <SparkMark />
             <span className="eyebrow">2026 Theme</span>
-            <h2>My Voice, My Future.</h2>
+            <h2>{setting('theme.title')}</h2>
             <p>
-              Every generation inherits a world shaped by the voices that came before it.
-              The future will be shaped by the voices that speak today. Yours is one of
-              them. Write honestly. Imagine boldly. Use your words to help shape the future
-              you want to see.
+              {setting('theme.desc')}
             </p>
             <Link to="/prize/about" className={styles.themeLink}>
               Read the full theme and your age-group prompt <Icon name="arrowRight" size={14} />
@@ -164,10 +160,10 @@ export default function Home() {
           <div className={styles.datesRow}>
             {[
               { label: 'Entries Open', date: 'Now' },
-              { label: 'Entries Close', date: 'Oct 30', active: true },
-              { label: 'Judging & Shortlist', date: 'November' },
-              { label: 'Creative-Tech Lab', date: 'Early Dec' },
-              { label: 'Grand Final', date: 'December' },
+              { label: 'Entries Close', date: setting('dates.deadline_short'), active: true },
+              { label: 'Judging & Shortlist', date: setting('dates.judging') },
+              { label: 'Creative-Tech Lab', date: setting('dates.lab') },
+              { label: 'Grand Final', date: setting('dates.final') },
             ].map((d, i) => (
               <Reveal key={d.label} delay={[0, 60, 140, 220, 280][i]} className={styles.dateItem}>
                 <span className={`${styles.dateDot} ${d.active ? styles.dateDotActive : ''}`} />
@@ -201,8 +197,8 @@ export default function Home() {
         <EmberField density="low" />
         <div className="container">
           <SparkMark size="large" className={styles.finalCtaSpark} drawIn />
-          <h2>Every voice begins somewhere.</h2>
-          <p>This could be where yours begins.</p>
+          <h2>{setting('hero.final_title')}</h2>
+          <p>{setting('hero.final_sub')}</p>
           <Link to="/prize/enter" className={styles.finalCtaBtn}>
             Enter now <Icon name="arrowRight" size={16} />
           </Link>

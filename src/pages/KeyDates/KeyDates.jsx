@@ -3,42 +3,8 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Icon from "../../components/Icon";
 import Reveal from "../../components/Reveal";
+import { useSiteSettings } from "../../hooks/useSiteSettings";
 import styles from "./KeyDates.module.css";
-
-const milestones = [
-  {
-    label: "Entries Open",
-    date: "Now",
-    desc: "Submit one original poem and your Voice Reflection.",
-  },
-  {
-    label: "Entries Close",
-    date: "October 30, 2026",
-    desc: "No entries can be accepted after this date.",
-    highlight: true,
-  },
-  {
-    label: "Judging and Shortlist",
-    date: "November",
-    desc: "Every entry is read. Shortlisted students are contacted and invited to record a performance video of their poem.",
-  },
-  {
-    label: "Performance Videos Due",
-    date: "Late November",
-    desc: "Shortlisted students upload their video to YouTube as an unlisted link and share it with the Prize team.",
-  },
-  {
-    label: "Finalists' Creative-Tech Lab",
-    date: "Early December",
-    desc: "A two-day lab where finalists work with mentors and creative technology to bring their poems to life.",
-  },
-  {
-    label: "Grand Final and Prize-giving",
-    date: "December",
-    desc: "Finalists perform and winners in each category are celebrated, at an event connected to Firestarter: The Musical at MUSON Centre, Lagos.",
-    star: true,
-  },
-];
 
 function MilestoneDot({ progress, ratio, star, highlight }) {
   const glow = useTransform(
@@ -61,6 +27,41 @@ function MilestoneDot({ progress, ratio, star, highlight }) {
 }
 
 export default function KeyDates() {
+  const { setting } = useSiteSettings();
+  const milestones = [
+    {
+      label: "Entries Open",
+      date: "Now",
+      desc: "Submit one original poem and your Voice Reflection.",
+    },
+    {
+      label: "Entries Close",
+      date: setting('dates.deadline_long'),
+      desc: "No entries can be accepted after this date.",
+      highlight: true,
+    },
+    {
+      label: "Judging and Shortlist",
+      date: setting('dates.judging'),
+      desc: "Every entry is read. Shortlisted students are contacted and invited to record a performance video of their poem.",
+    },
+    {
+      label: "Performance Videos Due",
+      date: setting('dates.videos_due'),
+      desc: "Shortlisted students upload their video to YouTube as an unlisted link and share it with the Prize team.",
+    },
+    {
+      label: "Finalists' Creative-Tech Lab",
+      date: setting('dates.lab'),
+      desc: "A two-day lab where finalists work with mentors and creative technology to bring their poems to life.",
+    },
+    {
+      label: "Grand Final and Prize-giving",
+      date: setting('dates.final'),
+      desc: "Finalists perform and winners in each category are celebrated, at an event connected to Firestarter: The Musical at MUSON Centre, Lagos.",
+      star: true,
+    },
+  ];
   const timelineRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: timelineRef,

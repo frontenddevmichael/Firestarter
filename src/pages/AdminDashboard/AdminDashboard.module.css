@@ -541,3 +541,82 @@
   .detailPanel { width: 100vw; }
   .tabBtn { padding: 0.5rem 0.8rem; font-size: 10px; }
 }
+
+/* ---- Site Content (admin-editable copy) ---- */
+.contentField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: var(--space-md);
+}
+
+.contentLabel {
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.customBadge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(230, 81, 0, 0.1);
+  color: var(--color-warning);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.unsavedDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-ember);
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.viewPageLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--color-ember);
+  text-decoration: none;
+}
+
+.resetLink {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 11px;
+  color: var(--color-grey);
+  text-decoration: underline;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.toggleBtn {
+  width: fit-content;
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(43, 43, 43, 0.2);
+  background: var(--color-cream);
+  color: var(--color-grey);
+  font-weight: 700;
+  font-size: var(--fs-caption);
+  cursor: pointer;
+}
+
+.toggleOn {
+  background: var(--color-charcoal);
+  color: white;
+  border-color: var(--color-charcoal);
+}
