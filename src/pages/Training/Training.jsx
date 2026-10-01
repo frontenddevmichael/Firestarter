@@ -17,6 +17,8 @@ const steps = [
 export default function Training() {
   const { setting } = useSiteSettings();
   const customVideo = (setting('briefing.video_url', '') || '').trim();
+  const driveMatch = customVideo.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+  const drivePreview = driveMatch ? `https://drive.google.com/file/d/${driveMatch[1]}/preview` : null;
   return (
     <>
       <section className={styles.hero}>
@@ -37,7 +39,15 @@ export default function Training() {
         <div className="container">
           <Reveal>
             <div className={styles.videoWrap}>
-              {customVideo ? (
+              {drivePreview ? (
+                <iframe
+                  className={styles.videoIframe}
+                  src={drivePreview}
+                  title="Firestarter Method Briefing"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : customVideo ? (
                 <video
                   className={styles.videoIframe}
                   src={customVideo}
