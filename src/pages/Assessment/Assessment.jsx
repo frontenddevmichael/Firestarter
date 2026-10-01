@@ -57,7 +57,7 @@ export default function Assessment() {
             <p className={styles.ctaText}>
               The full diagnostic tool is being built. In the meantime, take the free training.
             </p>
-            <Link to="/training" className={styles.ctaBtn}>
+            <Link to="/briefing" className={styles.ctaBtn}>
               Watch the free training <Icon name="arrowRight" size={16} />
             </Link>
           </Reveal>

@@ -85,6 +85,14 @@ export const SETTING_GROUPS = [
       { key: 'show.whatsapp', label: 'Show WhatsApp band', type: 'toggle', def: true },
     ],
   },
+  {
+    id: 'briefing',
+    label: 'Briefing video',
+    page: '/briefing',
+    keys: [
+      { key: 'briefing.video_url', label: 'Custom video URL (Supabase)', type: 'url', def: '' },
+    ],
+  },
 ]
 
 export const SETTING_DEFAULTS = Object.fromEntries(

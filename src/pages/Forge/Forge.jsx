@@ -59,7 +59,7 @@ export default function Forge() {
             <p className={styles.ctaText}>
               The Forge Intensive is currently being scheduled. Join the waitlist to be notified.
             </p>
-            <Link to="/training" className={styles.ctaBtn}>
+            <Link to="/briefing" className={styles.ctaBtn}>
               Start with the free training <Icon name="arrowRight" size={16} />
             </Link>
           </Reveal>

@@ -35,12 +35,12 @@ const schemas = {
     publisher: org,
     mainEntity: { '@type': 'Course', name: 'The Firestarter Method', description: 'A five-force system. Forge, Illuminate, Enact, Regenerate, Amplify.', provider: person },
   },
-  '/training': {
+  '/briefing': {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'Free Training — The Firestarter Method',
+    name: 'Briefing — The Firestarter Method',
     description: 'Fifteen minutes. The whole Firestarter Method applied to one real life.',
-    url: `${url}/training`,
+    url: `${url}/briefing`,
   },
   '/prize': {
     '@context': 'https://schema.org',

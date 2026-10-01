@@ -122,7 +122,7 @@ export default function Nav() {
           to={
             isPrize
               ? (user ? (getDashboardLink() || '/prize/auth') : '/prize/auth')
-              : '/training'
+              : '/briefing'
           }
           className={`${styles.enterBtn} btnPrimary`}
         >

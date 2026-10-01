@@ -3,7 +3,10 @@ import PrizeBanner from '../../components/PrizeBanner';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
+import { useSiteSettings } from '../../hooks/useSiteSettings';
 import styles from './Training.module.css';
+
+const YOUTUBE_FALLBACK = 'https://www.youtube.com/embed/S8-nva4YA9k';
 
 const steps = [
   { icon: 'star', title: 'Watch the method in action', text: 'Fifteen minutes. One real life. I walk you through each of the five forces and show you exactly how they connect.' },
@@ -12,6 +15,8 @@ const steps = [
 ];
 
 export default function Training() {
+  const { setting } = useSiteSettings();
+  const customVideo = (setting('briefing.video_url', '') || '').trim();
   return (
     <>
       <section className={styles.hero}>
@@ -32,13 +37,24 @@ export default function Training() {
         <div className="container">
           <Reveal>
             <div className={styles.videoWrap}>
-              <iframe
-                className={styles.videoIframe}
-                src="https://www.youtube.com/embed/S8-nva4YA9k"
-                title="Firestarter Method Training"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              {customVideo ? (
+                <video
+                  className={styles.videoIframe}
+                  src={customVideo}
+                  title="Firestarter Method Briefing"
+                  controls
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <iframe
+                  className={styles.videoIframe}
+                  src={YOUTUBE_FALLBACK}
+                  title="Firestarter Method Training"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
             </div>
           </Reveal>
         </div>

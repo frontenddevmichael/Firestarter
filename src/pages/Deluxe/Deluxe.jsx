@@ -58,7 +58,7 @@ export default function Deluxe() {
             <p className={styles.ctaSub}>
               The Firestarter Deluxe is being prepared for launch. Leave your email to be notified.
             </p>
-            <Link to="/training" className={styles.ctaBtn}>
+            <Link to="/briefing" className={styles.ctaBtn}>
               Start with the free training <Icon name="arrowRight" size={16} />
             </Link>
           </Reveal>

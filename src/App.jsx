@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AuthProvider } from './lib/auth';
 import Nav from './components/Nav';
@@ -76,7 +76,7 @@ function ScrollToTop() {
 const meta = {
   '/': { title: 'The Firestarter Method — Shola Amaraibi', desc: 'A five-force system that helps you name the life you want, own the choices it requires, and make it real. Forge, Illuminate, Enact, Regenerate, Amplify.' },
   '/work': { title: 'Work With Me — The Firestarter Method', desc: 'Choose the path that fits where you are: Unstoppable Workshop, Forge Intensive, Firestarter Deluxe, or Firestarter Business Lane.' },
-  '/training': { title: 'Free Training — The Firestarter Method', desc: 'Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.' },
+  '/briefing': { title: 'Briefing — The Firestarter Method', desc: 'Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.' },
   '/musical': { title: 'Firestarter: The Musical — Creative-TechFormance at MUSON Centre', desc: 'Eight poems, one woman\'s journey, told in 90 minutes. December 19–20, 2026 at MUSON Centre, Lagos.' },
   '/contact': { title: 'Contact — The Firestarter Method', desc: 'Get in touch with Shola Amaraibi and the Firestarter team. Questions about the Method, collaboration, or just want to say hello.' },
   '/prize': { title: 'Firestarter Young Poets Prize 2026', desc: 'A poetry competition building future skills for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).' },
@@ -142,7 +142,8 @@ export default function App() {
           <Route path="/" element={<PageWrapper><CompanyHome /></PageWrapper>} />
           <Route path="/work" element={<PageWrapper><WorkWithMe /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><CompanyContact /></PageWrapper>} />
-          <Route path="/training" element={<PageWrapper><Training /></PageWrapper>} />
+          <Route path="/briefing" element={<PageWrapper><Training /></PageWrapper>} />
+          <Route path="/training" element={<Navigate to="/briefing" replace />} />
 
           <Route path="/musical" element={<PageWrapper><Musical /></PageWrapper>} />
           {/* Prize pages under /prize */}

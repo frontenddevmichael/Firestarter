@@ -23,7 +23,7 @@ export default function NotFound() {
           </Link>
           {!isPrize && (
             <>
-              <Link to="/training" className="btnSecondary">Free Training</Link>
+              <Link to="/briefing" className="btnSecondary">Free Training</Link>
               <Link to="/prize" className="btnSecondary">Poets Prize</Link>
             </>
           )}

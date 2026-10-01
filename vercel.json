@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/training", "destination": "/briefing", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
