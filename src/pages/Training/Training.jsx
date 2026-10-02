@@ -19,6 +19,8 @@ export default function Training() {
   const customVideo = (setting('briefing.video_url', '') || '').trim();
   const driveMatch = customVideo.match(/drive\.google\.com\/file\/d\/([^/]+)/);
   const drivePreview = driveMatch ? `https://drive.google.com/file/d/${driveMatch[1]}/preview` : null;
+  const ytMatch = customVideo.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{6,})/);
+  const ytEmbed = ytMatch ? `https://www.youtube.com/embed/${ytMatch[1]}` : null;
   return (
     <>
       <section className={styles.hero}>
@@ -45,6 +47,14 @@ export default function Training() {
                   src={drivePreview}
                   title="Firestarter Method Briefing"
                   allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : ytEmbed ? (
+                <iframe
+                  className={styles.videoIframe}
+                  src={ytEmbed}
+                  title="Firestarter Method Briefing"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
               ) : customVideo ? (
