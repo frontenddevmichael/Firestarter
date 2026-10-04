@@ -24,7 +24,10 @@ function loadYouTubeApi() {
 }
 
 function YouTubePlayer({ videoId, onEnded }) {
-  const mountRef = useRef(null);
+  // React owns ONLY wrapRef (always an empty div from React's view).
+  // The player is created on an imperatively-appended child, so YouTube's
+  // DOM surgery can never break React's reconciler (no removeChild crash).
+  const wrapRef = useRef(null);
   const onEndedRef = useRef(null);
 
   useEffect(() => {
@@ -34,9 +37,15 @@ function YouTubePlayer({ videoId, onEnded }) {
   useEffect(() => {
     let player = null;
     let cancelled = false;
+    let el = null;
+    const wrap = wrapRef.current;
     loadYouTubeApi().then((YT) => {
-      if (cancelled || !mountRef.current) return;
-      player = new YT.Player(mountRef.current, {
+      if (cancelled || !wrap) return;
+      el = document.createElement('div');
+      el.style.width = '100%';
+      el.style.height = '100%';
+      wrap.appendChild(el);
+      player = new YT.Player(el, {
         videoId,
         width: '100%',
         height: '100%',
@@ -52,11 +61,16 @@ function YouTubePlayer({ videoId, onEnded }) {
     });
     return () => {
       cancelled = true;
-      if (player && player.destroy) player.destroy();
+      try {
+        if (player && player.destroy) player.destroy();
+      } catch {
+        /* player teardown is best-effort */
+      }
+      if (wrap) wrap.innerHTML = '';
     };
   }, [videoId]);
 
-  return <span ref={mountRef} className={styles.videoIframe} style={{ display: 'block', width: '100%', height: '100%' }} />;
+  return <span ref={wrapRef} className={styles.videoIframe} style={{ display: 'block', width: '100%', height: '100%' }} />;
 }
 
 const cards = [
