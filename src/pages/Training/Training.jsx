@@ -27,12 +27,27 @@ function VideoPlayer({ customVideo }) {
   const isFile = !driveMatch && !ytMatch && customVideo;
 
   if ((src || isFile) && !playing) {
+    const poster = ytMatch
+      ? `https://i.ytimg.com/vi/${ytMatch[1]}/maxresdefault.jpg`
+      : driveMatch
+        ? `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w1280`
+        : POSTER;
     return (
       <button type="button" className={styles.posterBtn} onClick={() => setPlaying(true)} aria-label="Play The Firestarter Briefing">
-        {isFile ? (
+        {isFile && !ytMatch ? (
           <video className={styles.posterImg} src={customVideo} preload="metadata" muted playsInline aria-hidden="true" tabIndex={-1} />
         ) : (
-          <img className={styles.posterImg} src={POSTER} alt="Shola Amaraibi" loading="eager" />
+          <img
+            className={styles.posterImg}
+            src={poster}
+            alt="The Firestarter Briefing"
+            loading="eager"
+            onError={(e) => {
+              if (ytMatch && e.currentTarget.src.includes('maxresdefault')) {
+                e.currentTarget.src = `https://i.ytimg.com/vi/${ytMatch[1]}/hqdefault.jpg`;
+              }
+            }}
+          />
         )}
         <span className={styles.playBadge}>
           <Icon name="arrowRight" size={28} />
