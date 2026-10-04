@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
@@ -6,6 +6,58 @@ import { useSiteSettings } from '../../hooks/useSiteSettings';
 import styles from './Training.module.css';
 
 const POSTER = '/newimage.jpeg';
+
+let ytApiPromise = null;
+function loadYouTubeApi() {
+  if (typeof window === 'undefined') return Promise.reject(new Error('no window'));
+  if (window.YT && window.YT.Player) return Promise.resolve(window.YT);
+  if (!ytApiPromise) {
+    ytApiPromise = new Promise((resolve) => {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      const first = document.getElementsByTagName('script')[0];
+      first.parentNode.insertBefore(tag, first);
+      window.onYouTubeIframeAPIReady = () => resolve(window.YT);
+    });
+  }
+  return ytApiPromise;
+}
+
+function YouTubePlayer({ videoId, onEnded }) {
+  const mountRef = useRef(null);
+  const onEndedRef = useRef(null);
+
+  useEffect(() => {
+    onEndedRef.current = onEnded;
+  }, [onEnded]);
+
+  useEffect(() => {
+    let player = null;
+    let cancelled = false;
+    loadYouTubeApi().then((YT) => {
+      if (cancelled || !mountRef.current) return;
+      player = new YT.Player(mountRef.current, {
+        videoId,
+        width: '100%',
+        height: '100%',
+        playerVars: { autoplay: 1, rel: 0, modestbranding: 1, cc_load_policy: 1 },
+        events: {
+          // The moment it ends, swap straight back to the poster —
+          // YouTube never gets to show suggested videos.
+          onStateChange: (e) => {
+            if (e.data === window.YT.PlayerState.ENDED) onEndedRef.current();
+          },
+        },
+      });
+    });
+    return () => {
+      cancelled = true;
+      if (player && player.destroy) player.destroy();
+    };
+  }, [videoId]);
+
+  return <span ref={mountRef} className={styles.videoIframe} style={{ display: 'block', width: '100%', height: '100%' }} />;
+}
 
 const cards = [
   { icon: 'star', title: 'Watch the method in action', text: 'Two client stories and the five forces of the Firestarter Method. Set your foundation, see what you\u2019re here to build, make it happen, sustain it without burning out, and carry it into rooms that don\u2019t know you yet.' },
@@ -17,6 +69,7 @@ function VideoPlayer({ customVideo }) {
   const [playing, setPlaying] = useState(false);
   const driveMatch = customVideo.match(/drive\.google\.com\/file\/d\/([^/]+)/);
   const ytMatch = customVideo.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{6,})/);
+  const ytId = ytMatch ? ytMatch[1] : null;
 
   let src = null;
   if (driveMatch) {
@@ -57,6 +110,11 @@ function VideoPlayer({ customVideo }) {
   }
 
   if (src) {
+    // YouTube plays through the IFrame API so the poster returns the instant
+    // the video ends — suggested videos never appear.
+    if (ytId) {
+      return <YouTubePlayer videoId={ytId} onEnded={() => setPlaying(false)} />;
+    }
     return (
       <iframe
         className={styles.videoIframe}
@@ -79,6 +137,7 @@ function VideoPlayer({ customVideo }) {
         autoPlay
         playsInline
         preload="metadata"
+        onEnded={() => setPlaying(false)}
       />
     );
   }
