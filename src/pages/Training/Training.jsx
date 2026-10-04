@@ -1,37 +1,100 @@
-import { Link } from 'react-router-dom';
-import PrizeBanner from '../../components/PrizeBanner';
+import { useState } from 'react';
 import SparkMark from '../../components/SparkMark';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
 import { useSiteSettings } from '../../hooks/useSiteSettings';
 import styles from './Training.module.css';
 
-const YOUTUBE_FALLBACK = 'https://www.youtube.com/embed/S8-nva4YA9k';
+const POSTER = '/newimage.jpeg';
 
-const steps = [
-  { icon: 'star', title: 'Watch the method in action', text: 'Fifteen minutes. One real life. I walk you through each of the five forces and show you exactly how they connect.' },
-  { icon: 'pen', title: 'See where you are', text: 'Every force is a diagnosis. By the end of the training you will know which force is your next move — and what to do about it.' },
-  { icon: 'arrowRight', title: 'Take the next step', text: 'The free training ends with a clear fork: start the Deluxe if you want the full system, or book The Forge if you need to break through a block.' },
+const cards = [
+  { icon: 'star', title: 'Watch the method in action', text: 'Two client stories and the five forces of the Firestarter Method. Set your foundation, see what you\u2019re here to build, make it happen, sustain it without burning out, and carry it into rooms that don\u2019t know you yet.' },
+  { icon: 'pen', title: 'See where you are', text: 'Whether it\u2019s your life\u2019s mission or this season\u2019s goal, you\u2019ll see what\u2019s really standing between you and it. It\u2019s rarely what you\u2019ve been calling the problem.' },
+  { icon: 'arrowRight', title: 'Take the next step', text: 'The briefing ends with one clear next step: a one-hour, one-to-one Pathfinding Session with me, where we name the real constraint and decide your first true move.' },
 ];
+
+function VideoPlayer({ customVideo }) {
+  const [playing, setPlaying] = useState(false);
+  const driveMatch = customVideo.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+  const ytMatch = customVideo.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{6,})/);
+
+  let src = null;
+  if (driveMatch) {
+    src = `https://drive.google.com/file/d/${driveMatch[1]}/preview`;
+  } else if (ytMatch) {
+    src = `https://www.youtube.com/embed/${ytMatch[1]}${playing ? '?autoplay=1' : ''}&cc_load_policy=1&rel=0`;
+  }
+  const isFile = !driveMatch && !ytMatch && customVideo;
+
+  if ((src || isFile) && !playing) {
+    return (
+      <button type="button" className={styles.posterBtn} onClick={() => setPlaying(true)} aria-label="Play The Firestarter Briefing">
+        {isFile ? (
+          <video className={styles.posterImg} src={customVideo} preload="metadata" muted playsInline aria-hidden="true" tabIndex={-1} />
+        ) : (
+          <img className={styles.posterImg} src={POSTER} alt="Shola Amaraibi" loading="eager" />
+        )}
+        <span className={styles.playBadge}>
+          <Icon name="arrowRight" size={28} />
+        </span>
+      </button>
+    );
+  }
+
+  if (src) {
+    return (
+      <iframe
+        className={styles.videoIframe}
+        src={src}
+        title="The Firestarter Briefing"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    );
+  }
+
+  if (isFile) {
+    return (
+      <video
+        className={styles.videoIframe}
+        src={customVideo}
+        title="The Firestarter Briefing"
+        poster={POSTER}
+        controls
+        autoPlay
+        playsInline
+        preload="metadata"
+      />
+    );
+  }
+
+  return null;
+}
 
 export default function Training() {
   const { setting } = useSiteSettings();
   const customVideo = (setting('briefing.video_url', '') || '').trim();
-  const driveMatch = customVideo.match(/drive\.google\.com\/file\/d\/([^/]+)/);
-  const drivePreview = driveMatch ? `https://drive.google.com/file/d/${driveMatch[1]}/preview` : null;
-  const ytMatch = customVideo.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{6,})/);
-  const ytEmbed = ytMatch ? `https://www.youtube.com/embed/${ytMatch[1]}` : null;
+  const bookUrl = setting('briefing.book_url', 'https://mainstack.com/p/pathfinding-session?utm_source=website');
+
   return (
     <>
       <section className={styles.hero}>
         <div className="container">
           <Reveal variant="up-large">
             <SparkMark />
-            <span className="eyebrow">Free Training</span>
-            <h1 className={styles.heroTitle}>Fifteen minutes.<br />The whole method.</h1>
+            <span className="eyebrow">The Firestarter Briefing</span>
+            <p className={styles.qualifier}>
+              For capable people who keep describing a future they are not yet building.
+            </p>
+            <h1 className={styles.heroTitle}>The work only you can make.</h1>
             <p className={styles.heroSub}>
-              One real life. All five forces. Watch how the Firestarter Method transforms
-              what you have seen into what you can show.
+              Somewhere in you is work that only you can make. It will either leave with
+              you, unfinished, or you will name it, own it, and make it real.
+            </p>
+            <p className={styles.heroSub}>
+              In this 17-minute briefing, I show you the method that carries a life from
+              foundation to impact, whether you&apos;re pursuing your life&apos;s mission or
+              the goal that matters this season.
             </p>
           </Reveal>
         </div>
@@ -41,40 +104,18 @@ export default function Training() {
         <div className="container">
           <Reveal>
             <div className={styles.videoWrap}>
-              {drivePreview ? (
-                <iframe
-                  className={styles.videoIframe}
-                  src={drivePreview}
-                  title="Firestarter Method Briefing"
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : ytEmbed ? (
-                <iframe
-                  className={styles.videoIframe}
-                  src={ytEmbed}
-                  title="Firestarter Method Briefing"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : customVideo ? (
-                <video
-                  className={styles.videoIframe}
-                  src={customVideo}
-                  title="Firestarter Method Briefing"
-                  controls
-                  playsInline
-                  preload="metadata"
-                />
-              ) : (
-                <iframe
-                  className={styles.videoIframe}
-                  src={YOUTUBE_FALLBACK}
-                  title="Firestarter Method Training"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              )}
+              <VideoPlayer customVideo={customVideo} />
+            </div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className={styles.videoCta}>
+              <a href={bookUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>
+                Book Your Pathfinding Session <Icon name="arrowRight" size={16} />
+              </a>
+              <p className={styles.videoFine}>
+                One hour, one-to-one with me. It&apos;s a paid session:{' '}
+                <a href={bookUrl} target="_blank" rel="noopener noreferrer">book here</a>.
+              </p>
             </div>
           </Reveal>
         </div>
@@ -83,10 +124,10 @@ export default function Training() {
       <section className={styles.stepsSection}>
         <div className="container">
           <Reveal>
-            <h2 className={styles.sectionTitle}>Three moves in fifteen minutes</h2>
+            <h2 className={styles.sectionTitle}>Three things in seventeen minutes</h2>
           </Reveal>
           <div className={styles.stepsGrid}>
-            {steps.map((s, i) => (
+            {cards.map((s, i) => (
               <Reveal key={s.title} variant={i === 1 ? 'clip' : 'up'} delay={i * 60}>
                 <div className={styles.stepCard}>
                   <Icon name={s.icon} size={24} className={styles.stepIcon} />
@@ -99,21 +140,34 @@ export default function Training() {
         </div>
       </section>
 
-        <section className={styles.ctaSection}>
+      <section className={styles.ctaSection}>
         <div className="container">
           <Reveal variant="up-large" delay={120}>
-            <h2 className={styles.ctaTitle}>The map and the tools</h2>
+            <h2 className={styles.ctaTitle}>Your next step: the Pathfinding Session</h2>
             <p className={styles.ctaText}>
-              The free training shows you the map. The Deluxe hands you the tools.
+              One hour, one-to-one with me. Before we meet, you complete a short intake,
+              so we start with an accurate read, not introductions.
             </p>
-            <Link to="/work" className={styles.ctaBtn}>
-              Explore the Firestarter Deluxe <Icon name="arrowRight" size={16} />
-            </Link>
+            <p className={styles.ctaText}>
+              Inside the hour, we locate exactly where you are, name the real constraint
+              beneath what you&apos;ve been calling the problem, and decide your first true
+              move. Within three days, you receive your Pathfinding Note: that move, in
+              writing.
+            </p>
+            <p className={styles.ctaText}>
+              This is for you if you&apos;re done circling, done describing, done collecting
+              breakthroughs.
+            </p>
+            <p className={styles.ctaText}>
+              It\u2019s not for you if you want hype, shortcuts, or motivation without
+              responsibility.
+            </p>
+            <a href={bookUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>
+              Book Your Pathfinding Session <Icon name="arrowRight" size={16} />
+            </a>
           </Reveal>
         </div>
       </section>
-
-      <PrizeBanner />
     </>
   );
 }

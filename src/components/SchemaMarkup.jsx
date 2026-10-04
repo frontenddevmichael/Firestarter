@@ -38,8 +38,8 @@ const schemas = {
   '/briefing': {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    name: 'Briefing — The Firestarter Method',
-    description: 'Fifteen minutes. The whole Firestarter Method applied to one real life.',
+    name: 'The Firestarter Briefing',
+    description: 'The work only you can make. A 17-minute briefing on the method that carries a life from foundation to impact.',
     url: `${url}/briefing`,
   },
   '/prize': {

@@ -91,6 +91,7 @@ export const SETTING_GROUPS = [
     page: '/briefing',
     keys: [
       { key: 'briefing.video_url', label: 'Custom video URL (Supabase)', type: 'url', def: '' },
+      { key: 'briefing.book_url', label: 'Booking button URL', type: 'url', def: 'https://mainstack.com/p/pathfinding-session?utm_source=website' },
     ],
   },
 ]

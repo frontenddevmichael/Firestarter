@@ -76,7 +76,7 @@ function ScrollToTop() {
 const meta = {
   '/': { title: 'The Firestarter Method — Shola Amaraibi', desc: 'A five-force system that helps you name the life you want, own the choices it requires, and make it real. Forge, Illuminate, Enact, Regenerate, Amplify.' },
   '/work': { title: 'Work With Me — The Firestarter Method', desc: 'Choose the path that fits where you are: Unstoppable Workshop, Forge Intensive, Firestarter Deluxe, or Firestarter Business Lane.' },
-  '/briefing': { title: 'Briefing — The Firestarter Method', desc: 'Fifteen minutes. Get an accurate mirror. Name the real constraint. Leave with one move that creates movement.' },
+  '/briefing': { title: 'The Firestarter Briefing', desc: 'The work only you can make. In this 17-minute briefing, Shola Amaraibi shows you the method that carries a life from foundation to impact.' },
   '/musical': { title: 'Firestarter: The Musical — Creative-TechFormance at MUSON Centre', desc: 'Eight poems, one woman\'s journey, told in 90 minutes. December 19–20, 2026 at MUSON Centre, Lagos.' },
   '/contact': { title: 'Contact — The Firestarter Method', desc: 'Get in touch with Shola Amaraibi and the Firestarter team. Questions about the Method, collaboration, or just want to say hello.' },
   '/prize': { title: 'Firestarter Young Poets Prize 2026', desc: 'A poetry competition building future skills for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).' },
@@ -126,6 +126,7 @@ export default function App() {
   const isDashboard = location.pathname.startsWith('/prize/dashboard') ||
                       location.pathname.startsWith('/prize/judge') ||
                       location.pathname.startsWith('/prize/admin');
+  const hideNav = isDashboard || location.pathname === '/briefing';
 
   return (
     <AuthProvider>
@@ -133,7 +134,7 @@ export default function App() {
       <ScrollToTop />
       <PageMeta />
       <SchemaMarkup />
-      {!isDashboard && <Nav />}
+      {!hideNav && <Nav />}
       <a href="#main-content" className="skipLink">Skip to content</a>
       <main id="main-content">
         <AnimatePresence mode="sync" initial={false}>
