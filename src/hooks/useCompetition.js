@@ -64,7 +64,7 @@ export function useCompetition() {
         .select('phase')
         .order('phase_started', { ascending: false })
         .limit(1)
-        .single()
+        .maybeSingle()
       const currentPhase = data?.phase || 'open'
       setPhase(currentPhase)
       calcCountdown(currentPhase)
