@@ -54,6 +54,15 @@ export function AuthProvider({ children }) {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) return { error }
+      const userId = data?.user?.id
+      if (userId) {
+        const { data: prof } = await supabase.from('profiles').select('*').eq('id', userId).single()
+        if (prof) {
+          setProfile(prof)
+          setUser(data.user)
+          return { data, profile: prof }
+        }
+      }
       return { data }
     } catch {
       return { error: { message: 'Network error — check your connection and try again.' } }
@@ -71,6 +80,15 @@ export function AuthProvider({ children }) {
         },
       })
       if (error) return { error }
+      const userId = data?.user?.id
+      if (userId) {
+        const { data: prof } = await supabase.from('profiles').select('*').eq('id', userId).single()
+        if (prof) {
+          setProfile(prof)
+          setUser(data.user)
+          return { data, profile: prof }
+        }
+      }
       return { data }
     } catch {
       return { error: { message: 'Network error — check your connection and try again.' } }
