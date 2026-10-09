@@ -139,6 +139,7 @@
   padding: var(--space-lg);
   border-radius: 8px;
   text-align: center;
+  height: 100%;
 }
 
 .stepIcon {
