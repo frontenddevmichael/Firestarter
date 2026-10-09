@@ -18,7 +18,7 @@
 }
 
 .heroSub {
-  color: var(--color-grey);
+  color: #D9D4CC;
   max-width: 32rem;
   margin: 0 auto;
 }
@@ -28,7 +28,7 @@
 }
 
 .qualifier {
-  color: var(--color-grey);
+  color: #D9D4CC;
   font-size: var(--fs-body-lg);
   max-width: 32rem;
   margin: 0 auto var(--space-md);
@@ -179,7 +179,7 @@
 }
 
 .ctaText {
-  color: var(--color-grey);
+  color: #D9D4CC;
   margin-bottom: var(--space-lg);
 }
 
