@@ -74,7 +74,7 @@ function YouTubePlayer({ videoId, onEnded }) {
 }
 
 const cards = [
-  { icon: 'star', title: 'Watch the method in action', text: 'Two client stories and the five forces of the Firestarter Method. Set your foundation, see what you\u2019re here to build, make it happen, sustain it without burning out, and carry it into rooms that don\u2019t know you yet.' },
+  { icon: 'star', title: 'Watch the method in action', text: 'Two client stories and the five forces that turn your private vision into public impact.' },
   { icon: 'pen', title: 'See where you are', text: 'Whether it\u2019s your life\u2019s mission or this season\u2019s goal, you\u2019ll see what\u2019s really standing between you and it. It\u2019s rarely what you\u2019ve been calling the problem.' },
   { icon: 'arrowRight', title: 'Take the next step', text: 'The briefing ends with one clear next step: a one-hour, one-to-one Pathfinding Session with me, where we name the real constraint and decide your first true move.' },
 ];
@@ -247,7 +247,7 @@ export default function Training() {
               breakthroughs.
             </p>
             <p className={styles.ctaText}>
-              It\u2019s not for you if you want hype, shortcuts, or motivation without
+              It&apos;s not for you if you want hype, shortcuts, or motivation without
               responsibility.
             </p>
             <a href={bookUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>
