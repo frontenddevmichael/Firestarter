@@ -1,0 +1,239 @@
+.page {
+  background-color: var(--color-warm-white);
+}
+
+.hero {
+  background-color: var(--color-charcoal);
+  color: var(--color-warm-white);
+  padding: var(--space-huge) 0;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-display-xl-mobile);
+  margin-bottom: var(--space-md);
+  max-width: 46rem;
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: var(--fs-display-xl);
+  }
+}
+
+.heroSub {
+  color: rgba(247, 243, 238, 0.82);
+  max-width: 42rem;
+  line-height: var(--lh-body);
+  font-size: var(--fs-body-lg);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.section {
+  padding: var(--space-huge) 0;
+}
+
+.paper {
+  max-width: 46rem;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.06);
+  padding: clamp(1.5rem, 4vw, 3.5rem);
+  color: var(--color-charcoal);
+}
+
+.docHead {
+  border-bottom: 2px solid var(--color-charcoal);
+  padding-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.docKicker {
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ember);
+  margin-bottom: 0.35rem;
+}
+
+.docTitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  line-height: 1.15;
+  margin-bottom: 0.4rem;
+}
+
+.docMeta {
+  font-size: var(--fs-caption);
+  color: var(--color-grey);
+}
+
+.intro {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-lg);
+}
+
+.docSection {
+  margin-bottom: var(--space-xl);
+  break-inside: avoid;
+}
+
+.docHeading {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-sm, 1.25rem);
+  margin-bottom: var(--space-sm);
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.clause {
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-md);
+}
+
+.checkList {
+  display: grid;
+  gap: 0.9rem;
+  margin: var(--space-md) 0;
+}
+
+.checkRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  break-inside: avoid;
+}
+
+.checkRow p {
+  font-size: var(--fs-body-md);
+  line-height: 1.55;
+}
+
+.checkbox {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.2rem;
+  border: 1.5px solid var(--color-charcoal);
+  border-radius: 2px;
+  background: #fff;
+}
+
+.optOutRow {
+  padding: 0.6rem 0.75rem;
+  background: var(--color-cream);
+  border-left: 3px solid var(--color-ember);
+}
+
+.fieldRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.fieldWide {
+  flex: 1 1 14rem;
+}
+
+.fieldNarrow {
+  flex: 0 1 8rem;
+}
+
+.fieldLabel {
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--color-grey);
+}
+
+.fill {
+  display: block;
+  height: 1.4rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.docNote {
+  background: var(--color-cream);
+  border-left: 3px solid var(--color-ember);
+  padding: var(--space-md);
+  font-size: var(--fs-body-sm, 0.95rem);
+  line-height: 1.6;
+  margin-top: var(--space-lg);
+}
+
+.afterActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+.smallPrint {
+  text-align: center;
+  color: var(--color-grey);
+  font-size: var(--fs-caption);
+  margin-top: var(--space-md);
+}
+
+.inlineLink {
+  color: var(--color-ember);
+  text-decoration: underline;
+}
+
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  :global(nav),
+  :global(footer),
+  :global(.skipLink) {
+    display: none !important;
+  }
+
+  .page,
+  .section {
+    background: #fff;
+  }
+
+  .hero,
+  .heroActions,
+  .afterActions,
+  .smallPrint {
+    display: none !important;
+  }
+
+  .section {
+    padding: 0;
+  }
+
+  .paper {
+    max-width: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .docNote {
+    background: #fff;
+  }
+}

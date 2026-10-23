@@ -41,10 +41,6 @@ export default function JudgeDashboard() {
     loadAssignments()
   }, [user])
 
-  useEffect(() => {
-    setCurrentIdx(0)
-  }, [filter, filterStatus])
-
   async function loadAssignments() {
     setLoading(true)
     const [asgnRes, scoreRes] = await Promise.all([
@@ -177,12 +173,12 @@ export default function JudgeDashboard() {
         <div className={styles.filterBar}>
           <div className={styles.filterGroup}>
             {['all', 'pending', 'scored'].map(f => (
-              <button key={f} className={filter === f ? styles.filterActive : styles.filterBtn} onClick={() => setFilter(f)}>
+              <button key={f} className={filter === f ? styles.filterActive : styles.filterBtn} onClick={() => { setFilter(f); setCurrentIdx(0); }}>
                 {f === 'all' ? 'All' : f.charAt(0).toUpperCase() + f.slice(1)}
               </button>
             ))}
           </div>
-          <select className={styles.filterSelect} value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
+          <select className={styles.filterSelect} value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setCurrentIdx(0); }}>
             <option value="all">All categories</option>
             <option value="junior">Junior</option>
             <option value="senior">Senior</option>

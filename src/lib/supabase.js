@@ -4,7 +4,7 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY in .env')
+  throw new Error('Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY. Copy .env.example to .env and fill in the values from your Supabase project.')
 }
 
 // Intercept auth callback URL before Supabase client initializes.
@@ -30,7 +30,7 @@ if (typeof window !== 'undefined') {
         sessionStorage.setItem('auth_error', desc)
         window.history.replaceState(null, '', window.location.pathname + window.location.search)
       }
-    } catch (_) { /* let Supabase handle it normally */ }
+    } catch { /* let Supabase handle it normally */ }
   }
 }
 

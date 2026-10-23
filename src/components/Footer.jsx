@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Icon from './Icon';
 import styles from './Footer.module.css';
 
 export default function Footer() {
-  const { pathname } = useLocation();
-  const isPrize = pathname.startsWith('/prize');
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle');
 

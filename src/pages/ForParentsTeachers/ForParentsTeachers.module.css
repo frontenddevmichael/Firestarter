@@ -120,3 +120,24 @@
   font-size: var(--fs-headline-lg);
   margin-bottom: var(--space-xl);
 }
+
+.consentCard {
+  max-width: 40rem;
+  margin: var(--space-xl) auto 0;
+  padding: var(--space-lg);
+  background: var(--color-cream);
+  border-left: 3px solid var(--color-ember);
+}
+
+.consentTitle {
+  font-family: var(--font-display);
+  font-size: var(--fs-headline-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.consentText {
+  color: var(--color-grey);
+  font-size: var(--fs-body-md);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-md);
+}

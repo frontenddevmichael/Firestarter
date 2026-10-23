@@ -23,11 +23,14 @@ const prizeLinks = [
 ];
 
 export default function Nav() {
-  const [open, setOpen] = useState(false);
+  // Keyed to the current path: navigating to a new route closes the menu
+  // without needing an effect that sets state.
+  const [openPath, setOpenPath] = useState(null);
   const [hidden, setHidden] = useState(false);
   const lastScroll = useRef(0);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const open = openPath === pathname;
   const { user, profile, signOut } = useAuth();
   const handleSignOut = async () => { await signOut(); navigate('/prize/auth', { replace: true }); };
   const isPrize = pathname.startsWith('/prize');
@@ -52,12 +55,8 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (!open) return;
-    const handleKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    const handleKey = (e) => { if (e.key === 'Escape') setOpenPath(null); };
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);
   }, [open]);
@@ -79,14 +78,14 @@ export default function Nav() {
         className={styles.hamburger}
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpenPath(open ? null : pathname)}
       >
         <span className={open ? styles.barOpen1 : ''} />
         <span className={open ? styles.barOpen2 : ''} />
         <span className={open ? styles.barOpen3 : ''} />
       </button>
 
-      {open && <div className={styles.overlay} onClick={() => setOpen(false)} />}
+      {open && <div className={styles.overlay} onClick={() => setOpenPath(null)} />}
 
       <div className={`${styles.navLinks} ${open ? styles.navLinksOpen : ''}`}>
         <span className={styles.sectionLabel}>{isPrize ? 'Prize' : 'Firestarter'}</span>
@@ -113,7 +112,7 @@ export default function Nav() {
         )}
 
         {isPrize && user && (
-          <button className={styles.signOutBtn} onClick={() => { handleSignOut(); setOpen(false); }}>
+          <button className={styles.signOutBtn} onClick={() => { handleSignOut(); setOpenPath(null); }}>
             Sign Out
           </button>
         )}

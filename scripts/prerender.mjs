@@ -1,28 +1,37 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { ROUTE_META } from '../src/lib/routesMeta.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const dist = join(__dirname, '..', 'dist');
 const BASE = 'https://firestartermethod.com';
 const LOGO = `${BASE}/FireStarter%20collective%20logo%201.png`;
 
+// Titles, descriptions and robots directives come from src/lib/routesMeta.js,
+// the same file the client uses — one source, no drift.
 const routes = [
-  { path: '/',           title: 'The Firestarter Method — Shola Amaraibi',                    desc: 'A five-force system that helps you name the life you want, own the choices it requires, and make it real. Forge, Illuminate, Enact, Regenerate, Amplify.',                                     ogImage: LOGO, ogImageAlt: 'The Firestarter Method',                                     ogType: 'website', noindex: false },
-  { path: '/work',       title: 'Work With Me — The Firestarter Method',                     desc: 'Choose the path that fits where you are: Unstoppable Workshop, Forge Intensive, Firestarter Deluxe, or Firestarter Business Lane.',                                ogImage: LOGO, ogImageAlt: 'Work With Me — Firestarter Method',                          ogType: 'website', noindex: false },
-  { path: '/contact',    title: 'Contact — The Firestarter Method',                           desc: 'Get in touch with Shola Amaraibi and the Firestarter team.',                                                                                                                                      ogImage: LOGO, ogImageAlt: 'Contact Firestarter Method',                                ogType: 'website', noindex: false },
-  { path: '/briefing',   title: 'The Firestarter Briefing',                     desc: 'The work only you can make. In this 17-minute briefing, Shola Amaraibi shows you the method that carries a life from foundation to impact.',                                                                                 ogImage: LOGO, ogImageAlt: 'The Firestarter Briefing',                        ogType: 'website', noindex: false },
-  { path: '/musical',    title: 'Firestarter: The Musical — Creative-TechFormance at MUSON Centre', desc: 'Eight poems, one woman\'s journey, told in 90 minutes. December 19–20, 2026 at MUSON Centre, Lagos.',                          ogImage: LOGO, ogImageAlt: 'Firestarter: The Musical',                                 ogType: 'website', noindex: false },
-  { path: '/prize',      title: 'Firestarter Young Poets Prize 2026',                         desc: 'A poetry competition building future skills for secondary school students across Lagos State, Nigeria — Junior Poets (ages 10–13) and Senior Poets (ages 14–17).',                  ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'Firestarter Young Poets Prize 2026', ogType: 'website', noindex: false },
-  { path: '/prize/about',   title: 'About — Firestarter Young Poets Prize 2026',             desc: 'Why the prize exists, the 2026 theme, and what judges are looking for.',                                                                                                                       ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'About the Firestarter Young Poets Prize', ogType: 'website', noindex: false },
-  { path: '/prize/how-to-enter', title: 'How to Enter — Firestarter Young Poets Prize 2026', desc: 'Three steps to submit your poem: write, reflect, perform.',                                                                                                                                        ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'How to Enter the Firestarter Young Poets Prize', ogType: 'website', noindex: false },
-  { path: '/prize/key-dates', title: 'Key Dates — Firestarter Young Poets Prize 2026',       desc: 'Competition timeline: entries close 30 September 2026.',                                                                                                                                           ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'Key Dates — Firestarter Young Poets Prize', ogType: 'website', noindex: false },
-  { path: '/prize/parents-and-teachers', title: 'Parents & Teachers — Firestarter Young Poets', desc: 'Information for parents and teachers supporting young poets.',                                                                                                                              ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'Parents & Teachers — Firestarter Young Poets Prize', ogType: 'website', noindex: false },
-  { path: '/prize/contact', title: 'Contact — Firestarter Young Poets Prize',                desc: 'Get in touch with the Firestarter Young Poets Prize team.',                                                                                                                                       ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'Contact — Firestarter Young Poets Prize', ogType: 'website', noindex: false },
-  { path: '/prize/enter', title: 'Submit Your Entry — Firestarter Young Poets Prize 2026',   desc: 'Enter the Firestarter Young Poets Prize. Submit your poem, reflection, and performance video.',                                                                                               ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'Submit Your Entry — Firestarter Young Poets Prize', ogType: 'website', noindex: false },
-  { path: '/prize/spark-pack', title: 'Spark Pack — Firestarter Young Poets Prize',          desc: 'Download the Spark Pack — everything you need to prepare your entry.',                                                                                                                         ogImage: `${BASE}/prize-og-image.jpg`, ogImageAlt: 'Spark Pack — Firestarter Young Poets Prize', ogType: 'website', noindex: false },
-  { path: '/prize/auth', title: 'Sign In — Firestarter Young Poets Prize',                   desc: 'Sign in to the Firestarter Young Poets Prize.',                                                                                                                                                   ogImage: LOGO, ogImageAlt: 'Sign In — Firestarter Young Poets Prize',                   ogType: 'website', noindex: true },
-  { path: '/prize/reset-password', title: 'Reset Password — Firestarter Young Poets Prize',  desc: 'Reset your Firestarter Young Poets Prize password.',                                                                                                                                              ogImage: LOGO, ogImageAlt: 'Reset Password — Firestarter Young Poets Prize',            ogType: 'website', noindex: true },
+  { path: '/',                         ogImage: LOGO,                                  ogImageAlt: 'The Firestarter Method',                                     ogType: 'website' },
+  { path: '/work',                     ogImage: LOGO,                                  ogImageAlt: 'Work With Me — Firestarter Method',                          ogType: 'website' },
+  { path: '/contact',                  ogImage: LOGO,                                  ogImageAlt: 'Contact Firestarter Method',                                ogType: 'website' },
+  { path: '/briefing',                 ogImage: LOGO,                                  ogImageAlt: 'The Firestarter Briefing',                                  ogType: 'website' },
+  { path: '/musical',                  ogImage: LOGO,                                  ogImageAlt: 'Firestarter: The Musical',                                   ogType: 'website' },
+  { path: '/prize',                    ogImage: `${BASE}/prize-og-image.jpg`,          ogImageAlt: 'Firestarter Young Poets Prize 2026',                         ogType: 'website' },
+  { path: '/prize/about',              ogImage: `${BASE}/prize-og-image.jpg`,          ogImageAlt: 'About the Firestarter Young Poets Prize',                    ogType: 'website' },
+  { path: '/prize/how-to-enter',       ogImage: `${BASE}/prize-og-image.jpg`,          ogImageAlt: 'How to Enter the Firestarter Young Poets Prize',             ogType: 'website' },
+  { path: '/prize/key-dates',          ogImage: `${BASE}/prize-og-image.jpg`,          ogImageAlt: 'Key Dates — Firestarter Young Poets Prize',                  ogType: 'website' },
+  { path: '/prize/parents-and-teachers', ogImage: `${BASE}/prize-og-image.jpg`,        ogImageAlt: 'Parents & Teachers — Firestarter Young Poets Prize',         ogType: 'website' },
+  { path: '/prize/consent-form',       ogImage: `${BASE}/prize-og-image.jpg`,          ogImageAlt: 'Participant Commitment & Parental Consent — Firestarter Young Poets Prize', ogType: 'website' },
+  { path: '/prize/contact',            ogImage: `${BASE}/prize-og-image.jpg`,          ogImageAlt: 'Contact — Firestarter Young Poets Prize',                    ogType: 'website' },
+  { path: '/prize/enter',              ogImage: `${BASE}/prize-og-image.jpg`,          ogImageAlt: 'Submit Your Entry — Firestarter Young Poets Prize',          ogType: 'website' },
+  { path: '/prize/spark-pack',         ogImage: `${BASE}/prize-og-image.jpg`,          ogImageAlt: 'Spark Pack — Firestarter Young Poets Prize',                 ogType: 'website' },
+  { path: '/prize/auth',               ogImage: LOGO,                                  ogImageAlt: 'Sign In — Firestarter Young Poets Prize',                    ogType: 'website' },
+  { path: '/prize/reset-password',     ogImage: LOGO,                                  ogImageAlt: 'Reset Password — Firestarter Young Poets Prize',             ogType: 'website' },
+  // App pages: prerendered as noindex shells so a crawler never sees the
+  // base index.html's "index, follow" before JavaScript runs.
+  { path: '/prize/dashboard',          ogImage: LOGO,                                  ogImageAlt: 'My Entry — Firestarter Young Poets Prize',                   ogType: 'website' },
+  { path: '/prize/judge',              ogImage: LOGO,                                  ogImageAlt: 'Judge Dashboard — Firestarter Young Poets Prize',            ogType: 'website' },
+  { path: '/prize/admin',              ogImage: LOGO,                                  ogImageAlt: 'Admin — Firestarter Young Poets Prize',                      ogType: 'website' },
 ];
 
 // ── Schema definitions (mirrors src/components/SchemaMarkup.jsx for prerender) ──
@@ -54,25 +63,24 @@ const schemas = {
   '/prize': {
     '@context': 'https://schema.org', '@type': 'Event', name: 'The Firestarter Young Poets Prize 2026',
     description: 'A poetry competition building future skills for secondary school students across Lagos State.', url: `${BASE}/prize`,
-    startDate: '2026-01-01', endDate: '2026-12-15', eventStatus: 'https://schema.org/EventScheduled',
+    startDate: '2026-01-01', endDate: '2026-12-20', eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: { '@type': 'Place', name: 'Lagos State, Nigeria', address: { '@type': 'PostalAddress', addressRegion: 'Lagos', addressCountry: 'NG' } },
     organizer: org, breadcrumb: breadcrumbFor('/prize'),
   },
   '/prize/about': { '@context': 'https://schema.org', '@type': 'Article', headline: 'About the Prize', description: 'Why the prize exists, the 2026 theme, and what judges look for.', url: `${BASE}/prize/about`, breadcrumb: breadcrumbFor('/prize/about') },
-  '/prize/how-to-enter': { '@context': 'https://schema.org', '@type': 'HowTo', name: 'How to Enter', description: 'Three steps to submit your poem.', url: `${BASE}/prize/how-to-enter`, step: [
+  '/prize/how-to-enter': { '@context': 'https://schema.org', '@type': 'HowTo', name: 'How to Enter', description: 'Two stages: write your poem and Voice Reflection, then perform if shortlisted.', url: `${BASE}/prize/how-to-enter`, step: [
     { '@type': 'HowToStep', name: 'Write the Poem', text: 'One original poem exploring the 2026 theme.' },
-    { '@type': 'HowToStep', name: 'Voice Reflection', text: 'A short written reflection.' },
-    { '@type': 'HowToStep', name: 'Performance Video', text: 'A video of you performing the poem.' },
+    { '@type': 'HowToStep', name: 'Voice Reflection', text: 'Three to five sentences on what your poem is really about and why you wrote it.' },
   ], breadcrumb: breadcrumbFor('/prize/how-to-enter') },
-  '/prize/key-dates': { '@context': 'https://schema.org', '@type': 'Event', name: 'Prize Key Dates', description: 'Competition timeline.', url: `${BASE}/prize/key-dates`, startDate: '2026-09-30', endDate: '2026-12-15', eventStatus: 'https://schema.org/EventScheduled', eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', location: { '@type': 'Place', name: 'Lagos, Nigeria', address: { '@type': 'PostalAddress', addressRegion: 'Lagos', addressCountry: 'NG' } }, organizer: org, breadcrumb: breadcrumbFor('/prize/key-dates') },
-  '/prize/enter': { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Submit Your Entry', description: 'Enter the prize.', url: `${BASE}/prize/enter`, breadcrumb: breadcrumbFor('/prize/enter') },
+  '/prize/key-dates': { '@context': 'https://schema.org', '@type': 'Event', name: 'Prize Key Dates', description: 'Competition timeline: entries close 30 October 2026, grand final in December.', url: `${BASE}/prize/key-dates`, startDate: '2026-10-30', endDate: '2026-12-20', eventStatus: 'https://schema.org/EventScheduled', eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', location: { '@type': 'Place', name: 'Lagos, Nigeria', address: { '@type': 'PostalAddress', addressRegion: 'Lagos', addressCountry: 'NG' } }, organizer: org, breadcrumb: breadcrumbFor('/prize/key-dates') },
+  '/prize/enter': { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Submit Your Entry', description: 'Create your free account and submit your poem and Voice Reflection.', url: `${BASE}/prize/enter`, breadcrumb: breadcrumbFor('/prize/enter') },
   '/prize/parents-and-teachers': { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Parents & Teachers', description: 'Supporting young poets.', url: `${BASE}/prize/parents-and-teachers`, breadcrumb: breadcrumbFor('/prize/parents-and-teachers') },
   '/prize/spark-pack': { '@context': 'https://schema.org', '@type': 'WebPage', name: 'Spark Pack', description: 'Download the Spark Pack.', url: `${BASE}/prize/spark-pack`, breadcrumb: breadcrumbFor('/prize/spark-pack') },
   '/prize/contact': { '@context': 'https://schema.org', '@type': 'FAQPage', name: 'Contact — Young Poets Prize', description: 'Get in touch.', url: `${BASE}/prize/contact`, mainEntity: [
     { '@type': 'Question', name: 'Who can enter?', acceptedAnswer: { '@type': 'Answer', text: 'Open to secondary school students across Lagos State — Junior Poets (10–13) and Senior Poets (14–17).' } },
-    { '@type': 'Question', name: 'What do I need to submit?', acceptedAnswer: { '@type': 'Answer', text: 'One original poem, a Voice Reflection, and a performance video.' } },
-    { '@type': 'Question', name: 'Is there an entry fee?', acceptedAnswer: { '@type': 'Answer', text: 'Contact us for the latest on fees.' } },
+    { '@type': 'Question', name: 'What do I need to submit?', acceptedAnswer: { '@type': 'Answer', text: 'One original poem and a short Voice Reflection (three to five sentences). Performance videos are only needed if you are shortlisted.' } },
+    { '@type': 'Question', name: 'Is there an entry fee?', acceptedAnswer: { '@type': 'Answer', text: 'No. Entry is free, and payment is never requested at any stage.' } },
     { '@type': 'Question', name: 'How is judging decided?', acceptedAnswer: { '@type': 'Answer', text: 'Our panel reviews every entry blind, focused on voice and honesty.' } },
   ], breadcrumb: breadcrumbFor('/prize/contact') },
 };
@@ -82,24 +90,29 @@ console.log('Prerendering routes...');
 const html = readFileSync(join(dist, 'index.html'), 'utf-8');
 
 for (const route of routes) {
+  const meta = ROUTE_META[route.path];
+  if (!meta) {
+    console.warn(`  ! no metadata for ${route.path} — skipped`);
+    continue;
+  }
   const pageUrl = `${BASE}${route.path}`;
   const schema = schemas[route.path] ? JSON.stringify(schemas[route.path]) : '';
   const schemaTag = schema ? `<script type="application/ld+json">${schema}</script>` : '';
 
   let output = html
-    .replace(/<title>.*?<\/title>/, `<title>${route.title}</title>`)
-    .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${route.desc}"`)
-    .replace(/<meta property="og:title" content="[^"]*"/, `<meta property="og:title" content="${route.title}"`)
-    .replace(/<meta property="og:description" content="[^"]*"/, `<meta property="og:description" content="${route.desc}"`)
+    .replace(/<title>.*?<\/title>/, `<title>${meta.title}</title>`)
+    .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${meta.desc}"`)
+    .replace(/<meta property="og:title" content="[^"]*"/, `<meta property="og:title" content="${meta.title}"`)
+    .replace(/<meta property="og:description" content="[^"]*"/, `<meta property="og:description" content="${meta.desc}"`)
     .replace(/<meta property="og:url" content="[^"]*"/, `<meta property="og:url" content="${pageUrl}"`)
     .replace(/<meta property="og:image" content="[^"]*"/, `<meta property="og:image" content="${route.ogImage}"`)
     .replace(/<meta property="og:image:alt" content="[^"]*"/, `<meta property="og:image:alt" content="${route.ogImageAlt}"`)
     .replace(/<meta property="og:type" content="[^"]*"/, `<meta property="og:type" content="${route.ogType}"`)
     .replace(/<meta name="twitter:image" content="[^"]*"/, `<meta name="twitter:image" content="${route.ogImage}"`)
-    .replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${route.title}"`)
-    .replace(/<meta name="twitter:description" content="[^"]*"/, `<meta name="twitter:description" content="${route.desc}"`)
+    .replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${meta.title}"`)
+    .replace(/<meta name="twitter:description" content="[^"]*"/, `<meta name="twitter:description" content="${meta.desc}"`)
     .replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${pageUrl}"`)
-    .replace(/<meta name="robots" content="[^"]*"/, `<meta name="robots" content="${route.noindex ? 'noindex' : 'index, follow'}"`);
+    .replace(/<meta name="robots" content="[^"]*"/, `<meta name="robots" content="${meta.noindex ? 'noindex, nofollow' : 'index, follow'}"`);
 
   // Inject JSON-LD schema before closing </head>
   if (schemaTag) {

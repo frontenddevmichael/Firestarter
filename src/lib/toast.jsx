@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- the toast provider and its hook intentionally live together */
 import { createContext, useContext, useState, useCallback, useRef } from 'react'
 
 const ToastContext = createContext()

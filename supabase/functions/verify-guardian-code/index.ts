@@ -1,16 +1,28 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const CORS = {
-  "Access-Control-Allow-Origin": "https://firestartermethod.com",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+const ALLOWED_ORIGINS = new Set([
+  "https://firestartermethod.com",
+  "https://www.firestartermethod.com",
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+]);
 
-function json(body: unknown, status = 200) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { "Content-Type": "application/json", ...CORS },
-  });
+function corsHeaders(req: Request) {
+  const origin = req.headers.get("Origin") ?? "";
+  return {
+    "Access-Control-Allow-Origin": ALLOWED_ORIGINS.has(origin) ? origin : "https://firestartermethod.com",
+    "Vary": "Origin",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  };
+}
+
+function jsonFor(req: Request) {
+  return (body: unknown, status = 200) =>
+    new Response(JSON.stringify(body), {
+      status,
+      headers: { "Content-Type": "application/json", ...corsHeaders(req) },
+    });
 }
 
 async function sha256Hex(input: string): Promise<string> {
@@ -20,7 +32,8 @@ async function sha256Hex(input: string): Promise<string> {
 }
 
 Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+  const json = jsonFor(req);
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders(req) });
 
   try {
     const authHeader = req.headers.get("Authorization");
@@ -59,6 +72,16 @@ Deno.serve(async (req) => {
       return json({ error: "Code expired. Request a new code." }, 410);
     }
 
+    const consentsComplete =
+      consent.child_commitment === true &&
+      consent.policy_accepted === true &&
+      consent.supervision_confirmed === true &&
+      consent.media_consent !== consent.media_opt_out;
+
+    if (!consentsComplete) {
+      return json({ error: "The consent form is incomplete. Ask for a new code." }, 409);
+    }
+
     const hash = await sha256Hex(code);
     if (hash !== consent.code_hash) {
       await admin.from("guardian_consents").update({
@@ -71,6 +94,7 @@ Deno.serve(async (req) => {
     const now = new Date().toISOString();
     await admin.from("guardian_consents").update({
       verified_at: now,
+      consented_at: now,
       attempts: (consent.attempts ?? 0) + 1,
     }).eq("entrant_id", user.id);
 

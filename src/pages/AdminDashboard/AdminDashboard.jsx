@@ -27,6 +27,7 @@ export default function AdminDashboard() {
   const [phaseHistory, setPhaseHistory] = useState([])
   const [currentPhase, setCurrentPhase] = useState('open')
   const [emailLogs, setEmailLogs] = useState([])
+  const [consents, setConsents] = useState({})
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [sortKey, setSortKey] = useState('submitted_at')
@@ -42,12 +43,13 @@ export default function AdminDashboard() {
   const setTab = (t) => setSearchParams({ tab: t })
 
   async function fetchData() {
-    const [entriesRes, judgesRes, roundsRes, logsRes, scoresRes] = await Promise.all([
+    const [entriesRes, judgesRes, roundsRes, logsRes, scoresRes, consentsRes] = await Promise.all([
       supabase.from('entries').select('*, profiles!entries_entrant_id_fkey(email, full_name), scores(score, judge_id), judge_assignments(judge_id, profiles!judge_assignments_judge_id_fkey(email, full_name))'),
       supabase.from('profiles').select('id, email, full_name, role').eq('role', 'judge'),
       supabase.from('rounds').select('phase, phase_started').order('phase_started', { ascending: false }),
       supabase.from('email_logs').select('*').order('sent_at', { ascending: false }).limit(50),
       supabase.from('scores').select('judge_id, entry_id, score'),
+      supabase.from('guardian_consents').select('entrant_id, child_commitment, policy_accepted, supervision_confirmed, publication_consent, media_consent, media_opt_out, consented_at'),
     ])
     if (entriesRes.data) setEntries(entriesRes.data)
     if (judgesRes.data) setJudges(judgesRes.data)
@@ -64,9 +66,11 @@ export default function AdminDashboard() {
     }
     if (logsRes.data) setEmailLogs(logsRes.data)
     if (scoresRes.data) setAllScores(scoresRes.data)
+    if (consentsRes.data) setConsents(Object.fromEntries(consentsRes.data.map(c => [c.entrant_id, c])))
     setLoading(false)
   }
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- state is set after the awaited queries settle
   useEffect(() => { fetchData() }, [])
 
   const toggleSort = (key) => {
@@ -83,13 +87,16 @@ export default function AdminDashboard() {
     else setSelected(new Set(filteredEntries.map(e => e.id)))
   }
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization -- derived table; memo kept intentionally
   const entriesWithMeta = useMemo(() => entries.map(e => ({
     ...e,
     poemTitle: e.poem_text ? e.poem_text.split('\n')[0].substring(0, 60) : '(no poem)',
     avgScore: e.scores?.length ? (e.scores.reduce((s, sc) => s + sc.score, 0) / e.scores.length).toFixed(1) : '-',
     judgeNames: e.judge_assignments?.map(ja => ja.profiles?.full_name || ja.profiles?.email).filter(Boolean).join(', ') || '',
-  })), [entries])
+    consent: consents[e.entrant_id] || null,
+  })), [entries, consents])
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization -- filtered table; memo kept intentionally
   const filteredEntries = useMemo(() => {
     let result = [...entriesWithMeta]
     if (search) {
@@ -326,7 +333,7 @@ export default function AdminDashboard() {
           </button>
           <input className={styles.searchInput} placeholder="Search entries..." value={search} onChange={e => setSearch(e.target.value)} />
           <button className="btnPrimary" onClick={() => {
-            const csv = [['Ref','Entrant Name','Entrant Email','Category','Poem (first line)','Score','Status'].join(',')].concat(
+            const csv = [['Ref','Entrant Name','Entrant Email','Category','Poem (first line)','Score','Status','Photography','Poem publication'].join(',')].concat(
               entriesWithMeta.map(e => [
                 `FS-${e.submitted_at?.substring(0, 4) || '2026'}-${e.id.substring(0, 4)}`,
                 `"${(e.profiles?.full_name || '').replace(/"/g, '""')}"`,
@@ -335,6 +342,8 @@ export default function AdminDashboard() {
                 `"${(e.poem_text || '').split('\n')[0].replace(/"/g, '""')}"`,
                 e.avgScore,
                 e.status || 'submitted',
+                e.consent ? (e.consent.media_opt_out ? 'Opted out' : 'Consented') : 'Not recorded',
+                e.consent?.publication_consent ? 'Authorised' : 'Not authorised',
               ].join(','))
             ).join('\n')
             const blob = new Blob([csv], { type: 'text/csv' })
@@ -356,6 +365,7 @@ export default function AdminDashboard() {
               <th className={styles.sortTh} onClick={() => toggleSort('category')}>Cat{sortIcon('category')}</th>
               <th className={styles.sortTh} onClick={() => toggleSort('avgScore')}>Score{sortIcon('avgScore')}</th>
               <th className={styles.sortTh} onClick={() => toggleSort('status')}>Status{sortIcon('status')}</th>
+              <th>Media</th>
               <th>Judge</th>
               <th>Actions</th>
             </tr>
@@ -377,6 +387,18 @@ export default function AdminDashboard() {
                 <td className={styles.scoreCell}>{e.avgScore}</td>
                 <td><span className={`${styles.statusBadge} ${e.status === 'shortlisted' ? styles.s_shortlisted : ''} ${e.status === 'finalist' ? styles.s_finalist : ''} ${e.status === 'withdrawn' ? styles.s_withdrawn : ''}`}>{e.status}</span></td>
                 <td>
+                  {e.consent ? (
+                    <span
+                      className={`${styles.statusBadge} ${e.consent.media_opt_out ? styles.mediaOptOut : styles.mediaOk}`}
+                      title={`Poem publication: ${e.consent.publication_consent ? 'authorised' : 'not authorised'}${e.consent.consented_at ? ` · confirmed ${new Date(e.consent.consented_at).toLocaleDateString()}` : ''}`}
+                    >
+                      {e.consent.media_opt_out ? 'Opt-out' : 'Consent'}
+                    </span>
+                  ) : (
+                    <span className={styles.scoreCell}>—</span>
+                  )}
+                </td>
+                <td>
                   <select className={styles.select} onChange={ev => assignJudge(e.id, ev.target.value)} defaultValue="">
                     <option value="" disabled>Assign judge</option>
                     {judges.map(j => <option key={j.id} value={j.id}>{j.full_name || j.email}</option>)}
@@ -396,7 +418,7 @@ export default function AdminDashboard() {
                 </td>
               </tr>
             ))}
-            {filteredEntries.length === 0 && <tr><td colSpan={bulkMode ? 8 : 7} className={styles.empty}>No entries found.</td></tr>}
+            {filteredEntries.length === 0 && <tr><td colSpan={bulkMode ? 9 : 8} className={styles.empty}>No entries found.</td></tr>}
           </tbody>
         </table>
       </div>
@@ -426,6 +448,14 @@ export default function AdminDashboard() {
               <div className={styles.detailField}>
                 <label>Submitted</label>
                 <span>{new Date(detailEntry.submitted_at).toLocaleString()}</span>
+              </div>
+              <div className={styles.detailField}>
+                <label>Consent</label>
+                <span>
+                  {detailEntry.consent
+                    ? `Policy agreed · Supervision confirmed · Photography ${detailEntry.consent.media_opt_out ? 'OPTED OUT' : 'consented'} · Publication ${detailEntry.consent.publication_consent ? 'authorised' : 'not authorised'}`
+                    : 'Not recorded'}
+                </span>
               </div>
             </div>
             <div className={styles.detailBody}>

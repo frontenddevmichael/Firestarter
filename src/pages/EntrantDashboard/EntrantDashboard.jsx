@@ -31,11 +31,11 @@ const RESOURCES = [
 ]
 
 const STAGE_INFO = [
-  { phase: 'open', label: 'Submission', desc: 'Write and submit your poem before the deadline.', date: '30 Sep 2026' },
-  { phase: 'judging', label: 'Judging', desc: 'Our panel reviews all entries anonymously.', date: 'Oct 2026' },
-  { phase: 'shortlisted', label: 'Shortlist', desc: 'Top entries are shortlisted and announced.', date: '15 Oct 2026' },
-  { phase: 'finalists', label: 'Finalists', desc: 'Finalists selected and invited to the ceremony.', date: '31 Oct 2026' },
-  { phase: 'closed', label: 'Awards', desc: 'Winners announced at the awards ceremony.', date: '15 Nov 2026' },
+  { step: 1, label: 'Submission', desc: 'Write and submit your poem before the deadline.', dateKey: 'dates.deadline_short' },
+  { step: 2, label: 'Judging', desc: 'Our panel reviews all entries anonymously.', dateKey: 'dates.judging' },
+  { step: 3, label: 'Shortlist', desc: 'Top entries are shortlisted and announced.', dateKey: 'dates.videos_due' },
+  { step: 4, label: 'Finalists', desc: 'Finalists selected and invited to the ceremony.', dateKey: 'dates.lab' },
+  { step: 5, label: 'Awards', desc: 'Winners announced at the awards ceremony.', dateKey: 'dates.final' },
 ]
 
 export default function EntrantDashboard() {
@@ -73,8 +73,14 @@ export default function EntrantDashboard() {
   const [guardianName, setGuardianName] = useState('')
   const [guardianEmail, setGuardianEmail] = useState('')
   const [code, setCode] = useState('')
+  // Participant Commitment & Parental Consent Form choices
+  const [childCommitment, setChildCommitment] = useState(false)
+  const [policyAccepted, setPolicyAccepted] = useState(false)
+  const [supervisionConfirmed, setSupervisionConfirmed] = useState(false)
+  const [publicationConsent, setPublicationConsent] = useState(false)
+  const [mediaChoice, setMediaChoice] = useState('') // 'consent' | 'opt_out'
 
-  const consentVerified = Boolean(consent?.verified_at) || guardian?.consent_given === true
+  const consentVerified = Boolean(consent?.verified_at)
 
   useEffect(() => {
     if (!user) return
@@ -103,10 +109,15 @@ export default function EntrantDashboard() {
           setGuardianName(cRes.data.guardian_name || '')
           setGuardianEmail(cRes.data.guardian_email || '')
         }
+        setChildCommitment(Boolean(cRes.data.child_commitment))
+        setPolicyAccepted(Boolean(cRes.data.policy_accepted))
+        setSupervisionConfirmed(Boolean(cRes.data.supervision_confirmed))
+        setPublicationConsent(Boolean(cRes.data.publication_consent))
+        setMediaChoice(cRes.data.media_opt_out ? 'opt_out' : cRes.data.media_consent ? 'consent' : '')
         if (!cRes.data.verified_at) setCodeSent(true)
       }
       const s = eRes.data?.status
-      if (s === 'submitted' || s === 'shortlisted' || s === 'finalist') {
+      if (s === 'submitted' || s === 'shortlisted' || s === 'finalist' || s === 'withdrawn') {
         setMode('status')
       } else {
         setMode('welcome')
@@ -144,9 +155,26 @@ export default function EntrantDashboard() {
   const handleSendCode = async (e) => {
     e?.preventDefault?.()
     if (!guardianName.trim() || !guardianEmail.trim()) { toast('Please fill in guardian name and email', 'error'); return }
+    if (!childCommitment || !policyAccepted || !supervisionConfirmed) {
+      toast('Please complete the participant commitment and required guardian consents', 'error')
+      return
+    }
+    if (!mediaChoice) {
+      toast('Please choose whether you consent to photography, or opt out', 'error')
+      return
+    }
     setSendingCode(true)
     const { data, error } = await supabase.functions.invoke('send-guardian-code', {
-      body: { guardian_name: guardianName.trim(), guardian_email: guardianEmail.trim() },
+      body: {
+        guardian_name: guardianName.trim(),
+        guardian_email: guardianEmail.trim(),
+        child_commitment: childCommitment,
+        policy_accepted: policyAccepted,
+        supervision_confirmed: supervisionConfirmed,
+        publication_consent: publicationConsent,
+        media_consent: mediaChoice === 'consent',
+        media_opt_out: mediaChoice === 'opt_out',
+      },
     })
     setSendingCode(false)
     if (error || data?.error) {
@@ -250,7 +278,7 @@ export default function EntrantDashboard() {
   const handleFinalSubmit = async () => {
     // Re-check verification server-side before locking the entry
     const fresh = await refreshConsent()
-    const verified = Boolean(fresh?.verified_at) || guardian?.consent_given === true
+    const verified = Boolean(fresh?.verified_at)
     if (!verified) {
       toast('Guardian verification is required before submitting', 'error')
       setShowSubmitModal(false)
@@ -289,12 +317,12 @@ export default function EntrantDashboard() {
   const currentStep = entry
     ? (status === 'finalist' ? 4
       : status === 'shortlisted' ? 3
-      : status === 'submitted' ? 2
+      : status === 'submitted' || status === 'withdrawn' ? 2
       : status === 'draft' ? 1
       : 2)
     : (consentVerified || guardian ? 1 : 0)
 
-  const statusIcon = status === 'finalist' ? 'award' : status === 'shortlisted' ? 'star' : 'fileText'
+  const statusIcon = status === 'finalist' ? 'award' : status === 'shortlisted' ? 'star' : status === 'withdrawn' ? 'x' : 'fileText'
   const firstName = profile?.full_name?.split(' ')?.[0] || ''
   const resendWait = Math.max(0, RESEND_COOLDOWN_S - Math.floor((now - lastSentAt) / 1000))
   const wizardIndex = WIZARD_STEPS.indexOf(wizardStep)
@@ -327,7 +355,7 @@ export default function EntrantDashboard() {
             <Icon name={statusIcon} size={32} className={styles.welcomeIcon} strokeWidth={1.6} />
             <div>
               <p className={styles.welcomeText}>
-                {status === 'finalist' ? "You're a finalist!" : status === 'shortlisted' ? "You've been shortlisted!" : status === 'draft' ? 'Your draft is saved' : 'Entry submitted!'}
+                {status === 'finalist' ? "You're a finalist!" : status === 'shortlisted' ? "You've been shortlisted!" : status === 'withdrawn' ? 'Your entry was withdrawn' : status === 'draft' ? 'Your draft is saved' : 'Entry submitted!'}
               </p>
               <p className={styles.welcomeSub}>
                 {profile?.full_name || profile?.email} &middot; {entry.category} &middot; <strong>{humanStatus}</strong>
@@ -371,7 +399,11 @@ export default function EntrantDashboard() {
                 <p className={styles.formDesc}>Awaiting guardian verification — check {guardianEmail || 'the guardian inbox'} for your code.</p>
               )}
               {consentVerified && (
-                <p className={styles.formDesc}>Guardian consent verified{guardianEmail ? ` (${guardianEmail})` : ''}.</p>
+                <p className={styles.formDesc}>
+                  Guardian consent verified{guardianEmail ? ` (${guardianEmail})` : ''}.
+                  {' '}Photography: {consent?.media_opt_out ? 'opted out' : 'consented'}.
+                  {' '}Poem publication: {consent?.publication_consent ? 'authorised' : 'not authorised'}.
+                </p>
               )}
               <div className={styles.formActions}>
                 <button type="button" className="btnPrimary" onClick={startEntry}>
@@ -397,6 +429,54 @@ export default function EntrantDashboard() {
                       <label>Guardian Email</label>
                       <input type="email" value={guardianEmail} onChange={e => setGuardianEmail(e.target.value)} className={styles.input} required placeholder="guardian@example.com" />
                     </div>
+
+                    <div className={styles.consentBox}>
+                      <div className={styles.consentHead}>
+                        <strong>Participant commitment &amp; parental consent</strong>
+                        <Link to="/prize/consent-form" target="_blank" rel="noopener noreferrer" className={styles.formLink}>
+                          Read the full form
+                        </Link>
+                      </div>
+
+                      <label className={styles.consentLabel}>
+                        <input type="checkbox" checked={childCommitment} onChange={e => setChildCommitment(e.target.checked)} />
+                        <span><strong>Child commitment.</strong> I agree to use kind words, respect others, and follow the safety rules online and at the event.</span>
+                      </label>
+
+                      <label className={styles.consentLabel}>
+                        <input type="checkbox" checked={policyAccepted} onChange={e => setPolicyAccepted(e.target.checked)} />
+                        <span><strong>Safeguarding.</strong> I have read and agree to the Safeguarding Policy and Incident Escalation Framework.</span>
+                      </label>
+
+                      <label className={styles.consentLabel}>
+                        <input type="checkbox" checked={supervisionConfirmed} onChange={e => setSupervisionConfirmed(e.target.checked)} />
+                        <span><strong>Event supervision.</strong> My parent/guardian will accompany me to the physical ceremony, or name an authorised adult in writing.</span>
+                      </label>
+
+                      <label className={styles.consentLabel}>
+                        <input type="checkbox" checked={publicationConsent} onChange={e => setPublicationConsent(e.target.checked)} />
+                        <span><strong>Poem publication (optional).</strong> I authorise my poem to be published on official channels, showing only my first name and age.</span>
+                      </label>
+
+                      <div className={styles.consentGroup} role="radiogroup" aria-labelledby="media-consent-label">
+                        <span id="media-consent-label" className={styles.consentGroupLabel}>
+                          Photography &amp; video at the event <span className={styles.required}>required</span>
+                        </span>
+                        <label className={styles.consentLabel}>
+                          <input type="radio" name="media-choice" checked={mediaChoice === 'consent'} onChange={() => setMediaChoice('consent')} />
+                          <span>I consent to my child being photographed or video recorded during the event for promotional coverage.</span>
+                        </label>
+                        <label className={styles.consentLabel}>
+                          <input type="radio" name="media-choice" checked={mediaChoice === 'opt_out'} onChange={() => setMediaChoice('opt_out')} />
+                          <span><strong>Opt out.</strong> I do not want my child to be photographed or video recorded.</span>
+                        </label>
+                      </div>
+
+                      <p className={styles.consentHint}>
+                        Your guardian confirms these choices with the 6-digit code. Nothing is submitted before that.
+                      </p>
+                    </div>
+
                     <p className={styles.formDesc}>
                       We email your guardian a unique 6-digit code. You need that code to unlock submission — no poem can be submitted without it.
                     </p>
@@ -536,15 +616,15 @@ export default function EntrantDashboard() {
               <h4>The Stages Ahead</h4>
               <div className={styles.stagesList}>
                 {STAGE_INFO.map(st => {
-                  const done = STEPS.indexOf(st.phase) <= currentStep
-                  const current = STEPS.indexOf(st.phase) === currentStep
+                  const done = currentStep > st.step
+                  const current = currentStep === st.step
                   return (
-                    <div key={st.phase} className={`${styles.stageItem} ${done ? styles.stageDone : ''} ${current ? styles.stageCurrent : ''}`}>
+                    <div key={st.label} className={`${styles.stageItem} ${done ? styles.stageDone : ''} ${current ? styles.stageCurrent : ''}`}>
                       <div className={styles.stageDot}>{done ? '\u2713' : current ? '\u25CF' : '\u25CB'}</div>
                       <div className={styles.stageContent}>
                         <span className={styles.stageLabel}>{st.label}</span>
                         <span className={styles.stageDesc}>{st.desc}</span>
-                        <span className={styles.stageDate}>{st.date}</span>
+                        <span className={styles.stageDate}>{setting(st.dateKey)}</span>
                       </div>
                     </div>
                   )

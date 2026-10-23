@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import Icon from '../../components/Icon';
 import Reveal from '../../components/Reveal';
 import Styles from './Musical.module.css';

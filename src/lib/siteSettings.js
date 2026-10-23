@@ -80,9 +80,9 @@ export const SETTING_GROUPS = [
     label: 'Section visibility',
     page: '/prize',
     keys: [
-      { key: 'show.prizes', label: 'Show prizes section', type: 'toggle', def: true },
-      { key: 'show.countdown', label: 'Show countdown', type: 'toggle', def: true },
-      { key: 'show.whatsapp', label: 'Show WhatsApp band', type: 'toggle', def: true },
+      { key: 'show.prizes', label: 'Show prize amounts (Spark Pack)', type: 'toggle', def: true },
+      { key: 'show.countdown', label: 'Show countdown (dashboards)', type: 'toggle', def: true },
+      { key: 'show.whatsapp', label: 'Show WhatsApp band (entry page)', type: 'toggle', def: true },
     ],
   },
   {

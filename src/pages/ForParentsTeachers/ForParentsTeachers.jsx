@@ -115,6 +115,16 @@ export default function ForParentsTeachers() {
                 <Link to="/prize/contact" className={styles.inlineLink}>Contact</Link> page.
               </li>
             </ul>
+
+            <div className={styles.consentCard}>
+              <h3 className={styles.consentTitle}>The consent form</h3>
+              <p className={styles.consentText}>
+                Every entrant needs a parent or guardian. Read the Participant Commitment
+                &amp; Parental Consent Form — including the photography opt-out — and print
+                or save a copy for your records.
+              </p>
+              <Link to="/prize/consent-form" className="btnPrimary">Read the consent form</Link>
+            </div>
           </Reveal>
         </div>
       </section>

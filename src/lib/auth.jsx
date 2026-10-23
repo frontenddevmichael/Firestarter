@@ -1,4 +1,4 @@
-/* @react-refresh-ignore */
+/* eslint-disable react-refresh/only-export-components -- the auth provider and its hook intentionally live together */
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { supabase } from './supabase'
 

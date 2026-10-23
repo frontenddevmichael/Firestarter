@@ -1,6 +1,30 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-function escapeHtml(str) {
+const ALLOWED_ORIGINS = new Set([
+  "https://firestartermethod.com",
+  "https://www.firestartermethod.com",
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+]);
+
+function corsHeaders(req: Request) {
+  const origin = req.headers.get("Origin") ?? "";
+  return {
+    "Access-Control-Allow-Origin": ALLOWED_ORIGINS.has(origin) ? origin : "https://firestartermethod.com",
+    "Vary": "Origin",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  };
+}
+
+function json(req: Request, body: unknown, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", ...corsHeaders(req) },
+  });
+}
+
+function escapeHtml(str: string) {
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -10,24 +34,11 @@ function escapeHtml(str) {
 }
 
 Deno.serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response("ok", {
-      headers: {
-        "Access-Control-Allow-Origin": "https://firestartermethod.com",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-      },
-    });
-  }
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders(req) });
 
   try {
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(JSON.stringify({ error: "Missing authorization" }), {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
+    if (!authHeader) return json(req, { error: "Missing authorization" }, 401);
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
@@ -36,12 +47,7 @@ Deno.serve(async (req) => {
     );
 
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
+    if (authError || !user) return json(req, { error: "Unauthorized" }, 401);
 
     const { data: profile } = await supabase
       .from("profiles")
@@ -50,28 +56,19 @@ Deno.serve(async (req) => {
       .single();
 
     if (profile?.role !== "admin") {
-      return new Response(JSON.stringify({ error: "Forbidden — admin only" }), {
-        status: 403,
-        headers: { "Content-Type": "application/json" },
-      });
+      return json(req, { error: "Forbidden — admin only" }, 403);
     }
 
     const body = await req.json();
     const { judge_email, judge_name, judge_password } = body;
 
     if (!judge_email || !judge_name || !judge_password) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
+      return json(req, { error: "Missing required fields" }, 400);
     }
 
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
     if (!RESEND_API_KEY) {
-      return new Response(JSON.stringify({ error: "Email service not configured" }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
+      return json(req, { error: "Email service not configured" }, 500);
     }
 
     const FROM_EMAIL = Deno.env.get("FROM_EMAIL") || "noreply@firestartermethod.com";
@@ -100,20 +97,14 @@ Deno.serve(async (req) => {
         from: "Firestarter Prize <" + FROM_EMAIL + ">",
         to: [judge_email],
         subject: "You're a Judge \u2014 Firestarter Young Poets Prize 2026",
-        html: html,
+        html,
       }),
     });
 
     const text = await res.text();
 
-    return new Response(JSON.stringify({ success: res.ok, status: res.status, body: text }), {
-      status: res.ok ? 200 : 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return json(req, { success: res.ok, status: res.status, body: text }, res.ok ? 200 : 500);
   } catch (e) {
-    return new Response(JSON.stringify({ error: e.message }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return json(req, { error: (e as Error).message }, 500);
   }
 });

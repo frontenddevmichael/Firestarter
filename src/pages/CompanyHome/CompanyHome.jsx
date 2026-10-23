@@ -343,7 +343,7 @@ export default function CompanyHome() {
                 <strong>Firestarter: The Musical.</strong> The method, on a stage, ticketed and open to the public.
                 <span className={styles.houseCta}>Click to know more <Icon name="arrowRight" size={12} /></span>
               </Link>
-              <a href="#" target="_blank" rel="noopener noreferrer" className={styles.houseLink}>
+              <a href="https://sheisavoice.com" target="_blank" rel="noopener noreferrer" className={styles.houseLink}>
                 <strong>SHEISAVOICE.</strong> We give ten percent of every Firestarter performance to SHEISAVOICE, our sister foundation supporting children with special needs.
                 <span className={styles.houseCta}>Click to know more <Icon name="arrowRight" size={12} /></span>
               </a>

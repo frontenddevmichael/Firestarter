@@ -3,14 +3,14 @@ import styles from './PassingSpark.module.css';
 
 export default function PassingSpark({ className = '' }) {
   const ref = useRef(null);
-  const [lit, setLit] = useState(false);
+  const [lit, setLit] = useState(() =>
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      setLit(true);
-      return;
-    }
+    if (prefersReduced) return;
 
     const node = ref.current;
     if (!node) return;
@@ -27,12 +27,10 @@ export default function PassingSpark({ className = '' }) {
     observer.observe(node);
 
     const fallback = setTimeout(() => {
-      if (!lit) {
-        const rect = node.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 200) {
-          setLit(true);
-          observer.disconnect();
-        }
+      const rect = node.getBoundingClientRect();
+      if (rect.top < window.innerHeight + 200) {
+        setLit(true);
+        observer.disconnect();
       }
     }, 4000);
 

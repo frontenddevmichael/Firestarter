@@ -26,7 +26,11 @@ export default function SparkMark({
 }) {
   const ref = useRef(null);
   const pathRef = useRef(null);
-  const [drawn, setDrawn] = useState(false);
+  const [drawn, setDrawn] = useState(() =>
+    drawIn &&
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
   const sizeClass = size === 'large' ? styles.large : styles.default;
 
   useEffect(() => {
@@ -50,10 +54,7 @@ export default function SparkMark({
   useEffect(() => {
     if (!drawIn) return;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      setDrawn(true);
-      return;
-    }
+    if (prefersReduced) return;
     // Measure the real path length so the dash animation matches this
     // exact curve rather than an eyeballed constant.
     const length = pathRef.current?.getTotalLength?.() ?? 110;

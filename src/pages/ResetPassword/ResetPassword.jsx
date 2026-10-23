@@ -33,7 +33,7 @@ export default function ResetPassword() {
     if (password.length < 6) { setMsg('Password must be at least 6 characters'); setLoading(false); return }
     const { error } = await updatePassword(password)
     if (error) setMsg(error.message)
-    else { setMsg('Password updated successfully.'); setTimeout(() => navigate('/prize/enter'), 2000) }
+    else { setMsg('Password updated successfully.'); setTimeout(() => navigate('/prize/dashboard'), 2000) }
     setLoading(false)
   }
 

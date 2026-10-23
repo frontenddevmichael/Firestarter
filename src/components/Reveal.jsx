@@ -19,14 +19,14 @@ export default function Reveal({
   className = '',
 }) {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() =>
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
 
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
-      setVisible(true);
-      return;
-    }
+    if (prefersReduced) return;
 
     const node = ref.current;
     if (!node) return;
@@ -43,12 +43,10 @@ export default function Reveal({
     observer.observe(node);
 
     const fallback = setTimeout(() => {
-      if (!visible) {
-        const rect = node.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 200) {
-          setVisible(true);
-          observer.disconnect();
-        }
+      const rect = node.getBoundingClientRect();
+      if (rect.top < window.innerHeight + 200) {
+        setVisible(true);
+        observer.disconnect();
       }
     }, 4000);
 

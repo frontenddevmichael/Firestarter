@@ -110,6 +110,7 @@ export default function HowToEnter() {
               <li>Your poem must be your own original work.</li>
               <li>Junior Poets: ages 10 to 13. Senior Poets: ages 14 to 17.</li>
               <li>Free to enter.</li>
+              <li>A parent or guardian must give consent before your entry is judged. Read the <Link to="/prize/consent-form" className={styles.inlineLink}>Participant Commitment &amp; Parental Consent Form</Link>.</li>
               <li>Entries close October 30, 2026.</li>
               <li>Questions? Visit the <Link to="/prize/contact" className={styles.inlineLink}>Contact</Link> page.</li>
             </ul>

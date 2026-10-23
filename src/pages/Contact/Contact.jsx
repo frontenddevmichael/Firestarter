@@ -120,7 +120,7 @@ export default function Contact() {
     const body = encodeURIComponent(
       `Name: ${fields.name.value}\nEmail: ${fields.email.value}\n\n${fields.inquiry.value}`
     );
-    window.location.href = `mailto:contactfirestartermethod@gmail.com?subject=Firestarter%20Enquiry&body=${body}`;
+    window.location.assign(`mailto:contactfirestartermethod@gmail.com?subject=Firestarter%20Enquiry&body=${body}`);
     setSubmitted(true);
     setFields({ name: { value: '', touched: false }, email: { value: '', touched: false }, inquiry: { value: '', touched: false } });
     setTimeout(() => setSubmitted(false), 3000);

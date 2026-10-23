@@ -620,3 +620,13 @@
   color: white;
   border-color: var(--color-charcoal);
 }
+
+.mediaOptOut {
+  background: rgba(179, 38, 30, 0.1);
+  color: #b3261e;
+}
+
+.mediaOk {
+  background: rgba(46, 125, 50, 0.1);
+  color: var(--color-success);
+}

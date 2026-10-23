@@ -1,19 +1,16 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { supabase } from '../lib/supabase'
 
-const KEY_DATES = {
-  '2026-07-15': 'Competition opens',
-  '2026-09-30': 'Submissions close',
-  '2026-10-15': 'Shortlist announced',
-  '2026-10-31': 'Finalists announced',
-  '2026-11-15': 'Awards ceremony',
-}
-
-const PHASE_MILESTONES = {
-  open: '2026-09-30',
-  judging: '2026-10-15',
-  shortlisted: '2026-10-31',
-  finalists: '2026-11-15',
+// Canonical 2026 timeline. Keep these dates aligned with the copy in
+// src/lib/siteSettings.js and the site pages:
+//   entries close 30 Oct 2026 → shortlist November → videos late November
+//   → Creative-Tech Lab early December → grand final December.
+// Each phase counts down to the next milestone.
+const PHASES = {
+  open: { date: '2026-10-30', label: 'entries close' },
+  judging: { date: '2026-11-15', label: 'the shortlist is announced' },
+  shortlisted: { date: '2026-11-25', label: 'performance videos are due' },
+  finalists: { date: '2026-12-19', label: 'the grand final' },
   closed: null,
 }
 
@@ -25,16 +22,14 @@ export function useCompetition() {
 
   const calcCountdown = useCallback((currentPhase) => {
     if (cleanupRef.current) { cleanupRef.current(); cleanupRef.current = null }
-    const targetDate = PHASE_MILESTONES[currentPhase]
-    if (!targetDate) {
+    const milestone = PHASES[currentPhase]
+    if (!milestone) {
       setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0, target: '', label: '' })
       return
     }
+    const targetDate = milestone.date
+    const label = milestone.label
     const target = new Date(targetDate + 'T23:59:59')
-    let label = ''
-    for (const [d, l] of Object.entries(KEY_DATES)) {
-      if (d === targetDate) { label = l; break }
-    }
 
     const tick = () => {
       const now = new Date()
@@ -75,6 +70,7 @@ export function useCompetition() {
   }, [calcCountdown])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- fetch is async; state updates after the response
     refresh()
     return () => { if (cleanupRef.current) cleanupRef.current() }
   }, [refresh])

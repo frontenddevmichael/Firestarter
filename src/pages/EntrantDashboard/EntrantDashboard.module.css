@@ -306,6 +306,7 @@
 
 .shortlisted { background: rgba(46, 125, 50, 0.1); color: var(--color-success); }
 .finalist { background: rgba(230, 81, 0, 0.1); color: var(--color-warning); }
+.withdrawn { background: rgba(158, 158, 158, 0.12); color: var(--color-grey); text-decoration: line-through; }
 
 .refNumber {
   margin-left: auto;
@@ -653,4 +654,74 @@
   .title {
     font-size: var(--fs-headline-lg);
   }
+}
+
+/* Guardian step — Participant Commitment & Parental Consent */
+.consentBox {
+  display: grid;
+  gap: 0.65rem;
+  padding: var(--space-md);
+  background: var(--color-warm-white);
+  border: 1px solid rgba(43, 43, 43, 0.12);
+  border-radius: var(--radius-sm);
+}
+
+.consentHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: var(--fs-body-sm, 0.95rem);
+}
+
+.formLink {
+  color: var(--color-ember);
+  font-size: var(--fs-caption);
+  text-decoration: underline;
+}
+
+.consentLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  color: var(--color-charcoal);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.consentLabel input {
+  flex: 0 0 auto;
+  margin-top: 0.2rem;
+  accent-color: var(--color-ember);
+}
+
+.consentGroup {
+  display: grid;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(43, 43, 43, 0.1);
+}
+
+.consentGroupLabel {
+  color: var(--color-grey);
+  font-size: var(--fs-label-caps);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.required {
+  color: var(--color-ember);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.consentHint {
+  margin: 0;
+  color: var(--color-grey);
+  font-size: 11px;
+  line-height: 1.5;
 }
