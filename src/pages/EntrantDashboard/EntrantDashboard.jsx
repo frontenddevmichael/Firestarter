@@ -227,12 +227,9 @@ export default function EntrantDashboard() {
       status: 'draft',
       guardian_consent_verified: consentVerified,
     }
-    let error
-    if (entry) {
-      ;({ error } = await supabase.from('entries').update(payload).eq('id', entry.id))
-    } else {
-      ;({ error } = await supabase.from('entries').insert(payload))
-    }
+    const { error } = await supabase
+      .from('entries')
+      .upsert(payload, { onConflict: 'entrant_id' })
     if (error) { toast(error.message, 'error'); setSavingDraft(false); return }
     const { data } = await supabase.from('entries').select('*').eq('entrant_id', user.id).single()
     if (data) setEntry(data)
@@ -249,27 +246,16 @@ export default function EntrantDashboard() {
       setWizardStep(codeSent ? 'verify' : 'guardian')
       return
     }
-    if (!entry) {
-      const { error } = await supabase.from('entries').insert({
-        entrant_id: user.id,
-        poem_text: poemText.trim(),
-        video_link: videoLink.trim() || null,
-        voice_reflection: voiceReflection.trim() || null,
-        category,
-        status: 'draft',
-        guardian_consent_verified: true,
-      })
-      if (error) { toast(error.message, 'error'); return }
-    } else {
-      const { error } = await supabase.from('entries').update({
-        poem_text: poemText.trim(),
-        video_link: videoLink.trim() || null,
-        voice_reflection: voiceReflection.trim() || null,
-        category,
-        guardian_consent_verified: true,
-      }).eq('id', entry.id)
-      if (error) { toast(error.message, 'error'); return }
-    }
+    const { error } = await supabase.from('entries').upsert({
+      entrant_id: user.id,
+      poem_text: poemText.trim(),
+      video_link: videoLink.trim() || null,
+      voice_reflection: voiceReflection.trim() || null,
+      category,
+      status: 'draft',
+      guardian_consent_verified: true,
+    }, { onConflict: 'entrant_id' })
+    if (error) { toast(error.message, 'error'); return }
     const { data } = await supabase.from('entries').select('*').eq('entrant_id', user.id).single()
     if (data) setEntry(data)
     setShowSubmitModal(true)
