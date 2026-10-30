@@ -85,4 +85,9 @@ export const ROUTE_META = {
     desc: 'Admin panel for the Firestarter Young Poets Prize.',
     noindex: true,
   },
+  '/prize/school': {
+    title: 'School Portal — Firestarter Young Poets Prize',
+    desc: 'Manage school students, consent, poems and results.',
+    noindex: true,
+  },
 };

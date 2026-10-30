@@ -33,6 +33,7 @@ export default function PrizeAuth() {
       if (error) { setMsg(error.message); setLoading(false); return }
       if (profile?.role === 'admin') navigate('/prize/admin', { replace: true })
       else if (profile?.role === 'judge') navigate('/prize/judge', { replace: true })
+      else if (profile?.role === 'school_admin') navigate('/prize/school', { replace: true })
       else navigate(from, { replace: true })
     } else {
       if (!name.trim()) { setMsg('Please enter your full name'); setLoading(false); return }
@@ -40,6 +41,7 @@ export default function PrizeAuth() {
       if (error) { setMsg(error.message); setLoading(false); return }
       if (profile?.role === 'admin') navigate('/prize/admin', { replace: true })
       else if (profile?.role === 'judge') navigate('/prize/judge', { replace: true })
+      else if (profile?.role === 'school_admin') navigate('/prize/school', { replace: true })
       else if (profile) navigate('/prize/dashboard', { replace: true })
       else setMsg('Check your email for a confirmation link.')
       setLoading(false)

@@ -31,6 +31,7 @@ const PrizeAuth = lazy(() => import('./pages/PrizeAuth/PrizeAuth'));
 const EntrantDashboard = lazy(() => import('./pages/EntrantDashboard/EntrantDashboard'));
 const JudgeDashboard = lazy(() => import('./pages/JudgeDashboard/JudgeDashboard'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard/AdminDashboard'));
+const SchoolDashboard = lazy(() => import('./pages/SchoolDashboard/SchoolDashboard'));
 const ResetPassword = lazy(() => import('./pages/ResetPassword/ResetPassword'));
 
 const pageTransition = {
@@ -108,7 +109,8 @@ export default function App() {
   const location = useLocation();
   const isDashboard = location.pathname.startsWith('/prize/dashboard') ||
                       location.pathname.startsWith('/prize/judge') ||
-                      location.pathname.startsWith('/prize/admin');
+                      location.pathname.startsWith('/prize/admin') ||
+                      location.pathname.startsWith('/prize/school');
   const hideNav = isDashboard || location.pathname === '/briefing';
 
   return (
@@ -149,6 +151,7 @@ export default function App() {
           <Route path="/prize/dashboard" element={<DashboardShell><PageWrapper><ProtectedRoute requiredRole="entrant"><LazyPage Component={EntrantDashboard} /></ProtectedRoute></PageWrapper></DashboardShell>} />
           <Route path="/prize/judge" element={<DashboardShell><PageWrapper><ProtectedRoute requiredRole="judge"><LazyPage Component={JudgeDashboard} /></ProtectedRoute></PageWrapper></DashboardShell>} />
           <Route path="/prize/admin" element={<DashboardShell><PageWrapper><ProtectedRoute requiredRole="admin"><LazyPage Component={AdminDashboard} /></ProtectedRoute></PageWrapper></DashboardShell>} />
+          <Route path="/prize/school" element={<DashboardShell><PageWrapper><ProtectedRoute requiredRole="school_admin"><LazyPage Component={SchoolDashboard} /></ProtectedRoute></PageWrapper></DashboardShell>} />
           <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
         </Routes>
       </AnimatePresence>

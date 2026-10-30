@@ -16,9 +16,14 @@ const sidebarConfig = {
   admin: [
     { label: 'Overview', href: '/prize/admin', icon: 'barChart', end: true },
     { label: 'Entries', href: '/prize/admin?tab=entries', icon: 'fileText' },
+    { label: 'Schools', href: '/prize/admin?tab=schools', icon: 'users' },
     { label: 'Judges', href: '/prize/admin?tab=judges', icon: 'users' },
     { label: 'Phases', href: '/prize/admin?tab=phases', icon: 'clock' },
     { label: 'Logs', href: '/prize/admin?tab=logs', icon: 'search' },
+  ],
+  school_admin: [
+    { label: 'Students', href: '/prize/school', icon: 'users', end: true },
+    { label: 'Results', href: '/prize/school?tab=results', icon: 'barChart' },
   ],
 };
 
@@ -31,8 +36,13 @@ function getPageTitle(pathname, search) {
   const tab = params.get('tab');
   if (pathname.startsWith('/prize/dashboard')) return 'My Dashboard';
   if (pathname.startsWith('/prize/judge')) return 'Judge Panel';
+  if (pathname.startsWith('/prize/school')) {
+    if (tab === 'results') return 'Results';
+    return 'Students';
+  }
   if (pathname.startsWith('/prize/admin')) {
     if (tab === 'entries') return 'Entries';
+    if (tab === 'schools') return 'Schools';
     if (tab === 'judges') return 'Judges';
     if (tab === 'phases') return 'Phases';
     if (tab === 'logs') return 'Email Logs';
@@ -49,6 +59,13 @@ export default function DashboardShell({ children }) {
   const role = profile?.role || 'entrant';
   const links = sidebarConfig[role] || sidebarConfig.entrant;
   const title = getPageTitle(pathname, search);
+  const isLinkActive = (link, isActive) => {
+    const currentTab = new URLSearchParams(search).get('tab');
+    const linkTab = link.href.includes('?') ? new URLSearchParams(link.href.split('?')[1]).get('tab') : null;
+    if (linkTab) return currentTab === linkTab;
+    if (currentTab) return false;
+    return isActive;
+  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -70,7 +87,7 @@ export default function DashboardShell({ children }) {
         </Link>
 
         <span className={styles.sidebarLabel}>
-          {role === 'admin' ? 'Administration' : role === 'judge' ? 'Judging' : 'Competition'}
+          {role === 'admin' ? 'Administration' : role === 'judge' ? 'Judging' : role === 'school_admin' ? 'School Portal' : 'Competition'}
         </span>
 
         {links.map(link => (
@@ -78,7 +95,7 @@ export default function DashboardShell({ children }) {
             key={link.label}
             to={link.href}
             end={link.end}
-            className={({ isActive }) => `${styles.sidebarLink} ${isActive ? styles.sidebarLinkActive : ''}`}
+            className={({ isActive }) => `${styles.sidebarLink} ${isLinkActive(link, isActive) ? styles.sidebarLinkActive : ''}`}
             onClick={() => setSidebarOpen(false)}
           >
             <Icon name={link.icon} size={16} className={styles.sidebarLinkIcon} />
@@ -145,7 +162,7 @@ export default function DashboardShell({ children }) {
             key={link.label}
             to={link.href}
             end={link.end}
-            className={({ isActive }) => `${styles.bottomTab} ${isActive ? styles.bottomTabActive : ''}`}
+            className={({ isActive }) => `${styles.bottomTab} ${isLinkActive(link, isActive) ? styles.bottomTabActive : ''}`}
           >
             <Icon name={link.icon} size={18} />
             {link.label}

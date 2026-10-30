@@ -28,6 +28,9 @@ export default function AdminDashboard() {
   const [currentPhase, setCurrentPhase] = useState('open')
   const [emailLogs, setEmailLogs] = useState([])
   const [consents, setConsents] = useState({})
+  const [schools, setSchools] = useState([])
+  const [schoolStudents, setSchoolStudents] = useState([])
+  const [schoolConsents, setSchoolConsents] = useState({})
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
   const [sortKey, setSortKey] = useState('submitted_at')
@@ -43,13 +46,16 @@ export default function AdminDashboard() {
   const setTab = (t) => setSearchParams({ tab: t })
 
   async function fetchData() {
-    const [entriesRes, judgesRes, roundsRes, logsRes, scoresRes, consentsRes] = await Promise.all([
-      supabase.from('entries').select('*, profiles!entries_entrant_id_fkey(email, full_name), scores(score, judge_id), judge_assignments(judge_id, profiles!judge_assignments_judge_id_fkey(email, full_name))'),
+    const [entriesRes, judgesRes, roundsRes, logsRes, scoresRes, consentsRes, schoolsRes, schoolStudentsRes, schoolConsentsRes] = await Promise.all([
+      supabase.from('entries').select('*, profiles!entries_entrant_id_fkey(email, full_name), school_students!entries_school_student_id_fkey(id, full_name, category, school_id), scores(score, judge_id), judge_assignments(judge_id, profiles!judge_assignments_judge_id_fkey(email, full_name))'),
       supabase.from('profiles').select('id, email, full_name, role').eq('role', 'judge'),
       supabase.from('rounds').select('phase, phase_started').order('phase_started', { ascending: false }),
       supabase.from('email_logs').select('*').order('sent_at', { ascending: false }).limit(50),
       supabase.from('scores').select('judge_id, entry_id, score'),
       supabase.from('guardian_consents').select('entrant_id, child_commitment, policy_accepted, supervision_confirmed, publication_consent, media_consent, media_opt_out, consented_at'),
+      supabase.from('schools').select('*').order('name'),
+      supabase.from('school_students').select('id, school_id, full_name, category').order('full_name'),
+      supabase.from('school_student_consents').select('student_id, child_commitment, policy_accepted, supervision_confirmed, publication_consent, media_consent, media_opt_out, consented_at, verified_at, consent_reference'),
     ])
     if (entriesRes.data) setEntries(entriesRes.data)
     if (judgesRes.data) setJudges(judgesRes.data)
@@ -67,6 +73,9 @@ export default function AdminDashboard() {
     if (logsRes.data) setEmailLogs(logsRes.data)
     if (scoresRes.data) setAllScores(scoresRes.data)
     if (consentsRes.data) setConsents(Object.fromEntries(consentsRes.data.map(c => [c.entrant_id, c])))
+    if (schoolsRes.data) setSchools(schoolsRes.data)
+    if (schoolStudentsRes.data) setSchoolStudents(schoolStudentsRes.data)
+    if (schoolConsentsRes.data) setSchoolConsents(Object.fromEntries(schoolConsentsRes.data.map(c => [c.student_id, c])))
     setLoading(false)
   }
 
@@ -88,13 +97,21 @@ export default function AdminDashboard() {
   }
 
   // eslint-disable-next-line react-hooks/preserve-manual-memoization -- derived table; memo kept intentionally
-  const entriesWithMeta = useMemo(() => entries.map(e => ({
-    ...e,
-    poemTitle: e.poem_text ? e.poem_text.split('\n')[0].substring(0, 60) : '(no poem)',
-    avgScore: e.scores?.length ? (e.scores.reduce((s, sc) => s + sc.score, 0) / e.scores.length).toFixed(1) : '-',
-    judgeNames: e.judge_assignments?.map(ja => ja.profiles?.full_name || ja.profiles?.email).filter(Boolean).join(', ') || '',
-    consent: consents[e.entrant_id] || null,
-  })), [entries, consents])
+  const entriesWithMeta = useMemo(() => entries.map(e => {
+    const schoolStudent = e.school_students
+    const school = schoolStudent ? schools.find(s => s.id === schoolStudent.school_id) : null
+    return {
+      ...e,
+      poemTitle: e.poem_text ? e.poem_text.split('\n')[0].substring(0, 60) : '(no poem)',
+      avgScore: e.scores?.length ? (e.scores.reduce((s, sc) => s + sc.score, 0) / e.scores.length).toFixed(1) : '-',
+      judgeNames: e.judge_assignments?.map(ja => ja.profiles?.full_name || ja.profiles?.email).filter(Boolean).join(', ') || '',
+      consent: e.entrant_id ? (consents[e.entrant_id] || null) : (schoolStudent ? (schoolConsents[schoolStudent.id] || null) : null),
+      personName: e.profiles?.full_name || schoolStudent?.full_name || '—',
+      personEmail: e.profiles?.email || (schoolStudent ? 'School student' : '—'),
+      schoolName: school?.name || (schoolStudent ? 'School' : ''),
+      isSchool: Boolean(schoolStudent),
+    }
+  }), [entries, consents, schoolConsents, schools])
 
   // eslint-disable-next-line react-hooks/preserve-manual-memoization -- filtered table; memo kept intentionally
   const filteredEntries = useMemo(() => {
@@ -102,8 +119,9 @@ export default function AdminDashboard() {
     if (search) {
       const q = search.toLowerCase()
       result = result.filter(e =>
-        (e.profiles?.full_name || '').toLowerCase().includes(q) ||
-        (e.profiles?.email || '').toLowerCase().includes(q) ||
+        (e.personName || '').toLowerCase().includes(q) ||
+        (e.personEmail || '').toLowerCase().includes(q) ||
+        (e.schoolName || '').toLowerCase().includes(q) ||
         (e.poem_text || '').toLowerCase().includes(q) ||
         e.category?.toLowerCase().includes(q) ||
         e.status?.toLowerCase().includes(q)
@@ -112,7 +130,7 @@ export default function AdminDashboard() {
     result.sort((a, b) => {
       let va, vb
       if (sortKey === 'avgScore') { va = a.avgScore === '-' ? -1 : parseFloat(a.avgScore); vb = b.avgScore === '-' ? -1 : parseFloat(b.avgScore) }
-      else if (sortKey === 'entrant') { va = (a.profiles?.full_name || '').toLowerCase(); vb = (b.profiles?.full_name || '').toLowerCase() }
+      else if (sortKey === 'entrant') { va = (a.personName || '').toLowerCase(); vb = (b.personName || '').toLowerCase() }
       else { va = a[sortKey] || ''; vb = b[sortKey] || '' }
       if (typeof va === 'string') return sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va)
       return sortDir === 'asc' ? va - vb : vb - va
@@ -236,6 +254,16 @@ export default function AdminDashboard() {
     fetchData()
   }
 
+  const toggleSchoolResults = async (school) => {
+    const { error } = await supabase
+      .from('schools')
+      .update({ results_visible: !school.results_visible })
+      .eq('id', school.id)
+    if (error) { toast(error.message, 'error'); return }
+    toast(`${school.name}: scores ${school.results_visible ? 'hidden from' : 'visible to'} the school`)
+    fetchData()
+  }
+
   const judgedCount = entries.filter(e => e.scores?.length > 0).length
   const shortlistedCount = entries.filter(e => e.status === 'shortlisted').length
   const finalistCount = entries.filter(e => e.status === 'finalist').length
@@ -246,6 +274,7 @@ export default function AdminDashboard() {
   const tabNav = [
     { id: 'overview', label: 'Overview', icon: 'barChart' },
     { id: 'entries', label: 'Entries', icon: 'fileText' },
+    { id: 'schools', label: 'Schools', icon: 'users' },
     { id: 'judges', label: 'Judges', icon: 'users' },
     { id: 'phases', label: 'Phases', icon: 'clock' },
     { id: 'content', label: 'Site Content', icon: 'pen' },
@@ -333,11 +362,12 @@ export default function AdminDashboard() {
           </button>
           <input className={styles.searchInput} placeholder="Search entries..." value={search} onChange={e => setSearch(e.target.value)} />
           <button className="btnPrimary" onClick={() => {
-            const csv = [['Ref','Entrant Name','Entrant Email','Category','Poem (first line)','Score','Status','Photography','Poem publication'].join(',')].concat(
+            const csv = [['Ref','Entrant Name','Entrant Email','School','Category','Poem (first line)','Score','Status','Photography','Poem publication'].join(',')].concat(
               entriesWithMeta.map(e => [
                 `FS-${e.submitted_at?.substring(0, 4) || '2026'}-${e.id.substring(0, 4)}`,
-                `"${(e.profiles?.full_name || '').replace(/"/g, '""')}"`,
-                `"${(e.profiles?.email || '').replace(/"/g, '""')}"`,
+                `"${(e.personName || '').replace(/"/g, '""')}"`,
+                `"${(e.personEmail || '').replace(/"/g, '""')}"`,
+                `"${(e.schoolName || '').replace(/"/g, '""')}"`,
                 e.category,
                 `"${(e.poem_text || '').split('\n')[0].replace(/"/g, '""')}"`,
                 e.avgScore,
@@ -376,8 +406,8 @@ export default function AdminDashboard() {
                 {bulkMode && <td><input type="checkbox" checked={selected.has(e.id)} onChange={() => toggleSelect(e.id)} /></td>}
                 <td>
                   <div className={styles.entrantInfo}>
-                    <span className={styles.entrantName}>{e.profiles?.full_name || '—'}</span>
-                    <span className={styles.entrantEmail}>{e.profiles?.email || '—'}</span>
+                    <span className={styles.entrantName}>{e.personName}</span>
+                    <span className={styles.entrantEmail}>{e.isSchool ? `School · ${e.schoolName}` : e.personEmail}</span>
                   </div>
                 </td>
                 <td className={styles.poemPreview} onClick={() => setDetailEntry(e)} style={{ cursor: 'pointer', textDecoration: 'underline', textDecorationColor: 'var(--color-cream)' }}>
@@ -431,8 +461,14 @@ export default function AdminDashboard() {
             <div className={styles.detailGrid}>
               <div className={styles.detailField}>
                 <label>Entrant</label>
-                <span>{detailEntry.profiles?.full_name || '—'} ({detailEntry.profiles?.email || '—'})</span>
+                <span>{detailEntry.personName} ({detailEntry.personEmail})</span>
               </div>
+              {detailEntry.isSchool && (
+                <div className={styles.detailField}>
+                  <label>School</label>
+                  <span>{detailEntry.schoolName}</span>
+                </div>
+              )}
               <div className={styles.detailField}>
                 <label>Category</label>
                 <span>{detailEntry.category}</span>
@@ -483,9 +519,73 @@ export default function AdminDashboard() {
         confirmLabel="Withdraw"
         danger
       >
-        Withdraw the entry from {showWithdraw?.profiles?.full_name || 'this entrant'}? This marks it as withdrawn.
+        Withdraw the entry from {showWithdraw?.personName || showWithdraw?.profiles?.full_name || 'this entrant'}? This marks it as withdrawn.
       </ConfirmModal>
     </>
+  )
+
+  const renderSchools = () => (
+    <div className={styles.section}>
+      <div className={styles.sectionHeader}>
+        <div>
+          <h2>Schools ({schools.length})</h2>
+          <p className={styles.sectionDesc}>School students are managed by the school and do not need email accounts. Review consent and control whether scores are visible to them.</p>
+        </div>
+      </div>
+      {schools.length === 0 && <p className={styles.empty}>No school accounts yet.</p>}
+      {schools.map(school => {
+        const rows = schoolStudents.filter(s => s.school_id === school.id)
+        const verified = rows.filter(s => schoolConsents[s.id]?.verified_at).length
+        const submitted = entries.filter(e => e.school_students?.school_id === school.id && e.status !== 'draft').length
+        return (
+          <div key={school.id} className={styles.schoolCard}>
+            <div className={styles.schoolHead}>
+              <div>
+                <h3>{school.name}</h3>
+                <p>{school.contact_name || 'No contact name'}{school.contact_email ? ` · ${school.contact_email}` : ''}</p>
+              </div>
+              <label className={styles.schoolToggle}>
+                <input type="checkbox" checked={school.results_visible} onChange={() => toggleSchoolResults(school)} />
+                Show scores &amp; feedback to the school
+              </label>
+            </div>
+            <div className={styles.schoolStats}>
+              <span><strong>{rows.length}</strong> students</span>
+              <span><strong>{verified}</strong> consent on file</span>
+              <span><strong>{submitted}</strong> submitted</span>
+            </div>
+            <div className={styles.tableWrap}>
+              <table className={styles.table}>
+                <thead><tr><th>Student</th><th>Category</th><th>Consent</th><th>Entry</th><th>Score</th></tr></thead>
+                <tbody>
+                  {rows.map(student => {
+                    const consent = schoolConsents[student.id]
+                    const entry = entries.find(e => e.school_students?.id === student.id)
+                    const avg = entry?.scores?.length
+                      ? (entry.scores.reduce((sum, sc) => sum + sc.score, 0) / entry.scores.length).toFixed(1)
+                      : '—'
+                    return (
+                      <tr key={student.id}>
+                        <td>{student.full_name}</td>
+                        <td>{student.category}</td>
+                        <td>
+                          <span className={`${styles.statusBadge} ${consent?.verified_at ? styles.mediaOk : styles.mediaOptOut}`}>
+                            {consent?.verified_at ? 'On file' : 'Missing'}
+                          </span>
+                        </td>
+                        <td>{entry ? entry.status : 'Not started'}</td>
+                        <td className={styles.scoreCell}>{avg}</td>
+                      </tr>
+                    )
+                  })}
+                  {rows.length === 0 && <tr><td colSpan={5} className={styles.empty}>No students imported yet.</td></tr>}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )
+      })}
+    </div>
   )
 
   const renderJudges = () => (
@@ -607,6 +707,7 @@ export default function AdminDashboard() {
 
         {tab === 'overview' && renderOverview()}
         {tab === 'entries' && renderEntries()}
+        {tab === 'schools' && renderSchools()}
         {tab === 'judges' && renderJudges()}
         {tab === 'phases' && renderPhases()}
         {tab === 'content' && <SiteContent />}

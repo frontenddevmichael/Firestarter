@@ -32,6 +32,7 @@ const routes = [
   { path: '/prize/dashboard',          ogImage: LOGO,                                  ogImageAlt: 'My Entry — Firestarter Young Poets Prize',                   ogType: 'website' },
   { path: '/prize/judge',              ogImage: LOGO,                                  ogImageAlt: 'Judge Dashboard — Firestarter Young Poets Prize',            ogType: 'website' },
   { path: '/prize/admin',              ogImage: LOGO,                                  ogImageAlt: 'Admin — Firestarter Young Poets Prize',                      ogType: 'website' },
+  { path: '/prize/school',             ogImage: LOGO,                                  ogImageAlt: 'School Portal — Firestarter Young Poets Prize',               ogType: 'website' },
 ];
 
 // ── Schema definitions (mirrors src/components/SchemaMarkup.jsx for prerender) ──

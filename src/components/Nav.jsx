@@ -65,6 +65,7 @@ export default function Nav() {
     if (!profile) return null;
     if (profile.role === 'admin') return '/prize/admin';
     if (profile.role === 'judge') return '/prize/judge';
+    if (profile.role === 'school_admin') return '/prize/school';
     return '/prize/dashboard';
   };
 

@@ -15,6 +15,7 @@ export default function ProtectedRoute({ children, requiredRole }) {
   if (requiredRole && profile.role !== requiredRole) {
     if (profile.role === 'admin') return <Navigate to="/prize/admin" replace />
     if (profile.role === 'judge') return <Navigate to="/prize/judge" replace />
+    if (profile.role === 'school_admin') return <Navigate to="/prize/school" replace />
     return <Navigate to="/prize/dashboard" replace />
   }
 
