@@ -77,7 +77,7 @@ const schemas = {
     '@context': 'https://schema.org',
     '@type': 'Event',
     name: 'Firestarter Young Poets Prize 2026 — Key Dates',
-    description: 'Competition timeline: entries close October 30, 2026. Grand Final in December.',
+    description: 'Competition timeline: entries close November 15, 2026. Grand Final in December.',
     url: `${url}/prize/key-dates`,
     startDate: '2026-10-30',
     endDate: '2026-12-20',

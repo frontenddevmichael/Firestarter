@@ -3,13 +3,13 @@ import { supabase } from '../lib/supabase'
 
 // Canonical 2026 timeline. Keep these dates aligned with the copy in
 // src/lib/siteSettings.js and the site pages:
-//   entries close 30 Oct 2026 → shortlist November → videos late November
+//   entries close 15 Nov 2026 → shortlist 22 Nov → videos 29 Nov
 //   → Creative-Tech Lab early December → grand final December.
 // Each phase counts down to the next milestone.
 const PHASES = {
-  open: { date: '2026-10-30', label: 'entries close' },
-  judging: { date: '2026-11-15', label: 'the shortlist is announced' },
-  shortlisted: { date: '2026-11-25', label: 'performance videos are due' },
+  open: { date: '2026-11-15', label: 'entries close' },
+  judging: { date: '2026-11-22', label: 'the shortlist is announced' },
+  shortlisted: { date: '2026-11-29', label: 'performance videos are due' },
   finalists: { date: '2026-12-19', label: 'the grand final' },
   closed: null,
 }

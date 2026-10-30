@@ -42,7 +42,7 @@ export const ROUTE_META = {
   },
   '/prize/key-dates': {
     title: 'Key Dates — Firestarter Young Poets Prize 2026',
-    desc: 'Competition timeline: entries close 30 October 2026, shortlist in November, and the grand final in December.',
+    desc: 'Competition timeline: entries close 15 November 2026, shortlist in November, and the grand final in December.',
   },
   '/prize/parents-and-teachers': {
     title: 'Parents & Teachers — Firestarter Young Poets Prize',

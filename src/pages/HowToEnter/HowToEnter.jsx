@@ -64,7 +64,7 @@ export default function HowToEnter() {
             <h3 className={styles.subHeading}>Submitting your entry</h3>
             <p className={styles.bodyText}>
               Go to the entry page, fill in your details and your school's name, add your
-              poem and your Voice Reflection, and submit before October 30, 2026.
+              poem and your Voice Reflection, and submit before November 15, 2026.
             </p> 
           </Reveal>
         </div>
@@ -111,7 +111,7 @@ export default function HowToEnter() {
               <li>Junior Poets: ages 10 to 13. Senior Poets: ages 14 to 17.</li>
               <li>Free to enter.</li>
               <li>A parent or guardian must give consent before your entry is judged. Read the <Link to="/prize/consent-form" className={styles.inlineLink}>Participant Commitment &amp; Parental Consent Form</Link>.</li>
-              <li>Entries close October 30, 2026.</li>
+              <li>Entries close November 15, 2026.</li>
               <li>Questions? Visit the <Link to="/prize/contact" className={styles.inlineLink}>Contact</Link> page.</li>
             </ul>
           </Reveal>

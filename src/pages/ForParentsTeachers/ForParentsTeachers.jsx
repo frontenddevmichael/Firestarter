@@ -66,7 +66,7 @@ export default function ForParentsTeachers() {
                 <h3>Stage One</h3>
                 <p>
                   Students submit one original poem and a short Voice Reflection explaining
-                  the thinking behind it. Entries close Friday, October 30, 2026.
+                  the thinking behind it. Entries close Sunday, November 15, 2026.
                 </p>
               </div>
             </div>
